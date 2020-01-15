@@ -7,6 +7,7 @@
 
 #pragma once
 
+#include <algorithm>
 #include <boost/algorithm/string.hpp>
 #include <iostream>
 #include <sstream>
@@ -30,12 +31,13 @@ class HttpRequest
         };
 
     private:
+        std::unordered_map<std::string, REQUEST_METHOD> map_request_method;
         REQUEST_METHOD m_request_method;
         std::string m_route;
         std::string m_route_without_query;
         std::string m_protocol;
-        std::unordered_map<std::string, std::string> m_request_header;
-        std::unordered_map<std::string, std::string> m_query_parameters;
+        std::vector<std::pair<std::string, std::string>> m_request_header;
+        std::vector<std::pair<std::string, std::string>> m_query_parameters;
 
         void get_request_method(std::string line);
         void get_query_parameters(std::string line);
@@ -43,5 +45,5 @@ class HttpRequest
         HttpRequest(std::string request);
         ~HttpRequest();
 
-        std::string to_string() const;
+        std::string to_string();
 };
