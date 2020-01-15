@@ -35,8 +35,10 @@ class HttpRequest
         std::string m_route_without_query;
         std::string m_protocol;
         std::unordered_map<std::string, std::string> m_request_header;
+        std::unordered_map<std::string, std::string> m_query_parameters;
 
         void get_request_method(std::string line);
+        void get_query_parameters(std::string line);
     public:
         HttpRequest(std::string request);
         ~HttpRequest();
