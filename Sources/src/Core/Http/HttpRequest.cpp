@@ -67,6 +67,9 @@ void HttpRequest::get_request_method(std::string line)
 void HttpRequest::get_query_parameters(std::string line)
 {
     std::unordered_map<std::string, std::string> url_encode;
+    url_encode["%%0A"] = "\n";
+    url_encode["%%0D"] = "\n";
+    url_encode["%%0D%%0A"] = "\n";
     url_encode["%%20"] = " ";
     url_encode["%%21"] = "!";
     url_encode["%%22"] = "\"";
@@ -91,7 +94,15 @@ void HttpRequest::get_query_parameters(std::string line)
     url_encode["%%3F"] = "?";
     url_encode["%%40"] = "@";
     url_encode["%%5B"] = "[";
+    url_encode["%%5C"] = "\\";
     url_encode["%%5D"] = "]";
+    url_encode["%%5E"] = "^";
+    url_encode["%%5F"] = "_";
+    url_encode["%%60"] = "`";
+    url_encode["%%7B"] = "{";
+    url_encode["%%7C"] = "|";
+    url_encode["%%7D"] = "}";
+    url_encode["%%7E"] = "~";    
     for (size_t i = 1; i < line.size(); i++) {
         
     }
