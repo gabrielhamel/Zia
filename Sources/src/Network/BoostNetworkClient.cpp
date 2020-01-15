@@ -1,7 +1,7 @@
 #include <boost/bind.hpp>
 #include "BoostNetworkClient.hpp"
 
-zia::net::BoostNetworkClient::BoostNetworkClient(boost::asio::basic_socket_acceptor<boost::asio::ip::tcp> &ec, std::shared_ptr<NetworkManager> networkManager) :
+zia::net::BoostNetworkClient::BoostNetworkClient(boost::asio::basic_socket_acceptor<boost::asio::ip::tcp> &ec, NetworkManager &networkManager) :
 m_socket(ec.get_executor()), m_connected(false), m_networkManager(networkManager)
 {
 
@@ -40,7 +40,7 @@ void zia::net::BoostNetworkClient::readHandler(const boost::system::error_code &
     std::ostringstream ss;
     ss << &this->m_buffer;
     std::string message = ss.str();
-    this->m_networkManager->recvData(shared_from_this(), message);
+    this->m_networkManager.recvData(shared_from_this(), message);
     bindRead();
 }
 
@@ -58,7 +58,7 @@ void zia::net::BoostNetworkClient::send(const std::string &data)
 
 void zia::net::BoostNetworkClient::disconnect(const std::string &message)
 {
-    this->m_networkManager->removeClient(shared_from_this());
+    this->m_networkManager.removeClient(shared_from_this());
     this->m_socket.close();
     this->m_connected = false;
 }

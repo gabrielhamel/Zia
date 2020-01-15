@@ -15,7 +15,7 @@ namespace zia::net
             boost::asio::io_service m_io;
             boost::asio::ip::tcp::socket m_socket;
             boost::asio::ip::tcp::acceptor m_acceptor;
-            std::shared_ptr<zia::net::NetworkManager> m_networkManager;
+            zia::net::NetworkManager m_networkManager;
             void bindAcceptor();
             void acceptHandler(boost::shared_ptr<zia::net::BoostNetworkClient> connection, const boost::system::error_code &error);
         public:
