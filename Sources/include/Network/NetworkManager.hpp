@@ -1,3 +1,14 @@
+/**
+ * @file NetworkManager.hpp
+ * @author Gabriel Hamel (gabriel.hamel@epitech.eu)
+ * @brief Class to interract with network part and worker
+ * @version 1.0
+ * @date 2020-01-15
+ *
+ * @copyright Copyright (c) 2020
+ *
+ */
+
 #pragma once
 
 #include <string>

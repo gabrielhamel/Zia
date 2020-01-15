@@ -1,3 +1,14 @@
+/**
+ * @file BoostNetworkServer.hpp
+ * @author Gabriel Hamel (gabriel.hamel@epitech.eu)
+ * @brief Boost encapsulation of the server tcp
+ * @version 1.0
+ * @date 2020-01-15
+ *
+ * @copyright Copyright (c) 2020
+ *
+ */
+
 #pragma once
 
 #include <boost/asio.hpp>
