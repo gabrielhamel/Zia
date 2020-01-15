@@ -29,7 +29,7 @@ void zia::net::BoostNetworkServer::acceptHandler(boost::shared_ptr<zia::net::Boo
 {
     if (!error) {
         connection->bindRead();
-        this->m_networkManager->newClient(connection);
+        this->m_networkManager.newClient(connection);
     }
     else
         delete connection.get();

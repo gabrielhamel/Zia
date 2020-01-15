@@ -14,9 +14,9 @@ namespace zia::net
             boost::asio::ip::tcp::socket m_socket;
             bool m_connected;
             boost::asio::streambuf m_buffer;
-            std::shared_ptr<zia::net::NetworkManager> m_networkManager;
+            zia::net::NetworkManager &m_networkManager;
         public:
-            BoostNetworkClient(boost::asio::basic_socket_acceptor<boost::asio::ip::tcp> &ec, std::shared_ptr<NetworkManager> networkManager);
+            BoostNetworkClient(boost::asio::basic_socket_acceptor<boost::asio::ip::tcp> &ec, NetworkManager &networkManager);
             ~BoostNetworkClient();
             void send(const std::string &data);
             boost::asio::ip::tcp::socket &getSocket();
