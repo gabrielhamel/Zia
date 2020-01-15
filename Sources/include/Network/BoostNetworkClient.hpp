@@ -1,3 +1,14 @@
+/**
+ * @file BoostNetworkClient.hpp
+ * @author Gabriel Hamel (gabriel.hamel@epitech.eu)
+ * @brief An boost asio instance to store and comunicate with a network client
+ * @version 1.0
+ * @date 2020-01-15
+ *
+ * @copyright Copyright (c) 2020
+ *
+ */
+
 #pragma once
 
 #include <boost/asio.hpp>
