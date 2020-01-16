@@ -6,7 +6,7 @@
 */
 
 #include <dlfcn.h>
-#include "exception/DLException.hpp"
+#include "DLException.hpp"
 
 DLException::DLException()
     : _what(dlerror())

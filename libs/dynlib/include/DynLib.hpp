@@ -10,7 +10,7 @@
 #include <string>
 #include <functional>
 #include <dlfcn.h>
-#include "exception/DLException.hpp"
+#include "DLException.hpp"
 
 /**
  * @brief Representation of a library
