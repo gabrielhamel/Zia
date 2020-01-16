@@ -19,10 +19,14 @@ add_executable(zia
   Sources/src/Network/NetworkManager.cpp
   Sources/src/Network/User.cpp
 
+  # Modules
+  Sources/include/Core/Module/ModuleApi.hpp
+  Sources/include/Core/Module/Module.hpp
+
   # Jsp encore
   Sources/src/main.cpp
   Sources/src/Core/Parser.cpp
-)
+        Sources/src/Core/Module/Module.cpp)
 
 target_include_directories(zia PUBLIC
   # HttpParser
@@ -38,6 +42,3 @@ target_include_directories(zia PUBLIC
 
 target_link_libraries(zia PRIVATE ${CONAN_LIBS})
 target_link_libraries(zia PRIVATE ${CMAKE_DL_LIBS})
-
-add_subdirectory(libs/dynlib)
-target_link_libraries(zia PRIVATE dynlib)
