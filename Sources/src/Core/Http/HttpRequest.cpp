@@ -9,32 +9,40 @@
 
 HttpRequest::HttpRequest(std::string request)
 {
-    //std::unordered_map<std::string, std::string> m_query_parameters;
-    std::string::size_type size = 0;
-    int i = 0;
-    
-    for (auto end = 0; (end = request.find("\r\n", end)) != std::string::npos; end++, i++, size = end + 2) {
-        std::string tmp = request.substr(i, end - i);
-        if (i == 0) {
-            get_request_method(tmp);
-            std::vector<std::string> line;
-            boost::split(line, tmp, boost::is_any_of(" "));
-            if (line.size() < 2)
-                throw std::runtime_error("Error no route or no protocol or no request method");
-            m_route = line[1];
-            m_route_without_query = line[1].substr(0, line[1].find("?"));
-            m_protocol = line[2];
-            line.clear();
-            boost::split(line, tmp, boost::is_any_of("?"));
-            if (line.size() < 2)
-                get_query_parameters(tmp);
+    // std::unordered_map<std::string, std::string> m_query_parameters;
+    std::vector<std::string> request_vector;
+    std::string current_line = "";
+    for (size_t size = 0; size < request.length() - 2; size++) {
+        if (request.at(size) == '\r' and request.at(size + 1) == '\n') {
+            request_vector.push_back(current_line);
+            size += 1;
+            current_line = "";
         }
-        else {
-            if (tmp.find(": ") == std::string::npos)
-                throw std::runtime_error("String not type of key: value");
-            m_request_header[tmp.substr(0, tmp.find(": "))] = tmp.substr(tmp.find(": "), tmp.length());
-        }
+        else
+            current_line += request.at(size);
     }
+
+    auto &elem = request_vector[0];
+    get_request_method(elem);
+    std::vector<std::string> line;
+    boost::split(line, elem, boost::is_any_of(" "));
+    if (line.size() < 2)
+        throw std::runtime_error("Error no route or no protocol or no request method");
+    m_route = line[1];
+    m_route_without_query = line[1].substr(0, line[1].find("?"));
+    m_protocol = line[2];
+    line.clear();
+    boost::split(line, elem, boost::is_any_of("?"));
+    if (line.size() < 2)
+        get_query_parameters(elem);
+
+    std::for_each(request_vector.begin() + 1, request_vector.end(), [this](auto &elem) {
+        if (elem.find(": ") == std::string::npos)
+            throw std::runtime_error("String not type of key: value");
+        auto key = elem.substr(0, elem.find(": "));
+        auto value = elem.substr(elem.find(": ") + 2, elem.length());
+        m_request_header.emplace(m_request_header.end(), std::pair<std::string, std::string>(key, value));
+    });
 }
 
 HttpRequest::~HttpRequest() {}
@@ -42,26 +50,20 @@ HttpRequest::~HttpRequest() {}
 void HttpRequest::get_request_method(std::string line)
 {
     std::string request_method = line.substr(0, line.find(" "));
-    if (request_method == "GET")
-        m_request_method = GET;
-    else if (request_method == "HEAD")
-        m_request_method = HEAD;
-    else if (request_method == "POST")
-         m_request_method = POST;
-    else if (request_method == "PUT")
-        m_request_method = PUT;
-    else if (request_method == "DELETE")
-        m_request_method = DELETE;
-    else if (request_method == "CONNECT")
-        m_request_method = CONNECT;
-    else if (request_method == "OPTIONS")
-        m_request_method = OPTIONS;
-    else if (request_method == "TRACE")
-        m_request_method = TRACE;
-    else if (request_method == "PATCH")
-        m_request_method = PATCH;
-    else
+    map_request_method["GET"] = GET;
+    map_request_method["HEAD"] = HEAD;
+    map_request_method["POST"] = POST;
+    map_request_method["PUT"] = PUT;
+    map_request_method["DELETE"] = DELETE;
+    map_request_method["CONNECT"] = CONNECT;
+    map_request_method["OPTIONS"] = OPTIONS;
+    map_request_method["TRACE"] = TRACE;
+    map_request_method["PATCH"] = PATCH;
+
+    auto res = map_request_method.find(request_method);
+    if (res == map_request_method.end())
         throw std::runtime_error("Request method unknown");
+    m_request_method = (*res).second;
 }
 
 void HttpRequest::get_query_parameters(std::string line)
@@ -106,11 +108,20 @@ void HttpRequest::get_query_parameters(std::string line)
     for (size_t i = 1; i < line.size(); i++) {
         
     }
-
 }
 
 
-std::string HttpRequest::to_string() const
+std::string HttpRequest::to_string()
 {
-    
+    std::string to_return = "";
+    for (auto &elem : map_request_method) {
+        if (elem.second == m_request_method)
+            to_return += elem.first;
+    }
+    to_return += " " + m_route + " " + m_protocol + "\r\n";
+
+    for (auto &elem : m_request_header)
+        to_return += elem.first + ": " + elem.second + "\r\n";
+
+    return (to_return + "\r\n");
 }
