@@ -18,7 +18,8 @@
 /**
  * @brief Loads module from dynamic library.
  *
- * The dynamic library MUST provide the symbol `create_module` like
+ * The dynamic library MUST provide a boost DLL alias `create_module` to a
+ * function of signature
  *
  * \code
  * `ApiType` *create_module();
