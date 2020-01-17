@@ -42,3 +42,6 @@ target_include_directories(zia PUBLIC
 
 target_link_libraries(zia PRIVATE ${CONAN_LIBS})
 target_link_libraries(zia PRIVATE ${CMAKE_DL_LIBS})
+
+add_subdirectory(libs/yaml-config)
+target_link_libraries(zia PRIVATE yaml-config)

@@ -9,7 +9,7 @@
 
 #include <string>
 
-namespace YAML {
+namespace yconf {
 
 class NoValueException : public std::exception
 {

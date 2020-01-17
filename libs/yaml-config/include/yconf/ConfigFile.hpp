@@ -14,7 +14,7 @@
 #include "yaml-cpp/yaml.h"
 #include "NoValueException.hpp"
 
-namespace YAML {
+namespace yconf {
 
 class ConfigFile
 {

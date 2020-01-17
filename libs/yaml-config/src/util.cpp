@@ -6,9 +6,9 @@
 */
 
 #include <sstream>
-#include "util.hpp"
+#include "yconf/util.hpp"
 
-std::vector<std::string> YAML::util::split(const std::string &str, char delimiter)
+std::vector<std::string> yconf::util::split(const std::string &str, char delimiter)
 {
     std::stringstream ss{str};
     std::vector<std::string> result;

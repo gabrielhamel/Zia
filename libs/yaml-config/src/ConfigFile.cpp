@@ -5,8 +5,8 @@
 ** ConfigFile.cpp
 */
 
-#include "ConfigFile.hpp"
+#include "yconf/ConfigFile.hpp"
 
-YAML::ConfigFile::ConfigFile(const std::string &filePath)
+yconf::ConfigFile::ConfigFile(const std::string &filePath)
     : _root(YAML::LoadFile(filePath))
 {}

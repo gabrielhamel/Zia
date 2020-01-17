@@ -10,7 +10,7 @@
 #include <vector>
 #include <string>
 
-namespace YAML::util {
+namespace yconf::util {
 
     std::vector<std::string> split(const std::string &str, char delimiter);
 

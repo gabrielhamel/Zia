@@ -5,13 +5,13 @@
 ** NoValueException.cpp
 */
 
-#include "NoValueException.hpp"
+#include "yconf/NoValueException.hpp"
 
-YAML::NoValueException::NoValueException(const std::string &what)
+yconf::NoValueException::NoValueException(const std::string &what)
     : _what(std::string("No value for '") + what + "'")
 {}
 
-const char *YAML::NoValueException::what() const noexcept
+const char *yconf::NoValueException::what() const noexcept
 {
     return _what.c_str();
 }
