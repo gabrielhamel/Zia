@@ -1,16 +1,16 @@
 /*
 ** EPITECH PROJECT, 2019
-** dynloader_tester
+** zia_project
 ** File description:
-** Interface.hpp
+** testModuleInterface.hpp
 */
 
 #pragma once
 
-class ITestInterface
+class ModuleApi
 {
 public:
-    virtual ~ITestInterface() = default;
+    virtual ~ModuleApi() = default;
 
 public:
     virtual void sayHello() const = 0;
