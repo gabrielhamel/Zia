@@ -17,6 +17,7 @@ add_executable(zia
   Sources/src/Network/BoostNetworkClient.cpp
   Sources/src/Network/BoostNetworkServer.cpp
   Sources/src/Network/NetworkManager.cpp
+  Sources/src/Network/Request.cpp
 
   # Modules
   Sources/include/Core/Module/ModuleApi.hpp
@@ -24,7 +25,6 @@ add_executable(zia
 
   # Jsp encore
   Sources/src/main.cpp
-  Sources/src/Core/Parser.cpp
   Sources/src/Core/Module/Module.cpp
 )
 

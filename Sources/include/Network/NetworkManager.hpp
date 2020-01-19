@@ -15,7 +15,7 @@
 #include <vector>
 #include <boost/shared_ptr.hpp>
 #include "IClient.hpp"
-#include "Parser.hpp"
+#include "Request.hpp"
 
 namespace net
 {
