@@ -16,16 +16,16 @@
 #include "INetworkClient.hpp"
 #include "NetworkManager.hpp"
 
-namespace zia::net
+namespace net
 {
 
-    class BoostNetworkClient : public zia::net::INetworkClient, public boost::enable_shared_from_this<zia::net::BoostNetworkClient>
+    class BoostNetworkClient : public net::INetworkClient, public boost::enable_shared_from_this<net::BoostNetworkClient>
     {
         private:
             boost::asio::ip::tcp::socket m_socket;
             bool m_connected;
             boost::asio::streambuf m_buffer;
-            zia::net::NetworkManager &m_networkManager;
+            net::NetworkManager &m_networkManager;
         public:
             BoostNetworkClient(boost::asio::basic_socket_acceptor<boost::asio::ip::tcp> &ec, NetworkManager &networkManager);
             ~BoostNetworkClient();

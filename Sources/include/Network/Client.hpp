@@ -20,11 +20,11 @@ namespace http
     class Client
     {
         private:
-            boost::shared_ptr<zia::net::INetworkClient> m_networkPart;
+            boost::shared_ptr<net::INetworkClient> m_networkPart;
         public:
-            Client(boost::shared_ptr<zia::net::INetworkClient> networkPart);
+            Client(boost::shared_ptr<net::INetworkClient> networkPart);
             ~Client();
-            boost::shared_ptr<zia::net::INetworkClient> getNetworkPart() const;
+            boost::shared_ptr<net::INetworkClient> getNetworkPart() const;
     };
 
 }

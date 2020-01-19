@@ -14,13 +14,13 @@
 #include <memory>
 #include "Client.hpp"
 
-namespace zia
+namespace http
 {
 
     class Parser
     {
         public:
-            static void parse(std::shared_ptr<http::Client> client, std::string text);
+            static void parse(http::Client &client, std::string text);
     };
 
 }
