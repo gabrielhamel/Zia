@@ -36,6 +36,7 @@ target_include_directories(zia PUBLIC
   Sources/include/Network/
 
   # Jsp encore
+  Sources/include/Core/Http/api
   Sources/include/
   Sources/include/Core/
 )

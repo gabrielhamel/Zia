@@ -16,7 +16,6 @@ struct QueryParameterException : public std::exception
     /**
      * @brief The error message
      *
-     * @return const char*
      */
     const char *what() const noexcept
     {
@@ -35,7 +34,6 @@ struct HeaderParameterException : public std::exception
     /**
      * @brief The error message
      *
-     * @return const char*
      */
     const char *what() const noexcept
     {
@@ -54,7 +52,6 @@ struct BodyException : public std::exception
     /**
      * @brief The error message
      *
-     * @return const char*
      */
     const char *what() const noexcept
     {
@@ -73,7 +70,6 @@ struct RouteException : public std::exception
     /**
      * @brief The error message
      *
-     * @return const char*
      */
     const char *what() const noexcept
     {
@@ -88,7 +84,6 @@ struct StatusCodeException : public std::exception
     /**
      * @brief The error message
      *
-     * @return const char*
      */
     const char *what() const noexcept
     {
@@ -103,11 +98,23 @@ struct StatusMessageException : public std::exception
     /**
      * @brief The error message
      *
-     * @return const char*
      */
     const char *what() const noexcept
     {
         return "Invalid status message";
+    }
+
+};
+
+struct CookieException : public std::exception
+{
+    /**
+     * @brief The error message
+     *
+     */
+    const char *what() const noexcept
+    {
+        return "Invalid cookie's name";
     }
 
 };

@@ -23,7 +23,6 @@ struct IBasicObject
     /**
      * @brief Return the protocol of the object
      *
-     * @return std::string
      */
     virtual std::string protocol() const noexcept = 0;
 
@@ -32,10 +31,6 @@ struct IBasicObject
      *
      * In http object there are some header parameters like "Content-Lenght: 166", "host: localhost".
      * They are described by "{KEY}: {VALUE}"
-     *
-     * @param key
-     * @return true
-     * @return false
      */
     virtual bool headerParameterExist(const std::string &key) const noexcept = 0;
 
@@ -45,9 +40,6 @@ struct IBasicObject
      * In http object there are some header parameters like "Content-Lenght: 166", "host: localhost".
      * They are described by "{KEY}: {VALUE}"
      * This function will throws a http::HeaderParameterException if the parameters key not exist
-     *
-     * @param key
-     * @return std::string
      */
     virtual std::string headerParameter(const std::string &key) const = 0;
 
@@ -57,9 +49,6 @@ struct IBasicObject
      * In http object there are some header parameters like "Content-Lenght: 166", "host: localhost".
      * They are described by "{KEY}: {VALUE}"
      * This function will throws a http::HeaderParameterException if the key or value aren't valid
-     *
-     * @param key
-     * @param value
      */
     virtual void headerParameter(std::string key, std::string value) = 0;
 
@@ -68,8 +57,6 @@ struct IBasicObject
      *
      * Sometimes in object like POST there are a body
      * He can take any form (json, form-url-encoded, xml, plain text, ...)
-     *
-     * @return std::vector<unsigned char>
      */
     virtual std::vector<unsigned char> body() const noexcept = 0;
 
@@ -79,8 +66,6 @@ struct IBasicObject
      * Sometimes in object like POST there are a body
      * He can take any form (json, form-url-encoded, xml, plain text, ...)
      * Change / Add the 'Content-Length' header parameter
-     *
-     * @param body
      */
     virtual void body(std::vector<unsigned char> body) noexcept = 0;
 
@@ -90,15 +75,12 @@ struct IBasicObject
      * Sometimes in object like POST there are a body
      * He can take any form (json, form-url-encoded, xml, plain text, ...)
      * Change / Add the 'Content-Length' header parameter
-     *
-     * @param body
      */
     virtual void bodyAppend(std::vector<unsigned char> body) noexcept = 0;
 
     /**
      * @brief Transform this object in a true http object
      *
-     * @return std::string
      */
     virtual std::string serialize() const = 0;
 

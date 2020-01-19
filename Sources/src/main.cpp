@@ -10,8 +10,6 @@
 void test_module()
 {
     Module test("../../libtestMod.so");
-
-    test->sayHello();
 }
 
 /**
