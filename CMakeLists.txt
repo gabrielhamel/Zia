@@ -17,7 +17,7 @@ add_executable(zia
   Sources/src/Network/BoostNetworkClient.cpp
   Sources/src/Network/BoostNetworkServer.cpp
   Sources/src/Network/NetworkManager.cpp
-  Sources/src/Network/User.cpp
+  Sources/src/Network/Client.cpp
 
   # Modules
   Sources/include/Core/Module/ModuleApi.hpp

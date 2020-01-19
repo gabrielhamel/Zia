@@ -14,7 +14,7 @@
 #include <string>
 #include <vector>
 #include <boost/shared_ptr.hpp>
-#include "User.hpp"
+#include "Client.hpp"
 #include "Parser.hpp"
 
 namespace zia::net
@@ -23,7 +23,7 @@ namespace zia::net
     class NetworkManager
     {
         private:
-            std::vector<std::shared_ptr<zia::net::User>> m_clients;
+            std::vector<std::shared_ptr<http::Client>> m_clients;
         public:
             NetworkManager();
             ~NetworkManager();

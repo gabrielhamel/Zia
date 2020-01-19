@@ -13,7 +13,7 @@ zia::net::NetworkManager::~NetworkManager()
 
 void zia::net::NetworkManager::newClient(boost::shared_ptr<zia::net::INetworkClient> client)
 {
-    this->m_clients.push_back(std::make_shared<zia::net::User>(client));
+    this->m_clients.push_back(std::make_shared<http::Client>(client));
 }
 
 void zia::net::NetworkManager::removeClient(boost::shared_ptr<INetworkClient> client)

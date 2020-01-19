@@ -1,7 +1,7 @@
 /**
  * @file User.hpp
  * @author Gabriel Hamel (gabriel.hamel@epitech.eu)
- * @brief An class to describe an user
+ * @brief An class to describe an http client
  * @version 1.0
  * @date 2020-01-15
  *
@@ -14,16 +14,16 @@
 #include <boost/shared_ptr.hpp>
 #include "INetworkClient.hpp"
 
-namespace zia::net
+namespace http
 {
 
-    class User
+    class Client
     {
         private:
             boost::shared_ptr<zia::net::INetworkClient> m_networkPart;
         public:
-            User(boost::shared_ptr<zia::net::INetworkClient> networkPart);
-            ~User();
+            Client(boost::shared_ptr<zia::net::INetworkClient> networkPart);
+            ~Client();
             boost::shared_ptr<zia::net::INetworkClient> getNetworkPart() const;
     };
 
