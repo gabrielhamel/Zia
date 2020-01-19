@@ -13,7 +13,7 @@
 
 #include <string>
 
-namespace zia::net
+namespace net
 {
 
     class INetworkClient

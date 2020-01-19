@@ -1,22 +1,22 @@
 #include <boost/algorithm/string.hpp>
 #include "NetworkManager.hpp"
 
-zia::net::NetworkManager::NetworkManager()
+net::NetworkManager::NetworkManager()
 {
 
 }
 
-zia::net::NetworkManager::~NetworkManager()
+net::NetworkManager::~NetworkManager()
 {
 
 }
 
-void zia::net::NetworkManager::newClient(boost::shared_ptr<zia::net::INetworkClient> client)
+void net::NetworkManager::newClient(boost::shared_ptr<net::INetworkClient> client)
 {
-    this->m_clients.push_back(std::make_shared<zia::net::User>(client));
+    this->m_clients.push_back(std::make_shared<http::Client>(client));
 }
 
-void zia::net::NetworkManager::removeClient(boost::shared_ptr<INetworkClient> client)
+void net::NetworkManager::removeClient(boost::shared_ptr<INetworkClient> client)
 {
     for (auto elem : this->m_clients) {
         if (elem->getNetworkPart() == client) {
@@ -27,11 +27,11 @@ void zia::net::NetworkManager::removeClient(boost::shared_ptr<INetworkClient> cl
     }
 }
 
-void zia::net::NetworkManager::recvData(boost::shared_ptr<zia::net::INetworkClient> client, const std::string data)
+void net::NetworkManager::recvData(boost::shared_ptr<net::INetworkClient> client, const std::string data)
 {
     for (auto elem : this->m_clients) {
         if (elem->getNetworkPart() == client) {
-            zia::Parser::parse(elem, data);
+            http::Parser::parse(*elem.get(), data);
             break;
         }
     }

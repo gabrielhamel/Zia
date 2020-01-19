@@ -39,7 +39,7 @@ int main(int ac, char **av)
         return 84;
     }
     try {
-        std::unique_ptr<zia::net::INetworkServer> server(new zia::net::BoostNetworkServer(std::stoi(av[1])));
+        std::unique_ptr<net::INetworkServer> server(new net::BoostNetworkServer(std::stoi(av[1])));
         server->run();
     }
     catch (const std::exception &e) {
