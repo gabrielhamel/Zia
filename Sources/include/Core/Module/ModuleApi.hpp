@@ -1,17 +1,20 @@
-/*
-** EPITECH PROJECT, 2019
-** zia_project
-** File description:
-** testModuleInterface.hpp
-*/
+#ifndef IMODULE_API_HPP
+#define IMODULE_API_HPP
 
-#pragma once
-
-class ModuleApi
+namespace mod
 {
-public:
+
+struct ModuleApi
+{
+    /**
+     * @brief Default destructor
+     *
+     */
     virtual ~ModuleApi() = default;
 
-public:
-    virtual void sayHello() const = 0;
+    virtual void sayHello();
 };
+
+} // namespace mod
+
+#endif // IMODULE_API_HPP

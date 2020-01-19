@@ -27,7 +27,7 @@
  */
 class Module
 {
-    using ApiType = ModuleApi;
+    using ApiType = mod::ModuleApi;
 public:
     explicit Module(const std::string &path);
 
@@ -40,5 +40,3 @@ public:
 private:
     std::unique_ptr<ApiType> _impl;
 };
-
-

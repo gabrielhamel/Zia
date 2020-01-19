@@ -12,7 +12,7 @@
 #pragma once
 
 #include <memory>
-#include "Client.hpp"
+#include "IClient.hpp"
 
 namespace http
 {
@@ -20,7 +20,7 @@ namespace http
     class Parser
     {
         public:
-            static void parse(http::Client &client, std::string text);
+            static void parse(net::IClient &client, std::string data);
     };
 
 }

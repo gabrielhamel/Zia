@@ -1,7 +1,9 @@
 #include <boost/bind.hpp>
 #include "BoostNetworkClient.hpp"
 
-net::BoostNetworkClient::BoostNetworkClient(boost::asio::basic_socket_acceptor<boost::asio::ip::tcp> &ec, NetworkManager &networkManager) :
+using namespace boost::asio;
+
+net::BoostNetworkClient::BoostNetworkClient(basic_socket_acceptor<ip::tcp> &ec, NetworkManager &networkManager) :
 m_socket(ec.get_executor()), m_connected(false), m_networkManager(networkManager)
 {
 
@@ -12,7 +14,7 @@ net::BoostNetworkClient::~BoostNetworkClient()
 
 }
 
-boost::asio::ip::tcp::socket &net::BoostNetworkClient::getSocket()
+ip::tcp::socket &net::BoostNetworkClient::getSocket()
 {
     return this->m_socket;
 }
@@ -21,14 +23,8 @@ void net::BoostNetworkClient::bindRead()
 {
     if (this->m_connected == false)
         this->m_connected = true;
-    auto binding = boost::bind(&BoostNetworkClient::readHandler, shared_from_this(), boost::asio::placeholders::error, boost::asio::placeholders::bytes_transferred);
+    auto binding = boost::bind(&BoostNetworkClient::readHandler, shared_from_this(), placeholders::error, placeholders::bytes_transferred);
     async_read_until(this->m_socket, this->m_buffer, "\0", binding);
-}
-
-std::size_t net::BoostNetworkClient::getId() const
-{
-    const BoostNetworkClient *ptr = this;
-    return reinterpret_cast<std::size_t>(ptr);
 }
 
 void net::BoostNetworkClient::readHandler(const boost::system::error_code &error, std::size_t bytes_transferred)
@@ -37,9 +33,10 @@ void net::BoostNetworkClient::readHandler(const boost::system::error_code &error
         disconnect(error.message());
         return;
     }
-    std::ostringstream ss;
-    ss << &this->m_buffer;
-    std::string message = ss.str();
+    auto ptr = static_cast<const char *>(m_buffer.data().data());
+    auto size = m_buffer.data().size();
+    std::string message(ptr, size);
+    this->m_buffer.consume(size);
     this->m_networkManager.recvData(shared_from_this(), message);
     bindRead();
 }
@@ -52,8 +49,8 @@ void net::BoostNetworkClient::writeHandler(const boost::system::error_code &erro
 
 void net::BoostNetworkClient::send(const std::string &data)
 {
-    auto binding = boost::bind(&BoostNetworkClient::writeHandler, shared_from_this(), boost::asio::placeholders::error, boost::asio::placeholders::bytes_transferred);
-    this->m_socket.async_write_some(boost::asio::buffer(data, data.length()), binding);
+    auto binding = boost::bind(&BoostNetworkClient::writeHandler, shared_from_this(), placeholders::error, placeholders::bytes_transferred);
+    this->m_socket.async_write_some(buffer(data, data.size()), binding);
 }
 
 void net::BoostNetworkClient::disconnect(const std::string &message)
