@@ -14,13 +14,13 @@
 #include <memory>
 #include "IClient.hpp"
 
-namespace http
+namespace net
 {
 
-    class Parser
+    class Request
     {
         public:
-            static void parse(net::IClient &client, std::string data);
+            static void execute(net::IClient &client, std::string data);
     };
 
 }
