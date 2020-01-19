@@ -26,7 +26,8 @@ add_executable(zia
   # Jsp encore
   Sources/src/main.cpp
   Sources/src/Core/Parser.cpp
-        Sources/src/Core/Module/Module.cpp)
+  Sources/src/Core/Module/Module.cpp
+)
 
 target_include_directories(zia PUBLIC
   # HttpParser
