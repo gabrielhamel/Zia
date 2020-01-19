@@ -8,3 +8,5 @@ a.out
 cmake-build-debug/
 
 *.so
+
+sample.yaml

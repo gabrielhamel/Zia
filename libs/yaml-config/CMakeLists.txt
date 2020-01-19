@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.0)
 
-add_library(yaml-config STATIC src/ConfigFile.cpp include/yconf/ConfigFile.hpp include/yconf/util.hpp src/util.cpp src/NoValueException.cpp include/yconf/NoValueException.hpp)
+add_library(yaml-config STATIC src/ConfigNode.cpp include/yconf/ConfigNode.hpp include/IConfigNode.hpp include/yconf/Helper.hpp include/yconf/util.hpp src/util.cpp)
 
 target_include_directories(yaml-config PUBLIC include)
 
