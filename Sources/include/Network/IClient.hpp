@@ -16,11 +16,28 @@
 namespace net
 {
 
-    class IClient
-    {
-        public:
-            virtual ~IClient() = default;
-            virtual void send(const std::string &data) = 0;
-    };
+struct IClient
+{
+
+    /**
+     * @brief Default destructor
+     *
+     */
+    virtual ~IClient() = default;
+
+    /**
+     * @brief Send 'data' into a tcp packet to the client
+     *
+     * Return true if there are no problems
+     */
+    virtual bool send(const std::string &data) = 0;
+
+    /**
+     * @brief Gets an unique ID on the client
+     *
+     */
+    virtual std::size_t getId() const noexcept = 0;
+
+};
 
 }

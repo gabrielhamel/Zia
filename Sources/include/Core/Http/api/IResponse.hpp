@@ -34,9 +34,9 @@ struct IResponse : public http::IBasicObject
      *
      * In http response there are always status code like "200" or "404"
      * To describe if the request is executed correctly
-     * This function will throw a http::StatusCodeException if the status code isn't valid
+     * Return false if the status code isn't valid
      */
-    virtual void statusCode(int statusCode) = 0;
+    virtual bool statusCode(int statusCode) noexcept = 0;
 
     /**
      * @brief Returns the status message of the response
@@ -51,9 +51,9 @@ struct IResponse : public http::IBasicObject
      *
      * In http response there are always status message
      * after the status code like "200 OK" or "404 Not found"
-     * This function will throw a http::StatusMessageException if the status message isn't valid
+     * Return false if the status message isn't valid
      */
-    virtual void statusMessage(std::string statusMessage) = 0;
+    virtual bool statusMessage(std::string statusMessage) noexcept = 0;
 
     /**
      * @brief Return the value of the cookie 'name'
@@ -61,9 +61,9 @@ struct IResponse : public http::IBasicObject
      * all cookies of the request
      * ex: "Cookie: yummy_cookie=choco; tasty_cookie=strawberry"
      * He can have options like Expires, Domain, Max-Age, ...
-     * Throw an http::CookieException of the name or the value are invalids
+     * Return false if the name or the value are invalids
      */
-    virtual void setCookie(std::string name, std::string value, CookieOptions options = CookieOptions()) const = 0;
+    virtual bool setCookie(std::string name, std::string value, CookieOptions options = CookieOptions()) const noexcept = 0;
 
 };
 

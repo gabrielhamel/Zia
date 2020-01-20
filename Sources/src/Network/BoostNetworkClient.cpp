@@ -47,10 +47,11 @@ void net::BoostNetworkClient::writeHandler(const boost::system::error_code &erro
         disconnect(error.message());
 }
 
-void net::BoostNetworkClient::send(const std::string &data)
+bool net::BoostNetworkClient::send(const std::string &data)
 {
     auto binding = boost::bind(&BoostNetworkClient::writeHandler, shared_from_this(), placeholders::error, placeholders::bytes_transferred);
     this->m_socket.async_write_some(buffer(data, data.size()), binding);
+    return true;
 }
 
 void net::BoostNetworkClient::disconnect(const std::string &message)
@@ -58,4 +59,9 @@ void net::BoostNetworkClient::disconnect(const std::string &message)
     this->m_networkManager.removeClient(shared_from_this());
     this->m_socket.close();
     this->m_connected = false;
+}
+
+std::size_t net::BoostNetworkClient::getId() const noexcept
+{
+    return (std::size_t)this;
 }

@@ -27,7 +27,7 @@
  */
 class Module
 {
-    using ApiType = mod::ModuleApi;
+    using ApiType = module::Api;
 public:
     explicit Module(const std::string &path);
 

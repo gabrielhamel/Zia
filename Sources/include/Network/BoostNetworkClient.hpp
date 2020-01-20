@@ -31,12 +31,13 @@ namespace net
         public:
             BoostNetworkClient(basic_socket_acceptor<ip::tcp> &ec, NetworkManager &networkManager);
             ~BoostNetworkClient();
-            void send(const std::string &data);
+            bool send(const std::string &data);
             ip::tcp::socket &getSocket();
             void bindRead();
             void disconnect(const std::string &message);
             void readHandler(const boost::system::error_code &error, std::size_t bytes_transferred);
             void writeHandler(const boost::system::error_code &error, std::size_t bytes_transferred);
+            std::size_t getId() const noexcept;
     };
 
 }
