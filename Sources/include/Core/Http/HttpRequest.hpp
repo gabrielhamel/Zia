@@ -31,7 +31,6 @@ class HttpRequest
         };
 
     private:
-        std::unordered_map<std::string, REQUEST_METHOD> map_request_method;
         REQUEST_METHOD m_request_method;
         std::string m_route;
         std::string m_route_without_query;
@@ -39,6 +38,7 @@ class HttpRequest
         std::vector<std::pair<std::string, std::string>> m_request_header;
         std::vector<std::pair<std::string, std::string>> m_query_parameters;
 
+        void init_map();
         void get_request_method(std::string line);
         void get_query_parameters(std::string line);
     public:
@@ -46,4 +46,7 @@ class HttpRequest
         ~HttpRequest();
 
         std::string to_string();
+
+        std::unordered_map<std::string, REQUEST_METHOD> map_request_method;
+        std::unordered_map<std::string, std::string> url_encode;
 };
