@@ -13,15 +13,14 @@
 
 #include <string>
 
-namespace zia::net
+namespace net
 {
 
-    class INetworkClient
+    class IClient
     {
         public:
-            virtual ~INetworkClient() = default;
+            virtual ~IClient() = default;
             virtual void send(const std::string &data) = 0;
-            virtual std::size_t getId() const = 0;
     };
 
 }

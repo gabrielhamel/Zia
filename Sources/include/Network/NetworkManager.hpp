@@ -14,22 +14,22 @@
 #include <string>
 #include <vector>
 #include <boost/shared_ptr.hpp>
-#include "User.hpp"
-#include "Parser.hpp"
+#include "IClient.hpp"
+#include "Request.hpp"
 
-namespace zia::net
+namespace net
 {
 
     class NetworkManager
     {
         private:
-            std::vector<std::shared_ptr<zia::net::User>> m_clients;
+            std::vector<boost::shared_ptr<net::IClient>> m_clients;
         public:
             NetworkManager();
             ~NetworkManager();
-            void newClient(boost::shared_ptr<zia::net::INetworkClient> client);
-            void removeClient(boost::shared_ptr<zia::net::INetworkClient> client);
-            void recvData(boost::shared_ptr<zia::net::INetworkClient> client, const std::string data);
+            void newClient(boost::shared_ptr<net::IClient> client);
+            void removeClient(boost::shared_ptr<net::IClient> client);
+            void recvData(boost::shared_ptr<net::IClient> client, const std::string &data);
     };
 
 }

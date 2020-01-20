@@ -6,14 +6,10 @@ project(zia_project LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 17)
 
 # Conan
-include(build/conanbuildinfo.cmake)
+include(${CMAKE_CURRENT_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()
 
 add_executable(zia
-  # DynLib
-  Sources/src/Core/DynLib/exception/DLException.cpp
-  Sources/src/Core/DynLib/DynLib.cpp
-
   # HttpParser
   Sources/src/Core/Http/HttpRequest.cpp
 
@@ -21,18 +17,18 @@ add_executable(zia
   Sources/src/Network/BoostNetworkClient.cpp
   Sources/src/Network/BoostNetworkServer.cpp
   Sources/src/Network/NetworkManager.cpp
-  Sources/src/Network/User.cpp
+  Sources/src/Network/Request.cpp
+
+  # Modules
+  Sources/include/Core/Module/ModuleApi.hpp
+  Sources/include/Core/Module/Module.hpp
 
   # Jsp encore
   Sources/src/main.cpp
-  Sources/src/Core/Parser.cpp
+  Sources/src/Core/Module/Module.cpp
 )
 
 target_include_directories(zia PUBLIC
-  # DynLib
-  Sources/include/Core/DynLib/exception
-  Sources/include/Core/DynLib
-
   # HttpParser
   Sources/include/Core/Http
 
@@ -40,9 +36,13 @@ target_include_directories(zia PUBLIC
   Sources/include/Network/
 
   # Jsp encore
+  Sources/include/Core/Http/api
   Sources/include/
   Sources/include/Core/
 )
 
 target_link_libraries(zia PRIVATE ${CONAN_LIBS})
 target_link_libraries(zia PRIVATE ${CMAKE_DL_LIBS})
+
+add_subdirectory(libs/yaml-config)
+target_link_libraries(zia PRIVATE yaml-config)

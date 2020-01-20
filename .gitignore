@@ -2,3 +2,13 @@ zia
 build
 .vscode
 a.out
+
+.idea/
+
+cmake-build-debug/
+
+*.so
+
+sample.yaml
+html/
+latex/
