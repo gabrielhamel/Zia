@@ -45,6 +45,13 @@ struct Api
      */
     virtual bool beforeSend(const net::IClient &client, std::string &buffer) noexcept = 0;
 
+    /**
+     * @brief When a client disconnects
+     *
+     * To inform the module of the client's disconnection
+     */
+    virtual bool disconnection(const net::IClient &client) noexcept = 0;
+
 };
 
 } // namespace mod
