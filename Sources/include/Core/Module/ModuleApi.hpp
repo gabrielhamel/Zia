@@ -17,6 +17,12 @@ struct Api
     virtual ~Api() = default;
 
     /**
+     * @brief Returns the module name
+     *
+     */
+    virtual std::string name() const noexcept = 0;
+
+    /**
      * @brief When a new client connects to the http server
      *
      * It can be useful to store the id of the client
