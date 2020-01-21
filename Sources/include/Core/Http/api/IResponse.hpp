@@ -63,7 +63,7 @@ struct IResponse : public http::IBasicObject
      * He can have options like Expires, Domain, Max-Age, ...
      * Return false if the name or the value are invalids
      */
-    virtual bool setCookie(std::string name, std::string value, CookieOptions options = CookieOptions()) const noexcept = 0;
+    virtual bool setCookie(std::string name, std::string value, CookieOptions options = CookieOptions()) noexcept = 0;
 
 };
 
