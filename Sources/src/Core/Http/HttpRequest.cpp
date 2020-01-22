@@ -36,13 +36,15 @@ HttpRequest::HttpRequest(std::string request) : m_body("")
     m_route_without_query = line[1].substr(0, line[1].find("?"));
     m_protocol = line[2];
     if (line[1].find("?") != std::string::npos)
-        get_query_parameters(line[1].substr(line[1].find("?") + 1, line[1].length()));
+        set_query_parameters(line[1].substr(line[1].find("?") + 1, line[1].length()));
     std::for_each(request_vector.begin() + 1, request_vector.end() - (request_vector.size() - body_position), [this](auto &elem) {
         if (elem.find(": ") == std::string::npos)
             throw std::runtime_error("String not type of key: value");
         auto key = elem.substr(0, elem.find(": "));
         auto value = elem.substr(elem.find(": ") + 2, elem.length());
         m_request_header.emplace(m_request_header.end(), std::pair<std::string, std::string>(key, value));
+        if (key == "Cookie")
+            set_cookie(value);
     });
 
     if (body_position != 0 && body_position < request_vector.size())
@@ -51,19 +53,21 @@ HttpRequest::HttpRequest(std::string request) : m_body("")
         });
 }
 
+
 HttpRequest::~HttpRequest() {}
+
 
 void HttpRequest::init_map()
 {
-    map_request_method["GET"] = GET;
-    map_request_method["HEAD"] = HEAD;
-    map_request_method["POST"] = POST;
-    map_request_method["PUT"] = PUT;
-    map_request_method["DELETE"] = DELETE;
-    map_request_method["CONNECT"] = CONNECT;
-    map_request_method["OPTIONS"] = OPTIONS;
-    map_request_method["TRACE"] = TRACE;
-    map_request_method["PATCH"] = PATCH;
+    map_request_method["GET"] = http::GET;
+    map_request_method["HEAD"] = http::HEAD;
+    map_request_method["POST"] = http::POST;
+    map_request_method["PUT"] = http::PUT;
+    map_request_method["DELETE"] = http::DELETE;
+    map_request_method["CONNECT"] = http::CONNECT;
+    map_request_method["OPTIONS"] = http::OPTIONS;
+    map_request_method["TRACE"] = http::TRACE;
+    map_request_method["PATCH"] = http::PATCH;
 
     url_encode["%0A"] = "\n";
     url_encode["%0D"] = "\n";
@@ -103,7 +107,8 @@ void HttpRequest::init_map()
     url_encode["%7E"] = "~";
 }
 
-void HttpRequest::get_request_method(std::string line) noexcept
+
+void HttpRequest::get_request_method(std::string line)
 {
     std::string request_method = line.substr(0, line.find(" "));
 
@@ -113,9 +118,42 @@ void HttpRequest::get_request_method(std::string line) noexcept
     m_request_method = (*res).second;
 }
 
-void HttpRequest::get_query_parameters(std::string line) noexcept
+
+void HttpRequest::set_query_parameters(std::string line) noexcept
+{
+    m_query_parameters = get_query_parameters(line);
+}
+
+
+void HttpRequest::set_cookie(std::string line) noexcept
+{
+    std::vector<std::string> vector_cookie;
+    std::string current_line = "";
+    for (size_t size = 0; size < line.length(); size++) {
+        if (line.at(size) == ';' and line.at(size + 1) == ' ') {
+            vector_cookie.push_back(current_line);
+            size += 1;
+            current_line = "";
+        }
+        else if (size + 1 == line.length())
+            vector_cookie.push_back(current_line);
+        else
+            current_line += line.at(size);
+    }
+    std::for_each(vector_cookie.begin(), vector_cookie.end(), [this](auto &elem) {
+        if (elem.find(": ") == std::string::npos)
+            throw std::runtime_error("String not type of key: value");
+        auto key = elem.substr(0, elem.find("="));
+        auto value = elem.substr(elem.find("=") + 2, elem.length());
+        m_cookie.emplace(m_request_header.end(), std::pair<std::string, std::string>(key, value));
+    });   
+}
+
+
+std::vector<std::pair<std::string, std::string>> HttpRequest::get_query_parameters(std::string line) const
 {
     std::vector<std::string> query_params;
+    std::vector<std::pair<std::string, std::string>> query_params_final;
     size_t last_char = 0;
     for (size_t i = 1; i < line.size(); i++) {
         if (line.at(i) == '&') {
@@ -124,7 +162,7 @@ void HttpRequest::get_query_parameters(std::string line) noexcept
         }
     }
     query_params.push_back(line.substr(last_char, line.length()));
-    std::for_each(query_params.begin(), query_params.end(), [this](auto &elem) {
+    for (auto &elem : query_params) {
         if (elem.find("=") == std::string::npos)
             throw std::runtime_error("Error with Query parameters");
         auto key = elem.substr(0, elem.find("="));
@@ -132,19 +170,155 @@ void HttpRequest::get_query_parameters(std::string line) noexcept
         for (auto &elem : url_encode)
             if (value.find(elem.first) != std::string::npos)
                 value.replace(value.find(elem.first), elem.first.length(), elem.second);
-        m_query_parameters.push_back(std::pair<std::string, std::string>(key, value));
-    });
+        query_params_final.push_back(std::pair<std::string, std::string>(key, value));
+    }
+
+    return query_params_final;
 }
 
 
-std::string HttpRequest::to_string()
+http::Verb HttpRequest::verb() const noexcept
+{
+    return m_request_method;
+}
+
+
+bool HttpRequest::verb(http::Verb verb) noexcept
+{
+    if (verb > 9)
+        return false;
+
+    m_request_method = verb;
+
+    return true;
+}
+
+
+std::string HttpRequest::route() const noexcept
+{
+    return m_route_without_query;
+}
+
+
+bool HttpRequest::route(std::string route) noexcept
+{
+    if (route.length() == 0 || route.at(0) != '/')
+        return false;
+    for (size_t i; i < route.length(); i++)
+        if (i + 1 < route.length() && route.at(i) == '/' && route.at(i + 1) == '/')
+            return false;
+        
+    m_route = route;
+
+    return true;
+}
+
+
+bool HttpRequest::queryParameterExist(const std::string &key) const noexcept
+{
+    std::vector<std::pair<std::string, std::string>> query_params;
+    if (m_route.find("?") != std::string::npos)
+        query_params = get_query_parameters(m_route);
+
+    for (auto &elem : query_params)
+        if (elem.first == key)
+            return true;
+    
+    return false;
+}
+
+
+std::string HttpRequest::queryParameter(const std::string &key) const noexcept
+{
+    std::vector<std::pair<std::string, std::string>> query_params;
+    if (m_route.find("?") != std::string::npos)
+        query_params = get_query_parameters(m_route);
+
+    for (auto &elem : query_params)
+        if (elem.first == key)
+            return elem.second;
+    
+    return "";
+}
+
+
+bool HttpRequest::queryParameter(std::string key, std::string value) noexcept
+{
+    if (key == "" || value == "")
+        return false;
+    for (auto &elem : m_query_parameters) {
+        if (elem.first == key)
+            elem.second = value;
+            return true;
+    }
+
+    m_request_header.emplace(m_request_header.end(), std::pair<std::string, std::string>(key, value));
+
+    return true;
+}
+
+
+std::string HttpRequest::cookie(const std::string &name) const noexcept
+{
+    for (auto &elem : m_request_header)
+        if (elem.first == "Cookie")
+            for (auto &it : m_cookie)
+                if (it.first == name)
+                    return it.second;
+
+    return "";
+}
+
+
+std::string HttpRequest::body() const noexcept
+{
+    return m_body;
+}
+
+
+bool HttpRequest::body(std::string body) noexcept
+{
+    if (body == "")
+        return false;
+    for (auto &elem : m_query_parameters) {
+        if (elem.first == "Content-Length") {
+            elem.second = std::to_string(std::stoi(elem.second) + body.length());
+            m_body = body;
+            return true;
+        }
+    }
+    m_query_parameters.push_back(std::pair<std::string, std::string>("Content-Length", std::to_string(body.length())));
+    m_body = body;
+
+    return true;
+}
+
+
+bool HttpRequest::bodyAppend(std::string body) noexcept
+{
+    if (body == "")
+        return false;
+    for (auto &elem : m_query_parameters) {
+        if (elem.first == "Content-Length") {
+            elem.second = std::to_string(std::stoi(elem.second) + body.length());
+            m_body += body;
+            return true;
+        }
+    }
+    m_query_parameters.push_back(std::pair<std::string, std::string>("Content-Length", std::to_string(body.length())));
+    m_body += body;
+
+    return true;
+}
+
+
+std::string HttpRequest::serialize() const noexcept
 {
     std::string to_return = "";
     std::string query_params = "";
-    for (auto &elem : map_request_method) {
+    for (auto &elem : map_request_method)
         if (elem.second == m_request_method)
             to_return += elem.first;
-    }
     if (m_query_parameters.size() > 0)
         query_params = "?";
     for (auto &elem : m_query_parameters) {
@@ -160,100 +334,44 @@ std::string HttpRequest::to_string()
     
     to_return += "\r\n" + m_body + "\r\n";
 
-    return (to_return);
-}
-
-
-http::Verb HttpRequest::verb() const noexcept
-{
-
-}
-
-
-bool HttpRequest::verb(http::Verb verb) noexcept
-{
-
-}
-
-
-std::string HttpRequest::route() const noexcept
-{
-
-}
-
-
-bool HttpRequest::route(std::string route) noexcept
-{
-
-}
-
-
-bool HttpRequest::queryParameterExist(const std::string &key) const noexcept
-{
-
-}
-
-
-std::string HttpRequest::queryParameter(const std::string &key) const noexcept
-{
-
-}
-
-
-bool HttpRequest::queryParameter(std::string key, std::string value) noexcept
-{
-
-}
-
-
-std::string HttpRequest::cookie(const std::string &name) const noexcept
-{
-
-}
-
-std::string HttpRequest::body() const noexcept
-{
-
-}
-
-
-bool HttpRequest::body(std::string body) noexcept
-{
-
-}
-
-
-bool HttpRequest::bodyAppend(std::string body) noexcept
-{
-
-}
-
-
-std::string HttpRequest::serialize() const noexcept
-{
-
+    return to_return;
 }
 
 
 std::string HttpRequest::protocol() const noexcept
 {
-
+    return m_protocol;
 }
 
 
 bool HttpRequest::headerParameterExist(const std::string &key) const noexcept
 {
+    for (auto &elem : m_request_header)
+        if (elem.first == key)
+            return true;
 
+    return false;
 }
 
 
 std::string HttpRequest::headerParameter(const std::string &key) const noexcept
 {
+    for (auto &elem : m_request_header)
+        if (elem.first == key)
+            return elem.second;
 
+    return "";
 }
 
 
 bool HttpRequest::headerParameter(std::string key, std::string value) noexcept
 {
-    
+    for (auto &elem : m_request_header) {
+        if (elem.first == key)
+            return true;
+        if (elem.second == value)
+            return true;
+    }
+
+    return false;
 }
