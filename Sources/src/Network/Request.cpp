@@ -12,6 +12,6 @@ void net::Request::execute(net::IClient &client, std::string data)
     text += "</body>\r\n</html>\r\n\r\n";
     HttpRequest request(data);
     HttpResponse response(text);
-    std::cout << response.to_string() << std::endl;
+    std::cout << response.serialize() << std::endl;
     client.send(data);
 }
