@@ -87,7 +87,7 @@ int HttpResponse::statusCode() const noexcept
 }
 
 
-void HttpResponse::statusCode(int statusCode)
+bool HttpResponse::statusCode(int statusCode) noexcept
 {
 
 }
@@ -99,13 +99,61 @@ std::string HttpResponse::statusMessage() const noexcept
 }
 
 
-void HttpResponse::statusMessage(std::string statusMessage)
+bool HttpResponse::statusMessage(std::string statusMessage) noexcept
 {
 
 }
 
 
 bool HttpResponse::setCookie(std::string name, std::string value, CookieOptions options) noexcept
+{
+
+}
+
+
+std::string HttpResponse::protocol() const noexcept
+{
+
+}
+
+
+bool HttpResponse::headerParameterExist(const std::string &key) const noexcept
+{
+    
+}
+
+
+std::string HttpResponse::headerParameter(const std::string &key) const noexcept
+{
+
+}
+
+
+bool HttpResponse::headerParameter(std::string key, std::string value) noexcept
+{
+
+}
+
+
+std::string HttpResponse::body() const noexcept
+{
+
+}
+
+
+bool HttpResponse::body(std::string body) noexcept
+{
+
+}
+
+
+bool HttpResponse::bodyAppend(std::string body) noexcept
+{
+
+}
+
+
+std::string HttpResponse::serialize() const noexcept
 {
 
 }

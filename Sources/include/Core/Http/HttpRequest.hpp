@@ -17,7 +17,7 @@
 
 #include "IRequest.hpp"
 
-class HttpRequest
+class HttpRequest : public http::IRequest
 {
     public:
         enum REQUEST_METHOD {
@@ -42,22 +42,31 @@ class HttpRequest
         std::string m_body;
 
         void init_map();
-        void get_request_method(std::string line);
-        void get_query_parameters(std::string line);
+        void get_request_method(std::string line) noexcept;
+        void get_query_parameters(std::string line) noexcept;
     public:
         HttpRequest(std::string request);
         ~HttpRequest();
 
         std::string to_string();
-
+        
         http::Verb verb() const noexcept;
-        void verb(http::Verb verb);
+        bool verb(http::Verb verb) noexcept;
         std::string route() const noexcept;
-        void route(std::string route);
+        bool route(std::string route) noexcept;
         bool queryParameterExist(const std::string &key) const noexcept;
-        std::string queryParameter(const std::string &key) const;
-        void queryParameter(std::string key, std::string value);
-        std::string cookie(const std::string &name) const;
+        std::string queryParameter(const std::string &key) const noexcept;
+        bool queryParameter(std::string key, std::string value) noexcept;
+        std::string cookie(const std::string &name) const noexcept;
+
+        std::string protocol() const noexcept;
+        bool headerParameterExist(const std::string &key) const noexcept;
+        std::string headerParameter(const std::string &key) const noexcept;
+        bool headerParameter(std::string key, std::string value) noexcept;
+        std::string body() const noexcept;
+        bool body(std::string body) noexcept;
+        bool bodyAppend(std::string body) noexcept;
+        std::string serialize() const noexcept;
 
         std::unordered_map<std::string, REQUEST_METHOD> map_request_method;
         std::unordered_map<std::string, std::string> url_encode;

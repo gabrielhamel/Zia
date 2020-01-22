@@ -14,7 +14,7 @@
 
 #include "IResponse.hpp"
 
-class HttpResponse
+class HttpResponse : public http::IResponse
 {
     private:
         int m_status_code;
@@ -30,8 +30,17 @@ class HttpResponse
         std::string to_string();
 
         int statusCode() const noexcept;
-        void statusCode(int statusCode);
+        bool statusCode(int statusCode) noexcept;
         std::string statusMessage() const noexcept;
-        void statusMessage(std::string statusMessage);
+        bool statusMessage(std::string statusMessage) noexcept;
         bool setCookie(std::string name, std::string value, CookieOptions options = CookieOptions()) noexcept;
+
+        std::string protocol() const noexcept;
+        bool headerParameterExist(const std::string &key) const noexcept;
+        std::string headerParameter(const std::string &key) const noexcept;
+        bool headerParameter(std::string key, std::string value) noexcept;
+        std::string body() const noexcept;
+        bool body(std::string body) noexcept;
+        bool bodyAppend(std::string body) noexcept;
+        std::string serialize() const noexcept;
 };

@@ -103,7 +103,7 @@ void HttpRequest::init_map()
     url_encode["%7E"] = "~";
 }
 
-void HttpRequest::get_request_method(std::string line)
+void HttpRequest::get_request_method(std::string line) noexcept
 {
     std::string request_method = line.substr(0, line.find(" "));
 
@@ -113,7 +113,7 @@ void HttpRequest::get_request_method(std::string line)
     m_request_method = (*res).second;
 }
 
-void HttpRequest::get_query_parameters(std::string line)
+void HttpRequest::get_query_parameters(std::string line) noexcept
 {
     std::vector<std::string> query_params;
     size_t last_char = 0;
@@ -170,7 +170,7 @@ http::Verb HttpRequest::verb() const noexcept
 }
 
 
-void HttpRequest::verb(http::Verb verb)
+bool HttpRequest::verb(http::Verb verb) noexcept
 {
 
 }
@@ -182,7 +182,7 @@ std::string HttpRequest::route() const noexcept
 }
 
 
-void HttpRequest::route(std::string route)
+bool HttpRequest::route(std::string route) noexcept
 {
 
 }
@@ -194,19 +194,66 @@ bool HttpRequest::queryParameterExist(const std::string &key) const noexcept
 }
 
 
-std::string HttpRequest::queryParameter(const std::string &key) const
+std::string HttpRequest::queryParameter(const std::string &key) const noexcept
 {
 
 }
 
 
-void HttpRequest::queryParameter(std::string key, std::string value)
+bool HttpRequest::queryParameter(std::string key, std::string value) noexcept
 {
 
 }
 
 
-std::string HttpRequest::cookie(const std::string &name) const
+std::string HttpRequest::cookie(const std::string &name) const noexcept
 {
 
+}
+
+std::string HttpRequest::body() const noexcept
+{
+
+}
+
+
+bool HttpRequest::body(std::string body) noexcept
+{
+
+}
+
+
+bool HttpRequest::bodyAppend(std::string body) noexcept
+{
+
+}
+
+
+std::string HttpRequest::serialize() const noexcept
+{
+
+}
+
+
+std::string HttpRequest::protocol() const noexcept
+{
+
+}
+
+
+bool HttpRequest::headerParameterExist(const std::string &key) const noexcept
+{
+
+}
+
+
+std::string HttpRequest::headerParameter(const std::string &key) const noexcept
+{
+
+}
+
+
+bool HttpRequest::headerParameter(std::string key, std::string value) noexcept
+{
+    
 }
