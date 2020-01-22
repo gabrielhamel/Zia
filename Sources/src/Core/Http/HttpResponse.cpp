@@ -14,14 +14,12 @@ HttpResponse::HttpResponse(std::string response) : m_status_code(200), m_status_
     std::vector<std::string> response_vector;
     size_t body_position = 0;
     std::string current_line = "";
-    for (size_t size = 0; size < response.length() - 2; size++) {
+    for (size_t size = 0; size < response.length(); size++) {
         if (response.at(size) == '\r' and response.at(size + 1) == '\n') {
             response_vector.push_back(current_line);
             size += 1;
             current_line = "";
         }
-        else if (size + 1 == response.length() - 2)
-            response_vector.push_back(current_line);
         else
             current_line += response.at(size);
     }
@@ -69,39 +67,35 @@ HttpResponse::~HttpResponse()
 }
 
 
-std::string HttpResponse::to_string()
-{
-    std::string to_return = "";
-    to_return += m_protocol + " " + std::to_string(m_status_code) + " " + m_status_msg + "\r\n";
-    for (auto &elem : m_response_header)
-        to_return += elem.first + ": " + elem.second + "\r\n";
-    to_return += "\r\n" + m_body + "\r\n";
-
-    return to_return;
-}
-
-
 int HttpResponse::statusCode() const noexcept
 {
-
+    return m_status_code;
 }
 
 
 bool HttpResponse::statusCode(int statusCode) noexcept
 {
+    if (statusCode < 0)
+        return false;
 
+    m_status_code = statusCode;
+
+    return true;
 }
 
 
 std::string HttpResponse::statusMessage() const noexcept
 {
-
+    return m_status_msg;
 }
 
 
 bool HttpResponse::statusMessage(std::string statusMessage) noexcept
 {
-
+    if (statusMessage == "")
+        return false;
+    
+    m_status_msg = statusMessage;
 }
 
 
@@ -113,47 +107,92 @@ bool HttpResponse::setCookie(std::string name, std::string value, CookieOptions 
 
 std::string HttpResponse::protocol() const noexcept
 {
-
+    return m_protocol;
 }
 
 
 bool HttpResponse::headerParameterExist(const std::string &key) const noexcept
 {
-    
+    for (auto &elem : m_response_header)
+        if (elem.first == key)
+            return true;
+
+    return false;
 }
 
 
 std::string HttpResponse::headerParameter(const std::string &key) const noexcept
 {
+    for (auto &elem : m_response_header)
+        if (elem.first == key)
+            return elem.second;
 
+    return "";
 }
 
 
 bool HttpResponse::headerParameter(std::string key, std::string value) noexcept
 {
+    for (auto &elem : m_response_header) {
+        if (elem.first == key)
+            return true;
+        if (elem.second == value)
+            return true;
+    }
 
+    return false;
 }
 
 
 std::string HttpResponse::body() const noexcept
 {
-
+    return m_body;
 }
 
 
 bool HttpResponse::body(std::string body) noexcept
 {
+    if (body == "")
+        return false;
+    for (auto &elem : m_response_header) {
+        if (elem.first == "Content-Length") {
+            elem.second = std::to_string(std::stoi(elem.second) + body.length());
+            m_body = body;
+            return true;
+        }
+    }
+    m_response_header.push_back(std::pair<std::string, std::string>("Content-Length", std::to_string(body.length())));
+    m_body = body;
 
+    return true;
 }
 
 
 bool HttpResponse::bodyAppend(std::string body) noexcept
 {
+    if (body == "")
+        return false;
+    for (auto &elem : m_response_header) {
+        if (elem.first == "Content-Length") {
+            elem.second = std::to_string(std::stoi(elem.second) + body.length());
+            m_body += body;
+            return true;
+        }
+    }
+    m_response_header.push_back(std::pair<std::string, std::string>("Content-Length", std::to_string(body.length())));
+    m_body += body;
 
+    return true;
 }
 
 
 std::string HttpResponse::serialize() const noexcept
 {
+    std::string to_return = "";
+    to_return += m_protocol + " " + std::to_string(m_status_code) + " " + m_status_msg + "\r\n";
+    for (auto &elem : m_response_header)
+        to_return += elem.first + ": " + elem.second + "\r\n";
+    to_return += "\r\n" + m_body + "\r\n";
 
+    return to_return;
 }

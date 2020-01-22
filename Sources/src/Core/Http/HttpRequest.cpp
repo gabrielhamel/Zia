@@ -280,14 +280,14 @@ bool HttpRequest::body(std::string body) noexcept
 {
     if (body == "")
         return false;
-    for (auto &elem : m_query_parameters) {
+    for (auto &elem : m_request_header) {
         if (elem.first == "Content-Length") {
             elem.second = std::to_string(std::stoi(elem.second) + body.length());
             m_body = body;
             return true;
         }
     }
-    m_query_parameters.push_back(std::pair<std::string, std::string>("Content-Length", std::to_string(body.length())));
+    m_request_header.push_back(std::pair<std::string, std::string>("Content-Length", std::to_string(body.length())));
     m_body = body;
 
     return true;
@@ -298,14 +298,14 @@ bool HttpRequest::bodyAppend(std::string body) noexcept
 {
     if (body == "")
         return false;
-    for (auto &elem : m_query_parameters) {
+    for (auto &elem : m_request_header) {
         if (elem.first == "Content-Length") {
             elem.second = std::to_string(std::stoi(elem.second) + body.length());
             m_body += body;
             return true;
         }
     }
-    m_query_parameters.push_back(std::pair<std::string, std::string>("Content-Length", std::to_string(body.length())));
+    m_request_header.push_back(std::pair<std::string, std::string>("Content-Length", std::to_string(body.length())));
     m_body += body;
 
     return true;
