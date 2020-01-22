@@ -27,8 +27,6 @@ class HttpResponse : public http::IResponse
         HttpResponse(std::string response);
         ~HttpResponse();
 
-        std::string to_string();
-
         int statusCode() const noexcept;
         bool statusCode(int statusCode) noexcept;
         std::string statusMessage() const noexcept;

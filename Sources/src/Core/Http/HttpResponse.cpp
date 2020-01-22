@@ -14,7 +14,7 @@ HttpResponse::HttpResponse(std::string response) : m_status_code(200), m_status_
     std::vector<std::string> response_vector;
     size_t body_position = 0;
     std::string current_line = "";
-    for (size_t size = 0; size < response.length(); size++) {
+    for (size_t size = 0; size < response.length() - 2; size++) {
         if (response.at(size) == '\r' and response.at(size + 1) == '\n') {
             response_vector.push_back(current_line);
             size += 1;
@@ -96,12 +96,30 @@ bool HttpResponse::statusMessage(std::string statusMessage) noexcept
         return false;
     
     m_status_msg = statusMessage;
+
+    return true;
 }
 
 
 bool HttpResponse::setCookie(std::string name, std::string value, CookieOptions options) noexcept
 {
+    std::string final_value = "";
+    if (name == "" || value == "")
+        return false;
 
+    for (auto &elem : m_response_header) {
+        if (elem.first == name) {
+            elem.second = value;
+            return true;
+        }
+    }
+
+    for (auto &elem : options)
+        final_value += elem.first + "; " + elem.second;
+    
+    final_value += "; " + value;
+    m_response_header.emplace(m_response_header.end(), std::pair<std::string, std::string>(name, final_value));
+    return true;
 }
 
 
