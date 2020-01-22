@@ -10,7 +10,7 @@
 #include "ModuleApi.hpp"
 #include "boost/dll/alias.hpp"
 
-class TestModule : public mod::ModuleApi
+class TestModule : public module::ModuleApi
 {
 public:
 

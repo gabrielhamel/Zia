@@ -1,9 +1,12 @@
 #ifndef IMODULE_API_HPP
 #define IMODULE_API_HPP
 
+#include <unordered_map>
 #include "IResponse.hpp"
 #include "IRequest.hpp"
 #include "IClient.hpp"
+
+typedef std::unordered_map<std::string, std::string> Configs;
 
 namespace module
 {
@@ -41,8 +44,9 @@ struct Api
      * @brief This is the main behavior of the module
      *
      * Reaction to the client's request
+     * Get instant config in the config file
      */
-    virtual bool execute(const net::IClient &client, http::IRequest &request, http::IResponse &response) noexcept = 0;
+    virtual bool execute(const net::IClient &client, http::IRequest &request, http::IResponse &response, Configs configs = Configs()) noexcept = 0;
 
     /**
      * @brief Just before packet delivery
