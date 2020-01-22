@@ -12,6 +12,7 @@ conan_basic_setup()
 add_executable(zia
   # HttpParser
   Sources/src/Core/Http/HttpRequest.cpp
+  Sources/src/Core/Http/HttpResponse.cpp
 
   # Network
   Sources/src/Network/BoostNetworkClient.cpp

@@ -7,20 +7,31 @@
 
 #pragma once
 
+#include <boost/algorithm/string.hpp>
 #include <string>
 #include <unordered_map>
 #include <vector>
 
-#include "Body.hpp"
+#include "IResponse.hpp"
 
 class HttpResponse
 {
     private:
         int m_status_code;
-        std::string m_request;
         std::string m_status_msg;
-        Body m_body;  
-        std::vector<unsigned char> m_response;      
+        std::string m_body;
+        std::string m_protocol;
+        std::vector<std::pair<std::string, std::string>> m_response_header;
+
     public:
-        HttpResponse(std::unordered_map<std::string, std::string> reponse);
+        HttpResponse(std::string response);
+        ~HttpResponse();
+
+        std::string to_string();
+
+        int statusCode() const noexcept;
+        void statusCode(int statusCode);
+        std::string statusMessage() const noexcept;
+        void statusMessage(std::string statusMessage);
+        bool setCookie(std::string name, std::string value, CookieOptions options = CookieOptions()) noexcept;
 };

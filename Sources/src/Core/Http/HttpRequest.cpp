@@ -7,12 +7,13 @@
 
 #include "HttpRequest.hpp"
 
-HttpRequest::HttpRequest(std::string request)
+HttpRequest::HttpRequest(std::string request) : m_body("")
 {
     init_map();
+    size_t body_position = 0;
     std::vector<std::string> request_vector;
     std::string current_line = "";
-    for (size_t size = 0; size < request.length() - 2; size++) {
+    for (size_t size = 0; size < request.length(); size++) {
         if (request.at(size) == '\r' and request.at(size + 1) == '\n') {
             request_vector.push_back(current_line);
             size += 1;
@@ -21,7 +22,10 @@ HttpRequest::HttpRequest(std::string request)
         else
             current_line += request.at(size);
     }
-
+    for (auto it = request_vector.begin(); it != request_vector.end(); it++)
+        if ((*it) == "")
+            body_position = std::distance(request_vector.begin(), it);
+    
     auto &elem = request_vector[0];
     get_request_method(elem);
     std::vector<std::string> line;
@@ -33,13 +37,18 @@ HttpRequest::HttpRequest(std::string request)
     m_protocol = line[2];
     if (line[1].find("?") != std::string::npos)
         get_query_parameters(line[1].substr(line[1].find("?") + 1, line[1].length()));
-    std::for_each(request_vector.begin() + 1, request_vector.end(), [this](auto &elem) {
+    std::for_each(request_vector.begin() + 1, request_vector.end() - (request_vector.size() - body_position), [this](auto &elem) {
         if (elem.find(": ") == std::string::npos)
             throw std::runtime_error("String not type of key: value");
         auto key = elem.substr(0, elem.find(": "));
         auto value = elem.substr(elem.find(": ") + 2, elem.length());
         m_request_header.emplace(m_request_header.end(), std::pair<std::string, std::string>(key, value));
     });
+
+    if (body_position != 0 && body_position < request_vector.size())
+        std::for_each(request_vector.begin() + body_position + 1, request_vector.end(), [this](auto &elem) {
+            m_body += elem;
+        });
 }
 
 HttpRequest::~HttpRequest() {}
@@ -148,6 +157,56 @@ std::string HttpRequest::to_string()
 
     for (auto &elem : m_request_header)
         to_return += elem.first + ": " + elem.second + "\r\n";
+    
+    to_return += "\r\n" + m_body + "\r\n";
 
-    return (to_return + "\r\n");
+    return (to_return);
+}
+
+
+http::Verb HttpRequest::verb() const noexcept
+{
+
+}
+
+
+void HttpRequest::verb(http::Verb verb)
+{
+
+}
+
+
+std::string HttpRequest::route() const noexcept
+{
+
+}
+
+
+void HttpRequest::route(std::string route)
+{
+
+}
+
+
+bool HttpRequest::queryParameterExist(const std::string &key) const noexcept
+{
+
+}
+
+
+std::string HttpRequest::queryParameter(const std::string &key) const
+{
+
+}
+
+
+void HttpRequest::queryParameter(std::string key, std::string value)
+{
+
+}
+
+
+std::string HttpRequest::cookie(const std::string &name) const
+{
+
 }
