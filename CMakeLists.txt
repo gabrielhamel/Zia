@@ -12,12 +12,13 @@ conan_basic_setup()
 add_executable(zia
   # HttpParser
   Sources/src/Core/Http/HttpRequest.cpp
+  Sources/src/Core/Http/HttpResponse.cpp
 
   # Network
   Sources/src/Network/BoostNetworkClient.cpp
   Sources/src/Network/BoostNetworkServer.cpp
   Sources/src/Network/NetworkManager.cpp
-  Sources/src/Network/User.cpp
+  Sources/src/Network/Request.cpp
 
   # Modules
   Sources/include/Core/Module/ModuleApi.hpp
@@ -25,8 +26,10 @@ add_executable(zia
 
   # Jsp encore
   Sources/src/main.cpp
-  Sources/src/Core/Parser.cpp
+  Sources/src/Core/Configurations.cpp
   Sources/src/Core/Module/Module.cpp
+  Sources/src/Core/Listeners/ListenersControl.cpp
+  Sources/src/Ihm/CmdLine.cpp
 )
 
 target_include_directories(zia PUBLIC
@@ -37,8 +40,11 @@ target_include_directories(zia PUBLIC
   Sources/include/Network/
 
   # Jsp encore
+  Sources/include/Core/Http/api
   Sources/include/
   Sources/include/Core/
+  Sources/include/Core/Listeners/
+  Sources/include/Ihm/
 )
 
 target_link_libraries(zia PRIVATE ${CONAN_LIBS})

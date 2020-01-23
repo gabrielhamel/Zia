@@ -13,7 +13,7 @@
 
 #include <string>
 
-namespace zia::net
+namespace net
 {
 
     class INetworkServer
@@ -21,6 +21,7 @@ namespace zia::net
         public:
             virtual ~INetworkServer() = default;
             virtual void run() = 0;
+            virtual void stop() = 0;
     };
 
 }

@@ -2,30 +2,35 @@
 #include <boost/bind.hpp>
 #include "BoostNetworkServer.hpp"
 
-zia::net::BoostNetworkServer::BoostNetworkServer(unsigned short port) :
-m_socket(m_io), m_acceptor(m_io, boost::asio::ip::tcp::endpoint(boost::asio::ip::tcp::v4(), port)), m_networkManager()
+net::BoostNetworkServer::BoostNetworkServer(unsigned short port, core::Configurations &configs) :
+m_socket(m_io), m_acceptor(m_io, boost::asio::ip::tcp::endpoint(boost::asio::ip::tcp::v4(), port)), m_networkManager(configs)
 {
     bindAcceptor();
 }
 
-zia::net::BoostNetworkServer::~BoostNetworkServer()
+net::BoostNetworkServer::~BoostNetworkServer()
 {
 
 }
 
-void zia::net::BoostNetworkServer::run()
+void net::BoostNetworkServer::run()
 {
     this->m_io.run();
 }
 
-void zia::net::BoostNetworkServer::bindAcceptor()
+void net::BoostNetworkServer::stop()
 {
-    boost::shared_ptr<zia::net::BoostNetworkClient> connection(new zia::net::BoostNetworkClient(this->m_acceptor, this->m_networkManager));
+    this->m_io.stop();
+}
+
+void net::BoostNetworkServer::bindAcceptor()
+{
+    boost::shared_ptr<net::BoostNetworkClient> connection(new net::BoostNetworkClient(this->m_acceptor, this->m_networkManager));
     auto binding = boost::bind(&BoostNetworkServer::acceptHandler, this, connection, boost::asio::placeholders::error);
     this->m_acceptor.async_accept(connection->getSocket(), binding);
 }
 
-void zia::net::BoostNetworkServer::acceptHandler(boost::shared_ptr<zia::net::BoostNetworkClient> connection, const boost::system::error_code &error)
+void net::BoostNetworkServer::acceptHandler(boost::shared_ptr<net::BoostNetworkClient> connection, const boost::system::error_code &error)
 {
     if (!error) {
         connection->bindRead();

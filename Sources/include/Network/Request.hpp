@@ -12,15 +12,15 @@
 #pragma once
 
 #include <memory>
-#include "User.hpp"
+#include "IClient.hpp"
 
-namespace zia
+namespace net
 {
 
-    class Parser
+    class Request
     {
         public:
-            static void parse(std::shared_ptr<zia::net::User> user, std::string text);
+            static void execute(net::IClient &client, std::string data);
     };
 
 }

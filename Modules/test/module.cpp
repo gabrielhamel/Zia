@@ -10,20 +10,20 @@
 #include "ModuleApi.hpp"
 #include "boost/dll/alias.hpp"
 
-class TestModule : public ModuleApi
+class TestModule : public module::ModuleApi
 {
 public:
-    void sayHello() const override
+
+    std::unique_ptr<http::IResponse> request(const http::IRequest &request)
     {
         std::cout << "Hello from TestModule !!" << std::endl;
     }
+
 };
 
-ModuleApi *factory()
+mod::ModuleApi *factory()
 {
     return new TestModule;
 }
-
-int foo = 42;
 
 BOOST_DLL_ALIAS(factory, create_module)
