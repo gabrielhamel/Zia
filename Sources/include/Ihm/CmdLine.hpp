@@ -17,19 +17,67 @@
 namespace ihm
 {
 
+class CmdLine;
+
+typedef struct {
+    const std::string name;
+    std::size_t nbParams;
+    void (*function)(ihm::CmdLine *, const std::vector<std::string> &);
+    const std::string description;
+} command_t;
+
+/**
+ * @brief Interact with the user by tokenized string
+ *
+ */
 class CmdLine
 {
 
 private:
+
+    /**
+     * @brief The main zia controler
+     *
+     */
     core::ListenersControl &m_control;
+
+    /**
+     * @brief Interpret user commands
+     *
+     */
+    void parseCommand(const std::vector<std::string> &cmd);
+
+    /**
+     * @brief wait an user entries and tokenize the cmd
+     *
+     */
+    std::vector<std::string> promptUser() const;
 
 public:
 
+    /**
+     * @brief Construct a new Cmd Line object
+     *
+     */
     CmdLine(core::ListenersControl &control);
 
+    /**
+     * @brief Destroy the Cmd Line object
+     *
+     */
     ~CmdLine();
 
-    void parseCommand(const std::vector<std::string> &cmd);
+    /**
+     * @brief Get the Controller object
+     *
+     */
+    core::ListenersControl &getController() const;
+
+    /**
+     * @brief Return the commands object
+     *
+     */
+    const std::vector<ihm::command_t> &getCommandsObject() const;
 
 };
 

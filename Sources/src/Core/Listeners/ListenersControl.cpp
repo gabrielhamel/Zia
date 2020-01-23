@@ -33,3 +33,11 @@ void core::ListenersControl::addListeners(unsigned short port)
         throw e;
     }
 }
+
+std::vector<unsigned short> core::ListenersControl::listListeners() const
+{
+    std::vector<unsigned short> res;
+    for (auto &key : this->m_listeners)
+        res.push_back(key.first);
+    return res;
+}
