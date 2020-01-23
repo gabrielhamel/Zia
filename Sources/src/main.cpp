@@ -2,8 +2,8 @@
 #include "ListenersControl.hpp"
 #include "CmdLine.hpp"
 #include "Configurations.hpp"
-
 #include "yconf/ConfigNode.hpp"
+#include "yconf/Helper.hpp"
 
 /**
  * @brief Simple yaml config file parsing
@@ -42,8 +42,8 @@ void test_config()
 
 
     } catch (std::exception const &e) {
-    }
         std::cerr << "Error while testing config nodes : " << e.what() << std::endl;
+    }
 }
 
 int main(int ac, char **av)
