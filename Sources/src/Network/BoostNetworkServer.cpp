@@ -18,6 +18,11 @@ void net::BoostNetworkServer::run()
     this->m_io.run();
 }
 
+void net::BoostNetworkServer::stop()
+{
+    this->m_io.stop();
+}
+
 void net::BoostNetworkServer::bindAcceptor()
 {
     boost::shared_ptr<net::BoostNetworkClient> connection(new net::BoostNetworkClient(this->m_acceptor, this->m_networkManager));

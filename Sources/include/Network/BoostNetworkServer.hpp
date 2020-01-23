@@ -33,6 +33,7 @@ namespace net
             BoostNetworkServer(unsigned short port);
             ~BoostNetworkServer();
             void run();
+            void stop();
     };
 
 }

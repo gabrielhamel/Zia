@@ -18,7 +18,11 @@ core::ListenersControl::ListenersControl()
 
 core::ListenersControl::~ListenersControl()
 {
-
+    for (auto &elem : this->m_listeners) {
+        elem.second->stop();
+        this->m_threads[elem.first]->join();
+        delete elem.second;
+    }
 }
 
 void core::ListenersControl::addListeners(unsigned short port)
