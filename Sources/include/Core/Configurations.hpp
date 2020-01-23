@@ -19,11 +19,19 @@ namespace core {
 class Configurations
 {
 
+private:
+
+    std::string m_filename;
+
 public:
 
     Configurations(const std::string &filename);
 
     ~Configurations();
+
+    void updatePath(const std::string &filename);
+
+    void reload();
 
 };
 

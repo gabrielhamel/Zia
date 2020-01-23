@@ -13,10 +13,21 @@
 
 core::Configurations::Configurations(const std::string &filename)
 {
-
+    this->updatePath(filename);
 }
 
 core::Configurations::~Configurations()
 {
 
+}
+
+void core::Configurations::updatePath(const std::string &filename)
+{
+    this->m_filename = filename;
+    this->reload();
+}
+
+void core::Configurations::reload()
+{
+    // Load configs
 }
