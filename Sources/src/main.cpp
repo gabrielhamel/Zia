@@ -11,8 +11,9 @@ int main(int ac, char **av)
     try {
         auto listeners = new core::ListenersControl();
         listeners->addListeners(8080);
-        listeners->addListeners(8081);
         auto cmdLine = new ihm::CmdLine(*listeners);
+        delete cmdLine;
+        delete listeners;
     }
     catch (const std::exception &e) {
         std::cerr << e.what() << std::endl;
