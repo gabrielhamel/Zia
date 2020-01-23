@@ -26,6 +26,7 @@ add_executable(zia
 
   # Jsp encore
   Sources/src/main.cpp
+  Sources/src/Core/Configurations.cpp
   Sources/src/Core/Module/Module.cpp
   Sources/src/Core/Listeners/ListenersControl.cpp
   Sources/src/Ihm/CmdLine.cpp
