@@ -10,13 +10,10 @@ int main(int ac, char **av)
         return 84;
     }
     try {
-        auto configs = new core::Configurations(av[1]);
-        auto listeners = new core::ListenersControl(*configs);
+        auto configs = std::make_unique<core::Configurations>(av[1]);
+        auto listeners = std::make_unique<core::ListenersControl>(*configs);
         listeners->newListener(8080);
-        auto cmdLine = new ihm::CmdLine(*listeners);
-        delete cmdLine;
-        delete listeners;
-        delete configs;
+        auto cmdLine = std::make_unique<ihm::CmdLine>(*listeners);
     }
     catch (const std::exception &e) {
         std::cerr << e.what() << std::endl;
