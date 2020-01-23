@@ -27,6 +27,8 @@ add_executable(zia
   # Jsp encore
   Sources/src/main.cpp
   Sources/src/Core/Module/Module.cpp
+  Sources/src/Core/Listeners/ListenersControl.cpp
+  Sources/src/Ihm/CmdLine.cpp
 )
 
 target_include_directories(zia PUBLIC
@@ -40,6 +42,8 @@ target_include_directories(zia PUBLIC
   Sources/include/Core/Http/api
   Sources/include/
   Sources/include/Core/
+  Sources/include/Core/Listeners/
+  Sources/include/Ihm/
 )
 
 target_link_libraries(zia PRIVATE ${CONAN_LIBS})

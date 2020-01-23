@@ -25,7 +25,7 @@ HttpRequest::HttpRequest(std::string request) : m_body("")
     for (auto it = request_vector.begin(); it != request_vector.end(); it++)
         if ((*it) == "")
             body_position = std::distance(request_vector.begin(), it);
-    
+
     auto &elem = request_vector[0];
     get_request_method(elem);
     std::vector<std::string> line;
@@ -146,7 +146,7 @@ void HttpRequest::set_cookie(std::string line) noexcept
         auto key = elem.substr(0, elem.find("="));
         auto value = elem.substr(elem.find("=") + 2, elem.length());
         m_cookie.emplace(m_request_header.end(), std::pair<std::string, std::string>(key, value));
-    });   
+    });
 }
 
 
@@ -207,7 +207,7 @@ bool HttpRequest::route(std::string route) noexcept
     for (size_t i; i < route.length(); i++)
         if (i + 1 < route.length() && route.at(i) == '/' && route.at(i + 1) == '/')
             return false;
-        
+
     m_route = route;
 
     return true;
@@ -223,7 +223,7 @@ bool HttpRequest::queryParameterExist(const std::string &key) const noexcept
     for (auto &elem : query_params)
         if (elem.first == key)
             return true;
-    
+
     return false;
 }
 
@@ -237,7 +237,7 @@ std::string HttpRequest::queryParameter(const std::string &key) const noexcept
     for (auto &elem : query_params)
         if (elem.first == key)
             return elem.second;
-    
+
     return "";
 }
 
@@ -331,7 +331,7 @@ std::string HttpRequest::serialize() const noexcept
 
     for (auto &elem : m_request_header)
         to_return += elem.first + ": " + elem.second + "\r\n";
-    
+
     to_return += "\r\n" + m_body + "\r\n";
 
     return to_return;

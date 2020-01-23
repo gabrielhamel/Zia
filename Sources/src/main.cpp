@@ -1,44 +1,18 @@
 #include <iostream>
-#include "BoostNetworkServer.hpp"
-#include "Module/Module.hpp"
-#include "yconf/ConfigNode.hpp"
-#include "yconf/Helper.hpp"
-
-/**
- * @brief Dead-simple module example
- */
-void test_module()
-{
-    Module test("../../libtestMod.so");
-}
-
-/**
- * @brief Dead-simple yaml config file parsing
- */
-void test_config()
-{
-    try {
-        std::unique_ptr<IConfigNode> config = std::make_unique<yconf::ConfigNode>("../../sample.yaml");
-
-        config = config->getChild("config");
-
-        std::cout << "Config : port is " << yconf::helper::getAs<int>(*config, "port") << std::endl;
-        std::cout << "Config : service/twitter/class is " << config->getValue("services.twitter.class") << std::endl;
-
-    } catch (std::exception const &e) {
-        std::cerr << "Error while testing config nodes : " << e.what() << std::endl;
-    }
-}
+#include "ListenersControl.hpp"
+#include "CmdLine.hpp"
 
 int main(int ac, char **av)
 {
     if (ac != 2) {
-        std::cerr << "Usage:\n\t" << av[0] << " <port>" << std::endl;
+        std::cerr << "Usage:\n\t" << av[0] << " <configs.yml>" << std::endl;
         return 84;
     }
     try {
-        std::unique_ptr<net::INetworkServer> server(new net::BoostNetworkServer(std::stoi(av[1])));
-        server->run();
+        auto listeners = new core::ListenersControl();
+        listeners->addListeners(8080);
+        listeners->addListeners(8081);
+        auto cmdLine = new ihm::CmdLine(*listeners);
     }
     catch (const std::exception &e) {
         std::cerr << e.what() << std::endl;
