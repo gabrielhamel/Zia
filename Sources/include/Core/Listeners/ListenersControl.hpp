@@ -33,9 +33,12 @@ public:
 
     ~ListenersControl();
 
-    void addListeners(unsigned short port);
+    void newListener(unsigned short port);
+
+    void destroyListener(unsigned short port);
 
     std::vector<unsigned short> listListeners() const;
+
 };
 
 } // namespace core

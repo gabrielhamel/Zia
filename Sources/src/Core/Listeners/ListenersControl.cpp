@@ -18,14 +18,12 @@ core::ListenersControl::ListenersControl()
 
 core::ListenersControl::~ListenersControl()
 {
-    for (auto &elem : this->m_listeners) {
-        elem.second->stop();
-        this->m_threads[elem.first]->join();
-        delete elem.second;
-    }
+    for (auto &elem : this->m_listeners)
+        if (elem.second != nullptr)
+            this->destroyListener(elem.first);
 }
 
-void core::ListenersControl::addListeners(unsigned short port)
+void core::ListenersControl::newListener(unsigned short port)
 {
     net::BoostNetworkServer *server;
     try {
@@ -38,10 +36,20 @@ void core::ListenersControl::addListeners(unsigned short port)
     }
 }
 
+void core::ListenersControl::destroyListener(unsigned short port)
+{
+    this->m_listeners[port]->stop();
+    this->m_threads[port]->join();
+    delete this->m_listeners[port];
+    this->m_listeners[port] = nullptr;
+}
+
 std::vector<unsigned short> core::ListenersControl::listListeners() const
 {
     std::vector<unsigned short> res;
-    for (auto &key : this->m_listeners)
-        res.push_back(key.first);
+    for (auto &key : this->m_listeners) {
+        if (key.second != nullptr)
+            res.push_back(key.first);
+    }
     return res;
 }

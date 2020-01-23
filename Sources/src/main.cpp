@@ -10,7 +10,7 @@ int main(int ac, char **av)
     }
     try {
         auto listeners = new core::ListenersControl();
-        listeners->addListeners(8080);
+        listeners->newListener(8080);
         auto cmdLine = new ihm::CmdLine(*listeners);
         delete cmdLine;
         delete listeners;
