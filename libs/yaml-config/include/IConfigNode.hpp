@@ -43,4 +43,18 @@ public:
      */
     virtual std::string getValue(const std::string &name) const = 0;
 
+    /**
+     * @brief Gets the content of the array
+     * @param name The name of the wanted array
+     * If the name contains dot (`.`), it will get the child of the child,
+     * and so on until the last field that is the value name
+     *
+     * so `getArray("abc.def.xyz")` is the same as
+     * `getChild("abc.def")->getArray("xyz")`
+     *
+     * @return Array content
+     * @throws `std::out_of_range` if no such property exists
+     */
+    virtual std::vector<std::string> getArray(const std::string &name) const = 0;
+
 };

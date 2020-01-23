@@ -6,7 +6,6 @@
 */
 
 #include "yconf/ConfigNode.hpp"
-#include "yconf/util.hpp"
 
 yconf::ConfigNode::ConfigNode(const std::string &filePath)
     : ConfigNode(YAML::LoadFile(filePath))
@@ -20,10 +19,10 @@ std::unique_ptr<IConfigNode> yconf::ConfigNode::getChild(const std::string &name
 {
     const auto split = util::split(name, '.');
 
-    return getChild(split.begin(), split.end());
+    return std::make_unique<ConfigNode>(getChild(split.begin(), split.end()));
 }
 
-std::unique_ptr<IConfigNode> yconf::ConfigNode::getChild(std::vector<std::string>::const_iterator it, const std::vector<std::string>::const_iterator &endIt) const
+yconf::ConfigNode yconf::ConfigNode::getChild(std::vector<std::string>::const_iterator it, const std::vector<std::string>::const_iterator &endIt) const
 {
     try {
         auto node = _root[*it];
@@ -31,7 +30,7 @@ std::unique_ptr<IConfigNode> yconf::ConfigNode::getChild(std::vector<std::string
         if (node.IsDefined()) {
             auto next = it + 1;
             if (next == endIt)
-                return std::unique_ptr<ConfigNode>(new ConfigNode(node));
+                return ConfigNode{node};
             else
                 return ConfigNode(node).getChild(next, endIt);
         }
@@ -46,16 +45,10 @@ std::unique_ptr<IConfigNode> yconf::ConfigNode::getChild(std::vector<std::string
 
 std::string yconf::ConfigNode::getValue(const std::string &name) const
 {
-    auto childPath = util::split(name, '.');
-    auto fieldName = childPath.back();
+    return getNodeAs<std::string>(name);
+}
 
-    childPath.erase(childPath.end());
-    if (not childPath.empty())
-        return getChild(childPath.begin(), childPath.end())->getValue(fieldName);
-
-    try {
-        return _root[fieldName].as<std::string>();
-    } catch (const YAML::RepresentationException &) {
-        throw std::out_of_range(std::string("No such property '") + name + "'");
-    }
+std::vector<std::string> yconf::ConfigNode::getArray(const std::string &name) const
+{
+    return getNodeAs<std::vector<std::string>>(name);
 }
