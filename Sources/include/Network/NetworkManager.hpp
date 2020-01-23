@@ -16,6 +16,7 @@
 #include <boost/shared_ptr.hpp>
 #include "IClient.hpp"
 #include "Request.hpp"
+#include "Configurations.hpp"
 
 namespace net
 {
@@ -24,8 +25,9 @@ namespace net
     {
         private:
             std::vector<boost::shared_ptr<net::IClient>> m_clients;
+            core::Configurations &m_configs;
         public:
-            NetworkManager();
+            NetworkManager(core::Configurations &configs);
             ~NetworkManager();
             void newClient(boost::shared_ptr<net::IClient> client);
             void removeClient(boost::shared_ptr<net::IClient> client);

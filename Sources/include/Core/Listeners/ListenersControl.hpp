@@ -15,6 +15,7 @@
 #include <thread>
 #include <memory>
 #include <map>
+#include "Configurations.hpp"
 #include "BoostNetworkServer.hpp"
 
 namespace core {
@@ -25,11 +26,14 @@ class ListenersControl
 private:
 
     std::map<unsigned short, net::BoostNetworkServer *> m_listeners;
+
     std::map<unsigned short, std::unique_ptr<std::thread>> m_threads;
+
+    core::Configurations &m_configs;
 
 public:
 
-    ListenersControl();
+    ListenersControl(core::Configurations &configs);
 
     ~ListenersControl();
 

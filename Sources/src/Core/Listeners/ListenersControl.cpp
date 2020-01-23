@@ -11,7 +11,8 @@
 
 #include "ListenersControl.hpp"
 
-core::ListenersControl::ListenersControl()
+core::ListenersControl::ListenersControl(core::Configurations &configs) :
+m_configs(configs)
 {
 
 }
@@ -27,7 +28,7 @@ void core::ListenersControl::newListener(unsigned short port)
 {
     net::BoostNetworkServer *server;
     try {
-        server = new net::BoostNetworkServer(port);
+        server = new net::BoostNetworkServer(port, m_configs);
         this->m_threads.emplace(port, std::make_unique<std::thread>(&net::BoostNetworkServer::run, server));
         this->m_listeners.emplace(port, server);
     }

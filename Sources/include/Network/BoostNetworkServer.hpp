@@ -16,6 +16,7 @@
 #include "NetworkManager.hpp"
 #include "BoostNetworkClient.hpp"
 #include "NetworkManager.hpp"
+#include "Configurations.hpp"
 
 namespace net
 {
@@ -30,7 +31,7 @@ namespace net
             void bindAcceptor();
             void acceptHandler(boost::shared_ptr<net::BoostNetworkClient> connection, const boost::system::error_code &error);
         public:
-            BoostNetworkServer(unsigned short port);
+            BoostNetworkServer(unsigned short port, core::Configurations &configs);
             ~BoostNetworkServer();
             void run();
             void stop();
