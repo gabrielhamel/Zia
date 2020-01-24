@@ -7,7 +7,7 @@ int main(int ac, char **av)
 {
     if (ac < 2) {
         std::cerr << "Usage:\n\t" << av[0] << " <configs.yml>" << std::endl;
-        return 84;
+        return EXIT_FAILURE;
     }
     try {
         auto configs = std::make_unique<core::Configurations>(av[1]);
@@ -17,7 +17,7 @@ int main(int ac, char **av)
     }
     catch (const std::exception &e) {
         std::cerr << e.what() << std::endl;
-        return 84;
+        return EXIT_FAILURE;
     }
-    return 0;
+    return EXIT_SUCCESS;
 }

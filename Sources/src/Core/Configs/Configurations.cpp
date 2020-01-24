@@ -9,6 +9,7 @@
  *
  */
 
+#include <iostream>
 #include "Configurations.hpp"
 
 core::Configurations::Configurations(const std::string &filename)
@@ -29,9 +30,13 @@ void core::Configurations::updatePath(const std::string &filename)
 
 void core::Configurations::reload()
 {
+    // this->m_yml = std::make_unique<yconf::ConfigNode>(this->m_filename);
+
+    // auto array = m_yml->getArray("hosts");
+    // std::cout << array.size() << std::endl;
+
     // Load configs
-    // #include "yconf/ConfigNode.hpp"
-    // #include "yconf/Helper.hpp"
+    //
 
     /**
      * @brief Simple yaml config file parsing

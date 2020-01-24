@@ -13,6 +13,8 @@
 #define CONFIGURATIONS_HPP
 
 #include <string>
+#include "yconf/ConfigNode.hpp"
+#include "yconf/Helper.hpp"
 
 namespace core {
 
@@ -22,6 +24,8 @@ class Configurations
 private:
 
     std::string m_filename;
+
+    std::unique_ptr<IConfigNode> m_yml;
 
 public:
 
