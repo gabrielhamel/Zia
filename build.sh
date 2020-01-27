@@ -23,6 +23,13 @@ if [ $bincrafters_added = 1 ]; then
     conan remote add bincrafters https://api.bintray.com/conan/bincrafters/public-conan
 fi
 
+# atolab is added ?
+conan remote list | grep "atolab:" > /dev/null
+atolab_added=`echo $?`
+if [ $atolab_added = 1 ]; then
+    conan remote add atolab https://api.bintray.com/conan/atolab/public-conan
+fi
+
 # Rebuild if build exist
 if [ -d "build" ]; then
     rm -rf build

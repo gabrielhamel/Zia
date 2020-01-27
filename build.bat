@@ -22,6 +22,12 @@ if %ERRORLEVEL% neq 0 (
     conan remote add bincrafters https://api.bintray.com/conan/bincrafters/public-conan
 )
 
+:: Atolab is added ?
+conan remote list | findstr "atolab:">NUL 2>NUL
+if %ERRORLEVEL% neq 0 (
+    conan remote add atolab https://api.bintray.com/conan/atolab/public-conan
+)
+
 :: Remove if exist
 if exist build (
     rd /S /Q build
