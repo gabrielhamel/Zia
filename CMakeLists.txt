@@ -11,58 +11,51 @@ conan_basic_setup()
 
 add_executable(zia
   # HttpParser
-  Sources/src/Core/Http/HttpRequest.cpp
-  Sources/src/Core/Http/HttpResponse.cpp
+  src/Core/Http/HttpRequest.cpp
+  src/Core/Http/HttpResponse.cpp
 
   # Network
-  Sources/src/Network/BoostNetworkClient.cpp
-  Sources/src/Network/BoostNetworkServer.cpp
-  Sources/src/Network/NetworkManager.cpp
-  Sources/src/Network/Request.cpp
+  src/Network/BoostNetworkClient.cpp
+  src/Network/BoostNetworkServer.cpp
+  src/Network/NetworkManager.cpp
+  src/Network/Request.cpp
 
   # Modules
-  Sources/include/Core/Module/ModuleApi.hpp
-  Sources/include/Core/Module/Module.hpp
+  inc/Core/Module/ModuleApi.hpp
+  inc/Core/Module/Module.hpp
+
+  # yml-config
+  src/ConfigNode.cpp
+  inc/yconf/ConfigNode.hpp
+  inc/IConfigNode.hpp
+  inc/yconf/Helper.hpp
+  inc/yconf/util.hpp
+  src/util.cpp
 
   # Jsp encore
-  Sources/src/main.cpp
-  Sources/src/Core/Configs/Configurations.cpp
-  Sources/src/Core/Configs/Module.cpp
-  Sources/src/Core/Module/Module.cpp
-  Sources/src/Core/Listeners/ListenersControl.cpp
-  Sources/src/Ihm/CmdLine.cpp
+  src/main.cpp
+  src/Core/Configs/Configurations.cpp
+  src/Core/Configs/Module.cpp
+  src/Core/Module/Module.cpp
+  src/Core/Listeners/ListenersControl.cpp
+  src/Ihm/CmdLine.cpp
 )
 
 target_include_directories(zia PUBLIC
   # HttpParser
-  Sources/include/Core/Http
+  inc/Core/Http
 
   # Network
-  Sources/include/Network/
+  inc/Network/
 
   # Jsp encore
-  Sources/include/Core/Http/api
-  Sources/include/
-  Sources/include/Core/
-  Sources/include/Core/Listeners/
-  Sources/include/Ihm/
-  Sources/include/Core/Configs
+  inc/Core/Http/api
+  inc/
+  inc/Core/
+  inc/Core/Listeners/
+  inc/Ihm/
+  inc/Core/Configs
 )
 
-add_library(yaml-config STATIC
-  libs/yaml-config/src/ConfigNode.cpp
-  libs/yaml-config/include/yconf/ConfigNode.hpp
-  libs/yaml-config/include/IConfigNode.hpp
-  libs/yaml-config/include/yconf/Helper.hpp
-  libs/yaml-config/include/yconf/util.hpp
-  libs/yaml-config/src/util.cpp
-)
-
-target_include_directories(yaml-config PUBLIC
-  libs/yaml-config/include
-)
-
-target_link_libraries(yaml-config PUBLIC ${CONAN_LIBS})
 target_link_libraries(zia PRIVATE ${CONAN_LIBS})
 target_link_libraries(zia PRIVATE ${CMAKE_DL_LIBS})
-target_link_libraries(zia PRIVATE yaml-config)
