@@ -49,8 +49,20 @@ target_include_directories(zia PUBLIC
   Sources/include/Core/Configs
 )
 
+add_library(yaml-config STATIC
+  libs/yaml-config/src/ConfigNode.cpp
+  libs/yaml-config/include/yconf/ConfigNode.hpp
+  libs/yaml-config/include/IConfigNode.hpp
+  libs/yaml-config/include/yconf/Helper.hpp
+  libs/yaml-config/include/yconf/util.hpp
+  libs/yaml-config/src/util.cpp
+)
+
+target_include_directories(yaml-config PUBLIC
+  libs/yaml-config/include
+)
+
+target_link_libraries(yaml-config PUBLIC ${CONAN_LIBS})
 target_link_libraries(zia PRIVATE ${CONAN_LIBS})
 target_link_libraries(zia PRIVATE ${CMAKE_DL_LIBS})
-
-add_subdirectory(libs/yaml-config)
 target_link_libraries(zia PRIVATE yaml-config)
