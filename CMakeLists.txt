@@ -9,7 +9,7 @@ set(CMAKE_CXX_STANDARD 17)
 include(${CMAKE_CURRENT_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()
 
-add_executable(zia
+SET(SRC
   # HttpParser
   src/Core/Http/HttpRequest.cpp
   src/Core/Http/HttpResponse.cpp
@@ -33,7 +33,6 @@ add_executable(zia
   src/util.cpp
 
   # Jsp encore
-  src/main.cpp
   src/Core/Configs/Configurations.cpp
   src/Core/Configs/Module.cpp
   src/Core/Module/Module.cpp
@@ -41,7 +40,7 @@ add_executable(zia
   src/Ihm/CmdLine.cpp
 )
 
-target_include_directories(zia PUBLIC
+SET(INC
   # HttpParser
   inc/Core/Http
 
@@ -57,5 +56,29 @@ target_include_directories(zia PUBLIC
   inc/Core/Configs
 )
 
+add_executable(zia
+  ${SRC}
+  src/main.cpp
+)
+
+target_include_directories(zia PUBLIC
+  ${INC}
+)
+
 target_link_libraries(zia PRIVATE ${CONAN_LIBS})
 target_link_libraries(zia PRIVATE ${CMAKE_DL_LIBS})
+
+######################## TESTING ######################
+
+add_executable(unit-tests
+  ${SRC}
+  tests/HttpResponse.cpp
+)
+
+target_include_directories(unit-tests PUBLIC
+  ${INC}
+  tests
+)
+
+target_link_libraries(unit-tests PRIVATE ${CONAN_LIBS})
+target_link_libraries(unit-tests PRIVATE ${CMAKE_DL_LIBS})
