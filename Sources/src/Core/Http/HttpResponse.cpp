@@ -15,7 +15,7 @@ HttpResponse::HttpResponse(std::string response) : m_status_code(200), m_status_
     size_t body_position = 0;
     std::string current_line = "";
     for (size_t size = 0; size < response.length() - 2; size++) {
-        if (response.at(size) == '\r' and response.at(size + 1) == '\n') {
+        if (response.at(size) == '\r' && response.at(size + 1) == '\n') {
             response_vector.push_back(current_line);
             size += 1;
             current_line = "";

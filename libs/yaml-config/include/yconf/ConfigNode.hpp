@@ -48,7 +48,7 @@ T yconf::ConfigNode::getNodeAs(const std::string &name) const
     auto fieldName = childPath.back();
 
     childPath.erase(childPath.end());
-    if (not childPath.empty())
+    if (!childPath.empty())
         return getChild(childPath.begin(), childPath.end()).getNodeAs<T>(fieldName);
 
     try {

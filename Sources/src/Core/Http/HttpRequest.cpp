@@ -14,7 +14,7 @@ HttpRequest::HttpRequest(std::string request) : m_body("")
     std::vector<std::string> request_vector;
     std::string current_line = "";
     for (size_t size = 0; size < request.length(); size++) {
-        if (request.at(size) == '\r' and request.at(size + 1) == '\n') {
+        if (request.at(size) == '\r' && request.at(size + 1) == '\n') {
             request_vector.push_back(current_line);
             size += 1;
             current_line = "";
@@ -130,7 +130,7 @@ void HttpRequest::set_cookie(std::string line) noexcept
     std::vector<std::string> vector_cookie;
     std::string current_line = "";
     for (size_t size = 0; size < line.length(); size++) {
-        if (line.at(size) == ';' and line.at(size + 1) == ' ') {
+        if (line.at(size) == ';' && line.at(size + 1) == ' ') {
             vector_cookie.push_back(current_line);
             size += 1;
             current_line = "";
