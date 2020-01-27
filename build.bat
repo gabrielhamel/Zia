@@ -43,7 +43,14 @@ if %ERRORLEVEL% neq 0 (
 cmake .. -DCMAKE_GENERATOR_PLATFORM=x64
 cmake --build . --target ALL_BUILD --config Release
 
-:: For the end
+:: Go back
 cd ..
+
+:: Copy dependencies
+FOR /F %%i IN ('conan config home') DO set CONAN=%%i
+set CRITERION=%CONAN%\data\criterion\2.3.2\atolab\stable\package\31d36f265a443e5a60bf134581a5b3a52e2f8c00\bin\criterion.dll
+copy "%CRITERION%" "build\bin\criterion.dll">NUL 2>NUL
+
+:: End
 cmd /k
 exit 0
