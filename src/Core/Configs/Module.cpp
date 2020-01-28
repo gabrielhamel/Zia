@@ -9,8 +9,6 @@
  *
  */
 
-#include <iostream>
-
 #include "Module.hpp"
 
 core::config::Module::Module(const std::unique_ptr<IConfigNode> node, const std::string &defaultModulePath) :
