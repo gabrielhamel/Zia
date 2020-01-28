@@ -12,7 +12,7 @@
 #ifndef CONFMODULE_HPP
 #define CONFMODULE_HPP
 
-#include <map>
+#include <unordered_map>
 
 #include "yconf/ConfigNode.hpp"
 #include "yconf/Helper.hpp"
@@ -29,7 +29,7 @@ private:
 
     std::string m_name;
 
-    std::unique_ptr<IConfigNode> m_configs;
+    std::unordered_map<std::string, std::string> m_configs;
 
 public:
 
@@ -46,9 +46,15 @@ public:
 
     std::string getConfig(const std::string &key) const;
 
+    std::vector<std::string> getConfigsName() const;
+
+    std::unordered_map<std::string, std::string> getConfigs() const;
+
     std::string getDefaultPath() const;
 
     std::string getName() const;
+
+    bool hasConfig(const std::string &key) const;
 
 };
 
