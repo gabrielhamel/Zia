@@ -52,3 +52,8 @@ std::vector<std::string> yconf::ConfigNode::getArray(const std::string &name) co
 {
     return getNodeAs<std::vector<std::string>>(name);
 }
+
+std::unordered_map<std::string, std::string> yconf::ConfigNode::getAllProperties() const
+{
+    return {}; // TODO (yanis.fourel)
+}
