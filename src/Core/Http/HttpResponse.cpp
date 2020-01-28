@@ -56,7 +56,7 @@ HttpResponse::HttpResponse(std::string response) : m_status_code(200), m_status_
 
     if (body_position != 0 && body_position < response_vector.size())
     std::for_each(response_vector.begin() + body_position + 1, response_vector.end(), [this](auto &elem) {
-        m_body += elem;
+        m_body += elem + "\r\n";
     });
 }
 
@@ -107,18 +107,15 @@ bool HttpResponse::setCookie(std::string name, std::string value, CookieOptions 
     if (name == "" || value == "")
         return false;
 
-    for (auto &elem : m_response_header) {
-        if (elem.first == name) {
-            elem.second = value;
+    for (auto &elem : m_response_header)
+        if (elem.first == "Set-Cookie" && elem.second == name + "=" + value)
             return true;
-        }
-    }
 
     for (auto &elem : options)
         final_value += elem.first + "; " + elem.second;
     
-    final_value += "; " + value;
-    m_response_header.emplace(m_response_header.end(), std::pair<std::string, std::string>(name, final_value));
+    final_value += "; " + name + " " + value;
+    m_response_header.emplace(m_response_header.end(), std::pair<std::string, std::string>("Set-Cookie", final_value));
     return true;
 }
 
@@ -151,12 +148,9 @@ std::string HttpResponse::headerParameter(const std::string &key) const noexcept
 
 bool HttpResponse::headerParameter(std::string key, std::string value) noexcept
 {
-    for (auto &elem : m_response_header) {
-        if (elem.first == key)
+    for (auto &elem : m_response_header)
+        if (elem.first == key && elem.second == value)
             return true;
-        if (elem.second == value)
-            return true;
-    }
 
     return false;
 }
