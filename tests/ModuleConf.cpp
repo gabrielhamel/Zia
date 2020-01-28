@@ -73,7 +73,7 @@ Test(ModuleConf, getConfigsName)
     auto module = core::config::Module(std::make_unique<yconf::ConfigNode>(node), "/etc/zia/module.d");
 
     std::vector<std::string> names;
-    names.push_back("host");
     names.push_back("port");
+    names.push_back("host");
     cr_assert_eq(module.getConfigsName(), names);
 }
