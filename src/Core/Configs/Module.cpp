@@ -9,14 +9,15 @@
  *
  */
 
+#include <iostream>
+
 #include "Module.hpp"
 
 core::config::Module::Module(const std::unique_ptr<IConfigNode> node, const std::string &defaultModulePath) :
 m_defaultPath(defaultModulePath)
 {
     this->m_name = node->getValue("name");
-    auto configs = node->getChild("configs");
-    // #TODO
+    this->m_configs = node->getChild("configs")->getAllProperties();
 }
 
 core::config::Module::~Module()
