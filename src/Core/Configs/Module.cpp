@@ -15,7 +15,12 @@ core::config::Module::Module(const std::unique_ptr<IConfigNode> node, const std:
 m_defaultPath(defaultModulePath)
 {
     this->m_name = node->getValue("name");
-    this->m_configs = node->getChild("configs")->getAllProperties();
+    try {
+        this->m_configs = node->getChild("configs")->getAllProperties();
+    }
+    catch (...) {
+
+    }
 }
 
 core::config::Module::~Module()
@@ -46,8 +51,9 @@ std::string core::config::Module::getName() const
 std::vector<std::string> core::config::Module::getConfigsName() const
 {
     std::vector<std::string> res;
-    for (auto &module : this->m_configs)
+    for (auto &module : this->m_configs) {
         res.push_back(module.first);
+    }
     return res;
 }
 

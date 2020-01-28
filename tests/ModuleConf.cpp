@@ -77,3 +77,31 @@ Test(ModuleConf, getConfigsName)
     names.push_back("host");
     cr_assert_eq(module.getConfigsName(), names);
 }
+
+Test(ModuleConf, withoutConfig)
+{
+    const std::string newExample = "name: php-module";
+    auto node = YAML::Load(newExample);
+    auto module = core::config::Module(std::make_unique<yconf::ConfigNode>(node), "/etc/zia/module.d");
+    std::vector<std::string> names;
+    cr_assert_eq(module.getConfigsName(), names);
+    cr_assert_eq(module.getName(), "php-module");
+}
+
+
+Test(ModuleConf, getConfigAdvanced)
+{
+    const std::string newExample =
+    "name: php-module\n"
+    "configs:\n"
+    "  key:\n"
+    "    key1: value1\n"
+    "    key2: value2\n"
+    "  port: 9000\n";
+    auto node = YAML::Load(newExample);
+    auto module = core::config::Module(std::make_unique<yconf::ConfigNode>(node), "/etc/zia/module.d");
+    std::vector<std::string> names;
+    names.push_back("key");
+    names.push_back("port");
+    cr_assert_eq(module.getConfigsName(), names);
+}
