@@ -27,6 +27,7 @@ public:
     std::unique_ptr<IConfigNode> getChild(const std::string &name) const override;
     std::string getValue(const std::string &name) const override;
     std::vector<std::string> getArray(const std::string &name) const override;
+    std::unordered_map<std::string, std::string> getAllProperties() const override;
 
 private:
     explicit ConfigNode(const YAML::Node &root);

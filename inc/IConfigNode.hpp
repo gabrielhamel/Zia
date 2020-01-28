@@ -9,6 +9,7 @@
 
 #include <string>
 #include <memory>
+#include <unordered_map>
 
 class IConfigNode
 {
@@ -56,5 +57,10 @@ public:
      * @throws `std::out_of_range` if no such property exists
      */
     virtual std::vector<std::string> getArray(const std::string &name) const = 0;
+
+    /**
+     * @brief  Returns all the properties from the node
+     */
+    virtual std::unordered_map<std::string, std::string> getAllProperties() const = 0;
 
 };
