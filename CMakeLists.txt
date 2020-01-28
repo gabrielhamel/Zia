@@ -35,6 +35,7 @@ SET(SRC
   # Jsp encore
   src/Core/Configs/Configurations.cpp
   src/Core/Configs/Module.cpp
+  src/Core/Configs/Route.cpp
   src/Core/Module/Module.cpp
   src/Core/Listeners/ListenersControl.cpp
   src/Ihm/CmdLine.cpp
@@ -73,6 +74,7 @@ target_link_libraries(zia PRIVATE ${CMAKE_DL_LIBS})
 add_executable(unit-tests
   ${SRC}
   tests/HttpResponse.cpp
+  tests/ModuleConf.cpp
 )
 
 target_include_directories(unit-tests PUBLIC

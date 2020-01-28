@@ -8,8 +8,8 @@
 #pragma once
 
 #include <vector>
+#include <yaml-cpp/yaml.h>
 
-#include "yaml-cpp/yaml.h"
 #include "IConfigNode.hpp"
 #include "util.hpp"
 
@@ -23,6 +23,7 @@ public:
      */
     ConfigNode() = default;
     explicit ConfigNode(const std::string &filePath);
+    explicit ConfigNode(const YAML::Node &root);
 
     std::unique_ptr<IConfigNode> getChild(const std::string &name) const override;
     std::string getValue(const std::string &name) const override;
@@ -30,7 +31,6 @@ public:
     std::unordered_map<std::string, std::string> getAllProperties() const override;
 
 private:
-    explicit ConfigNode(const YAML::Node &root);
 
     ConfigNode getChild(std::vector<std::string>::const_iterator it, const std::vector<std::string>::const_iterator &endIt) const;
 

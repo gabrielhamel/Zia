@@ -15,7 +15,7 @@ core::config::Module::Module(const std::unique_ptr<IConfigNode> node, const std:
 m_defaultPath(defaultModulePath)
 {
     this->m_name = node->getValue("name");
-    this->m_configs = node->getChild("configs");
+    this->m_configs = node->getChild("configs")->getAllProperties();
 }
 
 core::config::Module::~Module()
@@ -25,7 +25,12 @@ core::config::Module::~Module()
 
 std::string core::config::Module::getConfig(const std::string &key) const
 {
-    return this->m_configs->getValue(key);
+    return this->m_configs.at(key);
+}
+
+std::unordered_map<std::string, std::string> core::config::Module::getConfigs() const
+{
+    return this->m_configs;
 }
 
 std::string core::config::Module::getDefaultPath() const
@@ -36,4 +41,17 @@ std::string core::config::Module::getDefaultPath() const
 std::string core::config::Module::getName() const
 {
     return this->m_name;
+}
+
+std::vector<std::string> core::config::Module::getConfigsName() const
+{
+    std::vector<std::string> res;
+    for (auto &module : this->m_configs)
+        res.push_back(module.first);
+    return res;
+}
+
+bool core::config::Module::hasConfig(const std::string &key) const
+{
+    return this->m_configs.find(key) != this->m_configs.end();
 }
