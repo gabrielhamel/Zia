@@ -22,7 +22,8 @@ std::unique_ptr<IConfigNode> yconf::ConfigNode::getChild(const std::string &name
     return std::make_unique<ConfigNode>(getChild(split.begin(), split.end()));
 }
 
-yconf::ConfigNode yconf::ConfigNode::getChild(std::vector<std::string>::const_iterator it, const std::vector<std::string>::const_iterator &endIt) const
+yconf::ConfigNode yconf::ConfigNode::getChild(std::vector<std::string>::const_iterator it,
+                                              const std::vector<std::string>::const_iterator &endIt) const
 {
     try {
         auto node = _root[*it];
@@ -53,7 +54,14 @@ std::vector<std::string> yconf::ConfigNode::getArray(const std::string &name) co
     return getNodeAs<std::vector<std::string>>(name);
 }
 
-std::unordered_map<std::string, std::string> yconf::ConfigNode::getAllProperties() const
+std::unordered_map<std::string,
+                   std::string> yconf::ConfigNode::getAllProperties() const
 {
-    return {}; // TODO (yanis.fourel)
+    std::unordered_map<std::string, std::string> result;
+
+    for (const auto &prop : _root)
+        if (prop.second.IsScalar())
+            result[prop.first.as<std::string>()] = prop.second.as<std::string>();
+
+    return result;
 }
