@@ -8,8 +8,8 @@
 #pragma once
 
 #include <vector>
+#include <yaml-cpp/yaml.h>
 
-#include "yaml-cpp/yaml.h"
 #include "IConfigNode.hpp"
 #include "util.hpp"
 
