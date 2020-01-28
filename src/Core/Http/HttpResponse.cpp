@@ -113,8 +113,10 @@ bool HttpResponse::setCookie(std::string name, std::string value, CookieOptions 
 
     for (auto &elem : options)
         final_value += elem.first + "; " + elem.second;
-    
-    final_value += "; " + name + " " + value;
+    if (final_value != "")
+        final_value += "; ";
+
+    final_value += name + "=" + value;
     m_response_header.emplace(m_response_header.end(), std::pair<std::string, std::string>("Set-Cookie", final_value));
     return true;
 }
