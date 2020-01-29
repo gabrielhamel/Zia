@@ -5,6 +5,7 @@
 ** ConfigFile.cpp
 */
 
+#include <stdexcept>
 #include "yconf/ConfigNode.hpp"
 
 yconf::ConfigNode::ConfigNode(const std::string &filePath)
@@ -59,9 +60,12 @@ std::unordered_map<std::string,
 {
     std::unordered_map<std::string, std::string> result;
 
-    for (const auto &prop : _root)
+    for (const auto &prop : _root) {
         if (prop.second.IsScalar())
             result[prop.first.as<std::string>()] = prop.second.as<std::string>();
+        else
+            throw std::runtime_error("Non scalar value in node");
+    }
 
     return result;
 }
