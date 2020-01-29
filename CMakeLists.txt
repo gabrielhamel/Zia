@@ -74,6 +74,7 @@ target_link_libraries(zia PRIVATE ${CMAKE_DL_LIBS})
 add_executable(unit-tests
   ${SRC}
   tests/HttpResponse.cpp
+  tests/HttpRequest.cpp
   tests/ModuleConf.cpp
 )
 

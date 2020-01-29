@@ -202,25 +202,24 @@ std::string HttpRequest::route() const noexcept
 
 bool HttpRequest::route(std::string route) noexcept
 {
-    if (route.length() == 0 || route.at(0) != '/')
+    if (route == "" || route.at(0) != '/')
         return false;
     for (size_t i; i < route.length(); i++)
         if (i + 1 < route.length() && route.at(i) == '/' && route.at(i + 1) == '/')
             return false;
 
     m_route = route;
-
+    m_route_without_query = route.substr(0, route.find("?"));
+    if (route.find("?") != std::string::npos)
+        set_query_parameters(route.substr(route.find("?") + 1, route.length()));
+    
     return true;
 }
 
 
 bool HttpRequest::queryParameterExist(const std::string &key) const noexcept
 {
-    std::vector<std::pair<std::string, std::string>> query_params;
-    if (m_route.find("?") != std::string::npos)
-        query_params = get_query_parameters(m_route);
-
-    for (auto &elem : query_params)
+    for (auto &elem : m_query_parameters)
         if (elem.first == key)
             return true;
 
@@ -230,11 +229,7 @@ bool HttpRequest::queryParameterExist(const std::string &key) const noexcept
 
 std::string HttpRequest::queryParameter(const std::string &key) const noexcept
 {
-    std::vector<std::pair<std::string, std::string>> query_params;
-    if (m_route.find("?") != std::string::npos)
-        query_params = get_query_parameters(m_route);
-
-    for (auto &elem : query_params)
+    for (auto &elem : m_query_parameters)
         if (elem.first == key)
             return elem.second;
 
@@ -247,12 +242,13 @@ bool HttpRequest::queryParameter(std::string key, std::string value) noexcept
     if (key == "" || value == "")
         return false;
     for (auto &elem : m_query_parameters) {
-        if (elem.first == key)
+        if (elem.first == key) {
             elem.second = value;
             return true;
+        }
     }
 
-    m_request_header.emplace(m_request_header.end(), std::pair<std::string, std::string>(key, value));
+    m_query_parameters.emplace(m_query_parameters.end(), std::pair<std::string, std::string>(key, value));
 
     return true;
 }
@@ -332,7 +328,7 @@ std::string HttpRequest::serialize() const noexcept
     for (auto &elem : m_request_header)
         to_return += elem.first + ": " + elem.second + "\r\n";
 
-    to_return += "\r\n" + m_body + "\r\n";
+    to_return += "\r\n" + m_body;
 
     return to_return;
 }
