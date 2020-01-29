@@ -9,6 +9,7 @@
  *
  */
 
+#include <iostream>
 #include <criterion/criterion.h>
 #include "yconf/ConfigNode.hpp"
 #include "yconf/Helper.hpp"
@@ -88,8 +89,7 @@ Test(ModuleConf, withoutConfig)
     cr_assert_eq(module.getName(), "php-module");
 }
 
-
-Test(ModuleConf, getConfigAdvanced)
+Test(ModuleConf, configAdvancedError)
 {
     const std::string newExample =
     "name: php-module\n"
@@ -99,9 +99,14 @@ Test(ModuleConf, getConfigAdvanced)
     "    key2: value2\n"
     "  port: 9000\n";
     auto node = YAML::Load(newExample);
-    auto module = core::config::Module(std::make_unique<yconf::ConfigNode>(node), "/etc/zia/module.d");
-    std::vector<std::string> names;
-    names.push_back("key");
-    names.push_back("port");
-    cr_assert_eq(module.getConfigsName(), names);
+    bool ok = false;
+    try {
+        auto module = core::config::Module(std::make_unique<yconf::ConfigNode>(node), "/etc/zia/module.d");
+        module.getConfigsName();
+    }
+    catch (const std::exception &e) {
+        if (std::string(e.what()) == "Non scalar value in node")
+            ok = true;
+    }
+    cr_assert_eq(ok, true);
 }

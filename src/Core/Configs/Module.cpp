@@ -9,6 +9,8 @@
  *
  */
 
+#include <exception>
+
 #include "Module.hpp"
 
 core::config::Module::Module(const std::unique_ptr<IConfigNode> node, const std::string &defaultModulePath) :
@@ -17,6 +19,10 @@ m_defaultPath(defaultModulePath)
     this->m_name = node->getValue("name");
     try {
         this->m_configs = node->getChild("configs")->getAllProperties();
+    }
+    catch (const std::runtime_error &e) {
+        if (std::string(e.what()) == "Non scalar value in node")
+            throw e;
     }
     catch (...) {
 
@@ -51,9 +57,8 @@ std::string core::config::Module::getName() const
 std::vector<std::string> core::config::Module::getConfigsName() const
 {
     std::vector<std::string> res;
-    for (auto &module : this->m_configs) {
+    for (auto &module : this->m_configs)
         res.push_back(module.first);
-    }
     return res;
 }
 
