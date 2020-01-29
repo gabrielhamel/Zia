@@ -26,6 +26,10 @@ class Route
 
 private:
 
+    std::string m_defaultModulePath;
+
+    std::string m_patternStr;
+
     std::regex m_pattern;
 
     std::unordered_map<std::string, core::config::Module> m_modules;
@@ -41,11 +45,13 @@ public:
      *          host: localhost
      *          port: 9000
      */
-    Route(const std::unique_ptr<IConfigNode> node);
+    Route(const IConfigNode &node, const std::string &defaultModulePath);
 
     ~Route();
 
     std::regex getPattern() const;
+
+    std::string getName() const;
 
     std::vector<std::string> getModulesName() const;
 
