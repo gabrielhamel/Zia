@@ -16,7 +16,7 @@ m_defaultPath(defaultModulePath)
 {
     this->m_name = node->getValue("name");
     try {
-        this->m_configs = node->getChild("configs")->getAllProperties();
+        this->m_configs = node->getAllScalarsOf("configs");
     }
     catch (...) {
 
