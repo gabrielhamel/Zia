@@ -66,14 +66,17 @@ std::vector<std::string> yconf::ConfigNode::getScalarArray(const std::string &na
 
 std::vector<std::unique_ptr<IConfigNode>> yconf::ConfigNode::getNodeArray(const std::string &name) const
 {
-    const auto &nodes = getNodeAs<std::vector<YAML::Node>>(name);
-
     std::vector<std::unique_ptr<IConfigNode>> result;
-
+    std::vector<YAML::Node> nodes;
+    try {
+        nodes = getNodeAs<std::vector<YAML::Node>>(name);
+    }
+    catch (...) {
+        return result;
+    }
     result.reserve(nodes.size());
     for (const auto &n : nodes)
         result.emplace_back(std::make_unique<ConfigNode>(n));
-
     return result;
 }
 
@@ -109,5 +112,3 @@ YAML::Node yconf::ConfigNode::getNode(const std::string &name) const
         throw std::out_of_range(std::string("No such property '") + name + "'");
     }
 }
-
-

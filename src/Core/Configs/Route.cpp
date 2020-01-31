@@ -9,22 +9,15 @@
  *
  */
 
-#include <iostream>
 #include "Route.hpp"
 
 core::config::Route::Route(const IConfigNode &node)
 {
     this->m_patternStr = node.getValue("name");
     this->m_pattern = this->m_patternStr;
-    std::vector<std::string> modules;
-
-    // TODO try catch
-    modules = node.getScalarArray("modules"); // node.getNodeArray
-    std::cout << "--- start ---" << std::endl;
-    for (const std::string &module : modules)
-        std::cout << module << std::endl;
-    std::cout << "---- end ----" << std::endl;
-    // TODO
+    auto modules = node.getNodeArray("modules");
+    for (const auto &module : modules)
+        this->addModule(*module);
 }
 
 core::config::Route::~Route()

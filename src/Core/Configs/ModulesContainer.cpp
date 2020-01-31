@@ -44,7 +44,7 @@ bool core::config::ModulesContainer::hasModule(const std::string &name) const
     return this->m_modules.find(name) != this->m_modules.end();
 }
 
-void core::config::ModulesContainer::addModule(IConfigNode &config)
+void core::config::ModulesContainer::addModule(const IConfigNode &config)
 {
     this->m_modules.emplace(config.getValue("name"), core::config::Module(config));
 }

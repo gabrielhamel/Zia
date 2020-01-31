@@ -24,8 +24,6 @@ class Host : public ModuleContainer
 
 private:
 
-    const std::string m_defaultPath;
-
     std::string m_domain;
 
     std::uint16_t port;

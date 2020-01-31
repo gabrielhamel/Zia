@@ -43,3 +43,20 @@ Test(RouteConf, pattern)
     cr_assert_eq(std::regex_search("/index/issou", route.getPattern()), true);
     cr_assert_eq(std::regex_search("/lol/inde", route.getPattern()), false);
 }
+
+Test(RouteConf, noModules)
+{
+    const static std::string yml = "name: \\/index\n";
+    auto node = YAML::Load(yml);
+    auto route = core::config::Route(yconf::ConfigNode(node));
+}
+
+Test(RouteConf, modulesPresence)
+{
+    auto node = YAML::Load(example);
+    auto route = core::config::Route(yconf::ConfigNode(node));
+
+    cr_assert_eq(route.hasModule("php"), true);
+    cr_assert_eq(route.hasModule("tls"), true);
+    cr_assert_eq(route.hasModule("issou"), false);
+}

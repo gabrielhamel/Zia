@@ -13,7 +13,7 @@
 
 core::config::Host::Host(const IConfigNode &node)
 {
-
+    // TODO
 }
 
 core::config::Host::~Host()

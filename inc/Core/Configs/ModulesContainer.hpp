@@ -42,7 +42,7 @@ public:
 
 protected:
 
-    void addModule(IConfigNode &config);
+    void addModule(const IConfigNode &config);
 
 };
 
