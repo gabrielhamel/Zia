@@ -25,8 +25,6 @@ class Module
 
 private:
 
-    const std::string m_defaultPath;
-
     std::string m_name;
 
     std::unordered_map<std::string, std::string> m_configs;
@@ -40,7 +38,7 @@ public:
      *     host: localhost
      *     port: 9000
      */
-    Module(const IConfigNode &node, const std::string &defaultModulePath);
+    Module(const IConfigNode &node);
 
     ~Module();
 
@@ -49,8 +47,6 @@ public:
     std::vector<std::string> getConfigsName() const;
 
     std::unordered_map<std::string, std::string> getConfigs() const;
-
-    std::string getDefaultPath() const;
 
     std::string getName() const;
 

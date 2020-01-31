@@ -29,7 +29,7 @@ const static std::string example =
 Test(RouteConf, name)
 {
     auto node = YAML::Load(example);
-    auto route = core::config::Route(yconf::ConfigNode(node), "/etc/zia/module.d");
+    auto route = core::config::Route(yconf::ConfigNode(node));
 
     cr_assert_eq(route.getName(), "\\/index");
 }
@@ -37,7 +37,7 @@ Test(RouteConf, name)
 Test(RouteConf, pattern)
 {
     auto node = YAML::Load(example);
-    auto route = core::config::Route(yconf::ConfigNode(node), "/etc/zia/module.d");
+    auto route = core::config::Route(yconf::ConfigNode(node));
 
     cr_assert_eq(std::regex_search("/index", route.getPattern()), true);
     cr_assert_eq(std::regex_search("/index/issou", route.getPattern()), true);

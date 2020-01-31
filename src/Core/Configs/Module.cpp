@@ -13,8 +13,7 @@
 
 #include "Module.hpp"
 
-core::config::Module::Module(const IConfigNode &node, const std::string &defaultModulePath) :
-m_defaultPath(defaultModulePath)
+core::config::Module::Module(const IConfigNode &node)
 {
     this->m_name = node.getValue("name");
     try {
@@ -42,11 +41,6 @@ std::string core::config::Module::getConfig(const std::string &key) const
 std::unordered_map<std::string, std::string> core::config::Module::getConfigs() const
 {
     return this->m_configs;
-}
-
-std::string core::config::Module::getDefaultPath() const
-{
-    return this->m_defaultPath;
 }
 
 std::string core::config::Module::getName() const

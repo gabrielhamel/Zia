@@ -23,23 +23,15 @@ const static std::string example =
 Test(ModuleConf, name)
 {
     auto node = YAML::Load(example);
-    auto module = core::config::Module(yconf::ConfigNode(node), "/etc/zia/module.d");
+    auto module = core::config::Module(yconf::ConfigNode(node));
 
     cr_assert_eq(module.getName(), "php-module");
-}
-
-Test(ModuleConf, defaultPath)
-{
-    auto node = YAML::Load(example);
-    auto module = core::config::Module(yconf::ConfigNode(node), "/etc/zia/module.d");
-
-    cr_assert_eq(module.getDefaultPath(), "/etc/zia/module.d");
 }
 
 Test(ModuleConf, hasConfig)
 {
     auto node = YAML::Load(example);
-    auto module = core::config::Module(yconf::ConfigNode(node), "/etc/zia/module.d");
+    auto module = core::config::Module(yconf::ConfigNode(node));
 
     cr_assert_eq(module.hasConfig("host"), true);
     cr_assert_eq(module.hasConfig("port"), true);
@@ -50,7 +42,7 @@ Test(ModuleConf, hasConfig)
 Test(ModuleConf, getConfig)
 {
     auto node = YAML::Load(example);
-    auto module = core::config::Module(yconf::ConfigNode(node), "/etc/zia/module.d");
+    auto module = core::config::Module(yconf::ConfigNode(node));
 
     cr_assert_eq(module.getConfig("host"), "localhost");
     cr_assert_eq(module.getConfig("port"), "9000");
@@ -59,7 +51,7 @@ Test(ModuleConf, getConfig)
 Test(ModuleConf, getConfigs)
 {
     auto node = YAML::Load(example);
-    auto module = core::config::Module(yconf::ConfigNode(node), "/etc/zia/module.d");
+    auto module = core::config::Module(yconf::ConfigNode(node));
 
     std::unordered_map<std::string, std::string> map;
     map.emplace("host", "localhost");
@@ -70,7 +62,7 @@ Test(ModuleConf, getConfigs)
 Test(ModuleConf, getConfigsName)
 {
     auto node = YAML::Load(example);
-    auto module = core::config::Module(yconf::ConfigNode(node), "/etc/zia/module.d");
+    auto module = core::config::Module(yconf::ConfigNode(node));
 
     std::vector<std::string> names;
     names.push_back("port");
@@ -82,7 +74,7 @@ Test(ModuleConf, withoutConfig)
 {
     const std::string newExample = "name: php-module";
     auto node = YAML::Load(newExample);
-    auto module = core::config::Module(yconf::ConfigNode(node), "/etc/zia/module.d");
+    auto module = core::config::Module(yconf::ConfigNode(node));
     std::vector<std::string> names;
     cr_assert_eq(module.getConfigsName(), names);
     cr_assert_eq(module.getName(), "php-module");
@@ -100,7 +92,7 @@ Test(ModuleConf, configAdvancedError)
     auto node = YAML::Load(newExample);
     bool ok = false;
     try {
-        auto module = core::config::Module(yconf::ConfigNode(node), "/etc/zia/module.d");
+        auto module = core::config::Module(yconf::ConfigNode(node));
         module.getConfigsName();
     }
     catch (const std::exception &e) {
