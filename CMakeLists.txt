@@ -75,6 +75,7 @@ add_executable(unit-tests
   ${SRC}
   tests/HttpResponse.cpp
   tests/ModuleConf.cpp
+  tests/RouteConf.cpp
 )
 
 target_include_directories(unit-tests PUBLIC

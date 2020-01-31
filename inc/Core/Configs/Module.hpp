@@ -40,7 +40,7 @@ public:
      *     host: localhost
      *     port: 9000
      */
-    Module(const std::unique_ptr<IConfigNode> node, const std::string &defaultModulePath);
+    Module(const IConfigNode &node, const std::string &defaultModulePath);
 
     ~Module();
 

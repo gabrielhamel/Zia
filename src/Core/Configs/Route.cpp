@@ -9,13 +9,23 @@
  *
  */
 
+#include <iostream>
 #include "Route.hpp"
 
-core::config::Route::Route(const std::unique_ptr<IConfigNode> node)
+core::config::Route::Route(const IConfigNode &node, const std::string &defaultModulePath) :
+m_defaultModulePath(defaultModulePath)
 {
-    this->m_pattern = node->getValue("name");
-    auto modules = node->getChild("modules");
-    // #TODO
+    this->m_patternStr = node.getValue("name");
+    this->m_pattern = this->m_patternStr;
+    std::vector<std::string> modules;
+
+    // TODO try catch
+    modules = node.getScalarArray("modules");
+    std::cout << "--- start ---" << std::endl;
+    for (const std::string &module : modules)
+        std::cout << module << std::endl;
+    std::cout << "---- end ----" << std::endl;
+    // TODO
 }
 
 core::config::Route::~Route()
@@ -26,6 +36,11 @@ core::config::Route::~Route()
 std::regex core::config::Route::getPattern() const
 {
     return this->m_pattern;
+}
+
+std::string core::config::Route::getName() const
+{
+    return this->m_patternStr;
 }
 
 std::vector<std::string> core::config::Route::getModulesName() const

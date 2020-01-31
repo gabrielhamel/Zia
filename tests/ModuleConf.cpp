@@ -23,7 +23,7 @@ const static std::string example =
 Test(ModuleConf, name)
 {
     auto node = YAML::Load(example);
-    auto module = core::config::Module(std::make_unique<yconf::ConfigNode>(node), "/etc/zia/module.d");
+    auto module = core::config::Module(yconf::ConfigNode(node), "/etc/zia/module.d");
 
     cr_assert_eq(module.getName(), "php-module");
 }
@@ -31,7 +31,7 @@ Test(ModuleConf, name)
 Test(ModuleConf, defaultPath)
 {
     auto node = YAML::Load(example);
-    auto module = core::config::Module(std::make_unique<yconf::ConfigNode>(node), "/etc/zia/module.d");
+    auto module = core::config::Module(yconf::ConfigNode(node), "/etc/zia/module.d");
 
     cr_assert_eq(module.getDefaultPath(), "/etc/zia/module.d");
 }
@@ -39,7 +39,7 @@ Test(ModuleConf, defaultPath)
 Test(ModuleConf, hasConfig)
 {
     auto node = YAML::Load(example);
-    auto module = core::config::Module(std::make_unique<yconf::ConfigNode>(node), "/etc/zia/module.d");
+    auto module = core::config::Module(yconf::ConfigNode(node), "/etc/zia/module.d");
 
     cr_assert_eq(module.hasConfig("host"), true);
     cr_assert_eq(module.hasConfig("port"), true);
@@ -50,7 +50,7 @@ Test(ModuleConf, hasConfig)
 Test(ModuleConf, getConfig)
 {
     auto node = YAML::Load(example);
-    auto module = core::config::Module(std::make_unique<yconf::ConfigNode>(node), "/etc/zia/module.d");
+    auto module = core::config::Module(yconf::ConfigNode(node), "/etc/zia/module.d");
 
     cr_assert_eq(module.getConfig("host"), "localhost");
     cr_assert_eq(module.getConfig("port"), "9000");
@@ -59,7 +59,7 @@ Test(ModuleConf, getConfig)
 Test(ModuleConf, getConfigs)
 {
     auto node = YAML::Load(example);
-    auto module = core::config::Module(std::make_unique<yconf::ConfigNode>(node), "/etc/zia/module.d");
+    auto module = core::config::Module(yconf::ConfigNode(node), "/etc/zia/module.d");
 
     std::unordered_map<std::string, std::string> map;
     map.emplace("host", "localhost");
@@ -70,7 +70,7 @@ Test(ModuleConf, getConfigs)
 Test(ModuleConf, getConfigsName)
 {
     auto node = YAML::Load(example);
-    auto module = core::config::Module(std::make_unique<yconf::ConfigNode>(node), "/etc/zia/module.d");
+    auto module = core::config::Module(yconf::ConfigNode(node), "/etc/zia/module.d");
 
     std::vector<std::string> names;
     names.push_back("port");
@@ -82,14 +82,13 @@ Test(ModuleConf, withoutConfig)
 {
     const std::string newExample = "name: php-module";
     auto node = YAML::Load(newExample);
-    auto module = core::config::Module(std::make_unique<yconf::ConfigNode>(node), "/etc/zia/module.d");
+    auto module = core::config::Module(yconf::ConfigNode(node), "/etc/zia/module.d");
     std::vector<std::string> names;
     cr_assert_eq(module.getConfigsName(), names);
     cr_assert_eq(module.getName(), "php-module");
 }
 
-
-Test(ModuleConf, getConfigAdvanced)
+Test(ModuleConf, configAdvancedError)
 {
     const std::string newExample =
     "name: php-module\n"
@@ -99,9 +98,14 @@ Test(ModuleConf, getConfigAdvanced)
     "    key2: value2\n"
     "  port: 9000\n";
     auto node = YAML::Load(newExample);
-    auto module = core::config::Module(std::make_unique<yconf::ConfigNode>(node), "/etc/zia/module.d");
-    std::vector<std::string> names;
-    names.push_back("key");
-    names.push_back("port");
-    cr_assert_eq(module.getConfigsName(), names);
+    bool ok = false;
+    try {
+        auto module = core::config::Module(yconf::ConfigNode(node), "/etc/zia/module.d");
+        module.getConfigsName();
+    }
+    catch (const std::exception &e) {
+        if (std::string(e.what()) == "Non scalar value in node")
+            ok = true;
+    }
+    cr_assert_eq(ok, true);
 }
