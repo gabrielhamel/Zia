@@ -50,22 +50,64 @@ std::string yconf::ConfigNode::getValue(const std::string &name) const
     return getNodeAs<std::string>(name);
 }
 
-std::vector<std::string> yconf::ConfigNode::getArray(const std::string &name) const
+std::vector<std::string> yconf::ConfigNode::getScalarArray(const std::string &name) const
 {
-    return getNodeAs<std::vector<std::string>>(name);
+    const auto &nodes = getNodeAs<std::vector<YAML::Node>>(name);
+
+    std::vector<std::string> result;
+
+    result.reserve(nodes.size());
+    for (const auto &n : nodes)
+        if (n.IsScalar())
+            result.emplace_back(n.as<std::string>());
+
+    return result;
+}
+
+std::vector<std::unique_ptr<IConfigNode>> yconf::ConfigNode::getNodeArray(const std::string &name) const
+{
+    const auto &nodes = getNodeAs<std::vector<YAML::Node>>(name);
+
+    std::vector<std::unique_ptr<IConfigNode>> result;
+
+    result.reserve(nodes.size());
+    for (const auto &n : nodes)
+        result.emplace_back(std::make_unique<ConfigNode>(n));
+
+    return result;
 }
 
 std::unordered_map<std::string,
-                   std::string> yconf::ConfigNode::getAllProperties() const
+                   std::string> yconf::ConfigNode::getAllScalarsOf(const std::string &name) const
 {
     std::unordered_map<std::string, std::string> result;
+    const auto &node = getNode(name);
 
-    for (const auto &prop : _root) {
+    for (const auto &prop : node) {
         if (prop.second.IsScalar())
-            result[prop.first.as<std::string>()] = prop.second.as<std::string>();
+            result[prop.first.as<std::string>()] =
+                prop.second.as<std::string>();
         else
             throw std::runtime_error("Non scalar value in node");
     }
 
     return result;
 }
+
+YAML::Node yconf::ConfigNode::getNode(const std::string &name) const
+{
+    auto childPath = util::split(name, '.');
+    auto fieldName = childPath.back();
+
+    childPath.erase(childPath.end());
+    if (!childPath.empty())
+        return getChild(childPath.begin(), childPath.end()).getNode(fieldName);
+
+    try {
+        return _root[fieldName];
+    } catch (const YAML::RepresentationException &) {
+        throw std::out_of_range(std::string("No such property '") + name + "'");
+    }
+}
+
+

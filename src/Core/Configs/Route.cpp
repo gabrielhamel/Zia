@@ -19,7 +19,7 @@ core::config::Route::Route(const IConfigNode &node)
     std::vector<std::string> modules;
 
     // TODO try catch
-    modules = node.getArray("modules");
+    modules = node.getScalarArray("modules"); // node.getNodeArray
     std::cout << "--- start ---" << std::endl;
     for (const std::string &module : modules)
         std::cout << module << std::endl;
