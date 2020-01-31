@@ -20,7 +20,7 @@ m_defaultModulePath(defaultModulePath)
     std::vector<std::string> modules;
 
     // TODO try catch
-    modules = node.getScalarArray("modules");
+    modules = node.getScalarArray("modules"); // node.getNodeArray
     std::cout << "--- start ---" << std::endl;
     for (const std::string &module : modules)
         std::cout << module << std::endl;

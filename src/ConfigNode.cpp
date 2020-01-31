@@ -52,7 +52,16 @@ std::string yconf::ConfigNode::getValue(const std::string &name) const
 
 std::vector<std::string> yconf::ConfigNode::getScalarArray(const std::string &name) const
 {
-    return getNodeAs<std::vector<std::string>>(name);
+    const auto &nodes = getNodeAs<std::vector<YAML::Node>>(name);
+
+    std::vector<std::string> result;
+
+    result.reserve(nodes.size());
+    for (const auto &n : nodes)
+        if (n.IsScalar())
+            result.emplace_back(n.as<std::string>());
+
+    return result;
 }
 
 std::vector<std::unique_ptr<IConfigNode>> yconf::ConfigNode::getNodeArray(const std::string &name) const
@@ -76,7 +85,8 @@ std::unordered_map<std::string,
 
     for (const auto &prop : node) {
         if (prop.second.IsScalar())
-            result[prop.first.as<std::string>()] = prop.second.as<std::string>();
+            result[prop.first.as<std::string>()] =
+                prop.second.as<std::string>();
         else
             throw std::runtime_error("Non scalar value in node");
     }
