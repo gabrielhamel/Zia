@@ -16,19 +16,19 @@
 
 #include "yconf/ConfigNode.hpp"
 #include "yconf/Helper.hpp"
-#include <Module.hpp>
+#include "ModulesContainer.hpp"
 
 namespace core::config
 {
 
-class Route
+class Route : public ModulesContainer
 {
 
 private:
 
-    std::regex m_pattern;
+    std::string m_patternStr;
 
-    std::unordered_map<std::string, core::config::Module> m_modules;
+    std::regex m_pattern;
 
 public:
 
@@ -41,19 +41,13 @@ public:
      *          host: localhost
      *          port: 9000
      */
-    Route(const std::unique_ptr<IConfigNode> node);
+    Route(const IConfigNode &node);
 
     ~Route();
 
     std::regex getPattern() const;
 
-    std::vector<std::string> getModulesName() const;
-
-    std::unordered_map<std::string, core::config::Module> getModules() const;
-
-    core::config::Module getModule(const std::string &name) const;
-
-    bool hasModule(const std::string &name) const;
+    std::string getName() const;
 
 };
 

@@ -11,11 +11,13 @@
 
 #include "Route.hpp"
 
-core::config::Route::Route(const std::unique_ptr<IConfigNode> node)
+core::config::Route::Route(const IConfigNode &node)
 {
-    this->m_pattern = node->getValue("name");
-    auto modules = node->getChild("modules");
-    // #TODO
+    this->m_patternStr = node.getValue("name");
+    this->m_pattern = this->m_patternStr;
+    auto modules = node.getNodeArray("modules");
+    for (const auto &module : modules)
+        this->addModule(*module);
 }
 
 core::config::Route::~Route()
@@ -28,25 +30,7 @@ std::regex core::config::Route::getPattern() const
     return this->m_pattern;
 }
 
-std::vector<std::string> core::config::Route::getModulesName() const
+std::string core::config::Route::getName() const
 {
-    std::vector<std::string> res;
-    for (auto &module : this->m_modules)
-        res.push_back(module.first);
-    return res;
-}
-
-std::unordered_map<std::string, core::config::Module> core::config::Route::getModules() const
-{
-    return this->m_modules;
-}
-
-core::config::Module core::config::Route::getModule(const std::string &name) const
-{
-    return this->m_modules.at(name);
-}
-
-bool core::config::Route::hasModule(const std::string &name) const
-{
-    return this->m_modules.find(name) != this->m_modules.end();
+    return this->m_patternStr;
 }

@@ -9,13 +9,23 @@
  *
  */
 
+#include <exception>
+
 #include "Module.hpp"
 
-core::config::Module::Module(const std::unique_ptr<IConfigNode> node, const std::string &defaultModulePath) :
-m_defaultPath(defaultModulePath)
+core::config::Module::Module(const IConfigNode &node)
 {
-    this->m_name = node->getValue("name");
-    this->m_configs = node->getChild("configs")->getAllProperties();
+    this->m_name = node.getValue("name");
+    try {
+        this->m_configs = node.getAllScalarsOf("configs");
+    }
+    catch (const std::runtime_error &e) {
+        if (std::string(e.what()) == "Non scalar value in node")
+            throw e;
+    }
+    catch (...) {
+
+    }
 }
 
 core::config::Module::~Module()
@@ -31,11 +41,6 @@ std::string core::config::Module::getConfig(const std::string &key) const
 std::unordered_map<std::string, std::string> core::config::Module::getConfigs() const
 {
     return this->m_configs;
-}
-
-std::string core::config::Module::getDefaultPath() const
-{
-    return this->m_defaultPath;
 }
 
 std::string core::config::Module::getName() const
