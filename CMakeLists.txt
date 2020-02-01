@@ -36,6 +36,7 @@ SET(SRC
   src/Core/Configs/Configurations.cpp
   src/Core/Configs/ModulesContainer.cpp
   src/Core/Configs/Module.cpp
+  src/Core/Configs/Host.cpp
   src/Core/Configs/Route.cpp
   src/Core/Module/Module.cpp
   src/Core/Listeners/ListenersControl.cpp
@@ -77,6 +78,7 @@ add_executable(unit-tests
   tests/HttpResponse.cpp
   tests/ModuleConf.cpp
   tests/RouteConf.cpp
+  tests/HostConf.cpp
 )
 
 target_include_directories(unit-tests PUBLIC

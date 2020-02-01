@@ -14,26 +14,37 @@
 
 #include "yconf/ConfigNode.hpp"
 #include "yconf/Helper.hpp"
-#include "ModuleContainer.hpp"
+#include "Route.hpp"
 
 namespace core::config
 {
 
-class Host : public ModuleContainer
+class Host : public ModulesContainer
 {
 
 private:
 
     std::string m_domain;
 
-    std::uint16_t port;
+    std::uint16_t m_port;
 
+    std::vector<core::config::Route> m_routes;
 
 public:
 
     Host(const IConfigNode &node);
 
     ~Host();
+
+    std::string getDomain() const;
+
+    std::uint16_t getPort() const;
+
+    bool isRouteMatch(const std::string uri) const;
+
+    const core::config::Route &getRouteByMatch(const std::string &uri) const;
+
+    const core::config::Route &getRouteByName(const std::string &name) const;
 
 };
 
