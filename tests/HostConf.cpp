@@ -16,13 +16,13 @@
 
 const static std::string example =
     "domain: subdomain.example.com\n"
-    "  listen:\n"
-    "   port: 443\n"
-    "   modules:\n"
-    "     - name: tls\n"
-    "   routes:\n"
-    "     - name: ^\\/.+\\.php$\n"
-    "     - name: ^\\/\n";
+    "listen:\n"
+    "  port: 443\n"
+    "  modules:\n"
+    "    - name: tls\n"
+    "  routes:\n"
+    "    - name: ^\\/.+\\.php$\n"
+    "    - name: ^\\/\n";
 
 Test(HostConf, domain)
 {
@@ -54,8 +54,8 @@ Test(HostConf, routeByName)
     auto node = YAML::Load(example);
     auto host = core::config::Host(yconf::ConfigNode(node));
 
-    cr_assert_eq(host.getRouteByName("/").getName(), "/");
-    cr_assert_eq(host.getRouteByName("^/*.php$").getName(), "^/*.php$");
+    cr_assert_eq(host.getRouteByName("^\\/").getName(), "^\\/");
+    cr_assert_eq(host.getRouteByName("^\\/.+\\.php$").getName(), "^\\/.+\\.php$");
 }
 
 Test(HostConf, routeMatch)
