@@ -46,6 +46,8 @@ public:
 
     const core::config::Route &getRouteByName(const std::string &name) const;
 
+    const std::vector<core::config::Route> &getRoutes() const;
+
 };
 
 } // namespace core::config

@@ -34,7 +34,7 @@ public:
 
     std::vector<std::string> getModulesName() const;
 
-    std::unordered_map<std::string, core::config::Module> getModules() const;
+    const std::unordered_map<std::string, core::config::Module> &getModules() const;
 
     core::config::Module getModule(const std::string &name) const;
 

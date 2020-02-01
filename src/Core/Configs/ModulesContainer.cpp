@@ -29,7 +29,7 @@ std::vector<std::string> core::config::ModulesContainer::getModulesName() const
     return res;
 }
 
-std::unordered_map<std::string, core::config::Module> core::config::ModulesContainer::getModules() const
+const std::unordered_map<std::string, core::config::Module> &core::config::ModulesContainer::getModules() const
 {
     return this->m_modules;
 }

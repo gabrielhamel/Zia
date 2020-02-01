@@ -43,6 +43,8 @@ public:
 
     std::vector<unsigned short> listListeners() const;
 
+    core::Configurations &getConfigurations() const;
+
 };
 
 } // namespace core

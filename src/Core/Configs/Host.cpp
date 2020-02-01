@@ -24,8 +24,10 @@ core::config::Host::Host(const IConfigNode &node)
 
     }
     auto routes = listen->getNodeArray("routes");
+    if (routes.size() == 0)
+        throw std::runtime_error("There should be at least one route");
     for (const auto &route : routes)
-        this->m_routes.push_back(core::config::Route(*route));
+        this->m_routes.push_back(*route);
 }
 
 core::config::Host::~Host()
@@ -65,4 +67,9 @@ const core::config::Route &core::config::Host::getRouteByName(const std::string 
         if (route.getName() == name)
             return route;
     throw std::runtime_error("Unable to find that route");
+}
+
+const std::vector<core::config::Route> &core::config::Host::getRoutes() const
+{
+    return this->m_routes;
 }

@@ -38,7 +38,7 @@ std::string core::config::Module::getConfig(const std::string &key) const
     return this->m_configs.at(key);
 }
 
-std::unordered_map<std::string, std::string> core::config::Module::getConfigs() const
+const std::unordered_map<std::string, std::string> &core::config::Module::getConfigs() const
 {
     return this->m_configs;
 }

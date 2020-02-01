@@ -27,10 +27,27 @@ static void help(ihm::CmdLine *cmdLine, const std::vector<std::string> &params)
         std::cout << command.name << "\t" << command.description << std::endl;
 }
 
+static void printConfigs(ihm::CmdLine *cmdLine, const std::vector<std::string> &params)
+{
+    cmdLine->getController().getConfigurations().print();
+}
+
+static void reloadConfigs(ihm::CmdLine *cmdLine, const std::vector<std::string> &params)
+{
+    try {
+        cmdLine->getController().getConfigurations().reload();
+    }
+    catch (const std::exception &e) {
+        std::cout << e.what() << std::endl;
+    }
+}
+
 static const std::vector<ihm::command_t> commands = {
-    {"list", 0, listAllListeners, "List all running listeners"},
+    {"configs", 0, printConfigs, "Display whole configurations of the server"},
+    {"exit", 0, NULL, "Close the interpreters and shutdown all listeners"},
     {"help", 0, help, "Display this helper"},
-    {"exit", 0, NULL, "Close the interpreters and shutdown all listeners"}
+    {"list", 0, listAllListeners, "List all running listeners"},
+    {"reload", 0, reloadConfigs, "Reload the configurations file"}
 };
 
 const std::vector<ihm::command_t> &ihm::CmdLine::getCommandsObject() const

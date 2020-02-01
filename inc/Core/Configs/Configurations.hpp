@@ -15,6 +15,7 @@
 #include <string>
 #include "yconf/ConfigNode.hpp"
 #include "yconf/Helper.hpp"
+#include "Host.hpp"
 
 namespace core {
 
@@ -25,7 +26,9 @@ private:
 
     std::string m_filename;
 
-    std::unique_ptr<IConfigNode> m_yml;
+    std::string m_modulesPath;
+
+    std::vector<core::config::Host> m_hosts;
 
 public:
 
@@ -36,6 +39,8 @@ public:
     void updatePath(const std::string &filename);
 
     void reload();
+
+    void print() const;
 
 };
 

@@ -30,52 +30,59 @@ void core::Configurations::updatePath(const std::string &filename)
 
 void core::Configurations::reload()
 {
-    // this->m_yml = std::make_unique<yconf::ConfigNode>(this->m_filename);
+    std::string modulesPath;
+    std::vector<core::config::Host> hosts;
+    std::unique_ptr<IConfigNode> yml = std::make_unique<yconf::ConfigNode>(this->m_filename);
+    modulesPath = yml->getValue("modulespath");
+    auto hostsArrat = yml->getNodeArray("hosts");
+    if (hostsArrat.size() == 0)
+        throw std::runtime_error("There should be at least one host");
+    for (const auto &host : hostsArrat)
+        hosts.push_back(*host);
+    this->m_hosts = hosts;
+    this->m_modulesPath = modulesPath;
+}
 
-    // auto array = m_yml->getArray("hosts");
-    // std::cout << array.size() << std::endl;
-
-    // Load configs
-    //
-
-    /**
-     * @brief Simple yaml config file parsing
-     * Test file used :
-     *
-
-    martin:
-    name: Martin D'vloper
-    job: Developer
-    age: 22
-        job: Baker
-    experience:
-        duration: 2
-    skills:
-        - python
-        - perl
-        - pascal
-    */
-
-    // void test_config()
-    // {
-    //     try {
-    //         std::unique_ptr<IConfigNode> config = std::make_unique<yconf::ConfigNode>("../../sample.yaml");
-    //         config = config->getChild("martin");
-
-
-    //         std::cout << "Config : martin age is " << yconf::helper::getAs<int>(*config, "age") << std::endl;
-    //         std::cout << "Config : martin name is " << config->getValue("name") << std::endl;
-    //         std::cout << "Config : martin.experience.job " << config->getValue("experience.job") << std::endl;
-    //         std::cout << "Config : martin.experience.duration " << yconf::helper::getAs<int>(*config, "experience.duration") << std::endl;
-
-    //         std::cout << "Config : martin.skills content is [ " << std::endl;
-    //         for (const auto &field : config->getArray("skills"))
-    //                 std::cout << "'" << field << "'" << std::endl;
-    //         std::cout << "]" << std::endl;
-
-
-    //     } catch (std::exception const &e) {
-    //         std::cerr << "Error while testing config nodes : " << e.what() << std::endl;
-    //     }
-    // }
+void core::Configurations::print() const
+{
+    std::cout << "modulespath: " << this->m_modulesPath << std::endl;
+    std::cout << "hosts:" << std::endl;
+    for (const auto &host : this->m_hosts) {
+        std::cout << "  - domain: " << host.getDomain() << std::endl;
+        std::cout << "    listen:" << std::endl;
+        std::cout << "      port: " << host.getPort() << std::endl;
+        auto modules = host.getModules();
+        if (modules.size() > 0) {
+            std::cout << "      modules:" << std::endl;
+            for (const auto &module : modules) {
+                std::cout << "        - name: " << module.first << std::endl;
+                auto configs = module.second.getConfigs();
+                if (configs.size() > 0) {
+                    std::cout << "          configs:" << std::endl;
+                    for (const auto &config : configs)
+                        std::cout << "            " << config.first << ": " << config.second << std::endl;
+                }
+            }
+        }
+        auto routes = host.getRoutes();
+        if (routes.size() > 0) {
+            std::cout << "      routes:" << std::endl;
+            for (const auto &route : routes) {
+                std::cout << "        - name: " << route.getName() << std::endl;
+                auto modules = route.getModules();
+                if (modules.size() > 0) {
+                    std::cout << "          modules:" << std::endl;
+                    for (const auto &module : modules) {
+                        std::cout << "            - name: " << module.first << std::endl;
+                        auto configs = module.second.getConfigs();
+                        if (configs.size() > 0) {
+                            std::cout << "              configs:" << std::endl;
+                            for (const auto &config : configs)
+                                std::cout << "                " << config.first << ": " << config.second << std::endl;
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

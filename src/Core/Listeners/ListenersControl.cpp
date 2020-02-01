@@ -54,3 +54,8 @@ std::vector<unsigned short> core::ListenersControl::listListeners() const
     }
     return res;
 }
+
+core::Configurations &core::ListenersControl::getConfigurations() const
+{
+    return this->m_configs;
+}
