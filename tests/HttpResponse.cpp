@@ -25,14 +25,14 @@ Test(HttpResponse, status_code)
     cr_assert_eq(response.statusCode(), 400);
 }
 
-Test(HttpRequest, status_message_1)
+Test(HttpResponse, status_message_1)
 {
     HttpResponse response(BasicResponse);
 
     cr_assert_eq(response.statusMessage(), "Bad Request");
 }
 
-Test(HttpRequest, status_message_2)
+Test(HttpResponse, status_message_2)
 {
     HttpResponse response(BasicResponse);
 
@@ -44,7 +44,7 @@ Test(HttpRequest, status_message_2)
     cr_assert_eq(response.statusMessage(""), false);
 }
 
-Test(HttpRequest, setCookie)
+Test(HttpResponse, setCookie)
 {
     HttpResponse response(BasicResponse);
 
@@ -56,14 +56,14 @@ Test(HttpRequest, setCookie)
     cr_assert_eq(response.headerParameter("Set-Cookie", "tasty_cookie=strawberry"), true);
 }
 
-Test(HttpRequest, protocol)
+Test(HttpResponse, protocol)
 {
     HttpResponse response(BasicResponse);
 
     cr_assert_eq(response.protocol(), "HTTP/1.1");
 }
 
-Test(HttpRequest, headerParameterExist)
+Test(HttpResponse, headerParameterExist)
 {
     HttpResponse response(BasicResponse);
 
@@ -71,7 +71,7 @@ Test(HttpRequest, headerParameterExist)
     cr_assert_eq(response.headerParameterExist("Unknown Header Parameter"), false);
 }
 
-Test(HttpRequest, headerParameter_1)
+Test(HttpResponse, headerParameter_1)
 {
     HttpResponse response(BasicResponse);
 
@@ -79,7 +79,7 @@ Test(HttpRequest, headerParameter_1)
     cr_assert_eq(response.headerParameter("Header Parameter unknown"), "");
 }
 
-Test(HttpRequest, headerParameter_2)
+Test(HttpResponse, headerParameter_2)
 {
     HttpResponse response(BasicResponse);
 
@@ -87,7 +87,7 @@ Test(HttpRequest, headerParameter_2)
     cr_assert_eq(response.headerParameter("Unknown Header Parameter", "Mon, 20 Jan 2020 15:53:24 GMT"), false);
 }
 
-Test(HttpRequest, body)
+Test(HttpResponse, body)
 {
     HttpResponse response(BasicResponse);
 
@@ -96,7 +96,7 @@ Test(HttpRequest, body)
     "</body>\r\n</html>\r\n");
 }
 
-Test(HttpRequest, bodyAppend)
+Test(HttpResponse, bodyAppend)
 {
     HttpResponse response(BasicResponse);
 
@@ -108,7 +108,7 @@ Test(HttpRequest, bodyAppend)
     cr_assert_eq(response.headerParameter("Content-Length"), "179");
 }
 
-Test(HttpRequest, serialize)
+Test(HttpResponse, serialize)
 {
     HttpResponse response(BasicResponse);
 

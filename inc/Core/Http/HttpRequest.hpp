@@ -9,7 +9,6 @@
 
 #include <algorithm>
 #include <boost/algorithm/string.hpp>
-#include <iostream>
 #include <iterator>
 #include <string>
 #include <unordered_map>
@@ -19,8 +18,6 @@
 
 class HttpRequest : public http::IRequest
 {
-    public:
-
     private:
         http::Verb m_request_method;
         std::string m_route;
@@ -48,7 +45,6 @@ class HttpRequest : public http::IRequest
         std::string queryParameter(const std::string &key) const noexcept;
         bool queryParameter(std::string key, std::string value) noexcept;
         std::string cookie(const std::string &name) const noexcept;
-
 
         std::string protocol() const noexcept;
         bool headerParameterExist(const std::string &key) const noexcept;
