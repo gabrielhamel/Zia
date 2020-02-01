@@ -140,6 +140,5 @@ Test(HttpRequest, serialize)
 {
     HttpRequest request(BasicRequest);
 
-    std::cout << BasicRequest << std::endl << request.serialize() << std::endl;
     cr_assert_eq(request.serialize(), BasicRequest);
 }
