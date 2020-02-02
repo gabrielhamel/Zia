@@ -45,6 +45,8 @@ public:
 
     core::Configurations &getConfigurations() const;
 
+    void reload();
+
 };
 
 } // namespace core

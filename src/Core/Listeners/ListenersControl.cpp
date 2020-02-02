@@ -14,7 +14,7 @@
 core::ListenersControl::ListenersControl(core::Configurations &configs) :
 m_configs(configs)
 {
-
+    this->reload();
 }
 
 core::ListenersControl::~ListenersControl()
@@ -58,4 +58,12 @@ std::vector<unsigned short> core::ListenersControl::listListeners() const
 core::Configurations &core::ListenersControl::getConfigurations() const
 {
     return this->m_configs;
+}
+
+void core::ListenersControl::reload()
+{
+    // Delete all listeners
+    for (auto &elem : this->m_listeners)
+        if (elem.second != nullptr)
+            this->destroyListener(elem.first);
 }

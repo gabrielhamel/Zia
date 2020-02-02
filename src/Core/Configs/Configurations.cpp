@@ -86,3 +86,16 @@ void core::Configurations::print() const
         }
     }
 }
+
+const core::config::Host &core::Configurations::getHostByDomain(const std::string &domain) const
+{
+    for (const auto &host : this->m_hosts)
+        if (host.getDomain() == domain)
+            return host;
+    throw std::runtime_error("Cannot find that host");
+}
+
+std::string core::Configurations::getModulePath() const
+{
+    return this->m_modulesPath;
+}

@@ -42,6 +42,10 @@ public:
 
     void print() const;
 
+    const core::config::Host &getHostByDomain(const std::string &domain) const;
+
+    std::string getModulePath() const;
+
 };
 
 } // namespace core
