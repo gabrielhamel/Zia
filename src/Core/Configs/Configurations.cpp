@@ -99,3 +99,8 @@ std::string core::Configurations::getModulePath() const
 {
     return this->m_modulesPath;
 }
+
+const std::vector<core::config::Host> &core::Configurations::getHosts() const
+{
+    return this->m_hosts;
+}

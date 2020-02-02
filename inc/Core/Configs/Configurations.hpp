@@ -44,6 +44,8 @@ public:
 
     const core::config::Host &getHostByDomain(const std::string &domain) const;
 
+    const std::vector<core::config::Host> &getHosts() const;
+
     std::string getModulePath() const;
 
 };
