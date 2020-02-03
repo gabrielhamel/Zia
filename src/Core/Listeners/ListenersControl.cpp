@@ -41,7 +41,6 @@ void core::ListenersControl::destroyListener(unsigned short port)
 {
     this->m_listeners[port]->stop();
     this->m_threads[port]->join();
-    delete this->m_listeners[port];
     this->m_listeners[port] = nullptr;
 }
 
