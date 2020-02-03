@@ -43,6 +43,10 @@ public:
 
     std::vector<unsigned short> listListeners() const;
 
+    core::Configurations &getConfigurations() const;
+
+    void reload();
+
 };
 
 } // namespace core

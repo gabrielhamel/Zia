@@ -13,25 +13,21 @@
 
 core::config::Host::Host(const IConfigNode &node)
 {
-// - domain: subdomain.example.com
-//     listen:
-//       port: 443
-//       modules:
-//         - name: tls
-//           configs: # Configs passés au constructeur du module
-//             certificate: '/etc/zia/public_key.pem'
-//       routes:
-//         - name: ^/*.php$
-//           modules:
-//             - name: php-module
-//               configs: # Configs intermédiaires passés lors du call de la fonction execute du module
-//                 host: localhost
-//                 port: 9000
-//         - name: /
-//           modules:
-//             - name: file
-//               configs:
-//                 root: /var/www/
+    this->m_domain = node.getValue("domain");
+    auto listen = node.getChild("listen");
+    this->m_port = std::stoi(listen->getValue("port"));
+    try {
+        auto modules = listen->getNodeArray("modules");
+        for (const auto &module : modules)
+            this->addModule(*module);
+    } catch (...) {
+
+    }
+    auto routes = listen->getNodeArray("routes");
+    if (routes.size() == 0)
+        throw std::runtime_error("There should be at least one route");
+    for (const auto &route : routes)
+        this->m_routes.push_back(*route);
 }
 
 core::config::Host::~Host()
@@ -71,4 +67,9 @@ const core::config::Route &core::config::Host::getRouteByName(const std::string 
         if (route.getName() == name)
             return route;
     throw std::runtime_error("Unable to find that route");
+}
+
+const std::vector<core::config::Route> &core::config::Host::getRoutes() const
+{
+    return this->m_routes;
 }

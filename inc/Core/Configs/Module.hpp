@@ -46,7 +46,7 @@ public:
 
     std::vector<std::string> getConfigsName() const;
 
-    std::unordered_map<std::string, std::string> getConfigs() const;
+    const std::unordered_map<std::string, std::string> &getConfigs() const;
 
     std::string getName() const;
 
