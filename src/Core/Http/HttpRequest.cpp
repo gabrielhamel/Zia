@@ -6,6 +6,7 @@
 */
 
 #include "HttpRequest.hpp"
+#include <iostream>
 
 HttpRequest::HttpRequest(std::string request) : m_body("")
 {
@@ -43,8 +44,6 @@ HttpRequest::HttpRequest(std::string request) : m_body("")
         auto key = elem.substr(0, elem.find(": "));
         auto value = elem.substr(elem.find(": ") + 2, elem.length());
         m_request_header.emplace(m_request_header.end(), std::pair<std::string, std::string>(key, value));
-        if (key == "Cookie")
-            set_cookie(value);
     });
 
     if (body_position != 0 && body_position < request_vector.size())
@@ -122,31 +121,6 @@ void HttpRequest::get_request_method(std::string line)
 void HttpRequest::set_query_parameters(std::string line) noexcept
 {
     m_query_parameters = get_query_parameters(line);
-}
-
-
-void HttpRequest::set_cookie(std::string line) noexcept
-{
-    std::vector<std::string> vector_cookie;
-    std::string current_line = "";
-    for (size_t size = 0; size < line.length(); size++) {
-        if (line.at(size) == ';' && line.at(size + 1) == ' ') {
-            vector_cookie.push_back(current_line);
-            size += 1;
-            current_line = "";
-        }
-        else if (size + 1 == line.length())
-            vector_cookie.push_back(current_line);
-        else
-            current_line += line.at(size);
-    }
-    std::for_each(vector_cookie.begin(), vector_cookie.end(), [this](auto &elem) {
-        if (elem.find(": ") == std::string::npos)
-            throw std::runtime_error("String not type of key: value");
-        auto key = elem.substr(0, elem.find("="));
-        auto value = elem.substr(elem.find("=") + 2, elem.length());
-        m_cookie.emplace(m_request_header.end(), std::pair<std::string, std::string>(key, value));
-    });
 }
 
 
@@ -247,7 +221,6 @@ bool HttpRequest::queryParameter(std::string key, std::string value) noexcept
             return true;
         }
     }
-
     m_query_parameters.emplace(m_query_parameters.end(), std::pair<std::string, std::string>(key, value));
 
     return true;
@@ -256,11 +229,20 @@ bool HttpRequest::queryParameter(std::string key, std::string value) noexcept
 
 std::string HttpRequest::cookie(const std::string &name) const noexcept
 {
-    for (auto &elem : m_request_header)
-        if (elem.first == "Cookie")
-            for (auto &it : m_cookie)
-                if (it.first == name)
-                    return it.second;
+    if (name == "")
+        return "";
+    for (auto &elem : m_request_header) {
+        if (elem.first == "Cookie") {
+            std::vector<std::string> line;
+            boost::split(line, elem.second, boost::is_any_of(" "));
+            for (auto &it : line) {
+                auto key = it.substr(0, it.find("="));
+                auto value = it.substr(it.find("=") + 1, it.length() - 1);
+                if (key == name)
+                    return value;
+            }
+        }
+    }
 
     return "";
 }
@@ -362,12 +344,18 @@ std::string HttpRequest::headerParameter(const std::string &key) const noexcept
 
 bool HttpRequest::headerParameter(std::string key, std::string value) noexcept
 {
+    if (key == "" || value == "")
+        return false;
     for (auto &elem : m_request_header) {
-        if (elem.first == key)
+        if (elem.first == key) {
+            elem.second = value;
             return true;
+        }
         if (elem.second == value)
             return true;
     }
 
-    return false;
+    m_request_header.emplace(m_request_header.end(), std::pair<std::string, std::string>(key, value));
+
+    return true;
 }

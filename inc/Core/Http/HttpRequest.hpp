@@ -24,14 +24,12 @@ class HttpRequest : public http::IRequest
         std::string m_route_without_query;
         std::string m_protocol;
         std::vector<std::pair<std::string, std::string>> m_request_header;
-        std::vector<std::pair<std::string, std::string>> m_cookie;
         std::vector<std::pair<std::string, std::string>> m_query_parameters;
         std::string m_body;
 
         void init_map();
         void get_request_method(std::string line);
         void set_query_parameters(std::string line) noexcept;
-        void set_cookie(std::string line) noexcept;
         std::vector<std::pair<std::string, std::string>> get_query_parameters(std::string route) const;
     public:
         HttpRequest(std::string request);

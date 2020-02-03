@@ -150,11 +150,19 @@ std::string HttpResponse::headerParameter(const std::string &key) const noexcept
 
 bool HttpResponse::headerParameter(std::string key, std::string value) noexcept
 {
-    for (auto &elem : m_response_header)
-        if (elem.first == key && elem.second == value)
+    if (key == "" || value == "")
+        return false;
+    for (auto &elem : m_response_header) {
+        if (elem.first == key) {
+            elem.second = value;
             return true;
+        }
+        if (elem.second == value)
+            return true;
+    }
 
-    return false;
+    m_response_header.emplace(m_response_header.end(), std::pair<std::string, std::string>(key, value));
+    return true;
 }
 
 

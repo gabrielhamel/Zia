@@ -84,7 +84,7 @@ Test(HttpResponse, headerParameter_2)
     HttpResponse response(BasicResponse);
 
     cr_assert_eq(response.headerParameter("Date", "Mon, 20 Jan 2020 15:53:24 GMT"), true);
-    cr_assert_eq(response.headerParameter("Unknown Header Parameter", "Mon, 20 Jan 2020 15:53:24 GMT"), false);
+    cr_assert_eq(response.headerParameter("Unknown Header Parameter", ""), false);
 }
 
 Test(HttpResponse, body)

@@ -83,10 +83,13 @@ Test(HttpRequest, queryParameter_2)
     cr_assert_eq(request.queryParameterExist("Unknown"), true);
 }
 
-// Test(HttpRequest, cookie)
-// {
-//     HttpRequest request(BasicRequest);
-// }
+Test(HttpRequest, cookie)
+{
+    HttpRequest request(BasicRequest);
+    
+    cr_assert_eq(request.headerParameter("Cookie", "yummy_cookie=choco"), true);
+    cr_assert_eq(request.cookie("yummy_cookie"), "choco");
+}
 
 Test(HttpRequest, protocol)
 {
@@ -116,7 +119,7 @@ Test(HttpRequest, headerParameter_2)
     HttpRequest request(BasicRequest);
 
     cr_assert_eq(request.headerParameter("Connection", "keep-alive"), true);
-    cr_assert_eq(request.headerParameter("Unknown Header Parameter", "Mon, 20 Jan 2020 15:53:24 GMT"), false);
+    cr_assert_eq(request.headerParameter("Unknown Header Parameter", ""), false);
 }
 
 Test(HttpRequest, body)
@@ -140,6 +143,5 @@ Test(HttpRequest, serialize)
 {
     HttpRequest request(BasicRequest);
 
-    std::cout << BasicRequest << std::endl << request.serialize() << std::endl;
     cr_assert_eq(request.serialize(), BasicRequest);
 }
