@@ -35,7 +35,7 @@ static void printConfigs(ihm::CmdLine *cmdLine, const std::vector<std::string> &
 static void reloadConfigs(ihm::CmdLine *cmdLine, const std::vector<std::string> &params)
 {
     try {
-        cmdLine->getController().getConfigurations().reload();
+        cmdLine->getController().reload();
     }
     catch (const std::exception &e) {
         std::cout << e.what() << std::endl;

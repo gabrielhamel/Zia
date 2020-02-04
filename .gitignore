@@ -12,3 +12,7 @@ cmake-build-debug/
 sample.yaml
 html/
 latex/
+
+node_modules/
+package-lock.json
+package.json
