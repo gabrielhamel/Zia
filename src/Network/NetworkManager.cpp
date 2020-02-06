@@ -1,7 +1,7 @@
 #include <boost/algorithm/string.hpp>
 #include "NetworkManager.hpp"
 
-net::NetworkManager::NetworkManager(core::Configurations &configs) :
+net::NetworkManager::NetworkManager(const core::config::Host &configs) :
 m_configs(configs)
 {
 

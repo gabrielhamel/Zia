@@ -2,7 +2,7 @@
 #include <boost/bind.hpp>
 #include "BoostNetworkServer.hpp"
 
-net::BoostNetworkServer::BoostNetworkServer(unsigned short port, core::Configurations &configs) :
+net::BoostNetworkServer::BoostNetworkServer(unsigned short port, const core::config::Host &configs) :
 m_socket(m_io), m_acceptor(m_io, boost::asio::ip::tcp::endpoint(boost::asio::ip::tcp::v4(), port)), m_networkManager(configs)
 {
     bindAcceptor();

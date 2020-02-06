@@ -12,6 +12,8 @@
 #include <iostream>
 #include "Configurations.hpp"
 
+std::string core::Configurations::modulesPath("");
+
 core::Configurations::Configurations(const std::string &filename)
 {
     this->updatePath(filename);
@@ -30,22 +32,22 @@ void core::Configurations::updatePath(const std::string &filename)
 
 void core::Configurations::reload()
 {
-    std::string modulesPath;
+    std::string modulesPath2;
     std::vector<core::config::Host> hosts;
     std::unique_ptr<IConfigNode> yml = std::make_unique<yconf::ConfigNode>(this->m_filename);
-    modulesPath = yml->getValue("modulespath");
+    modulesPath2 = yml->getValue("modulespath");
     auto hostsArrat = yml->getNodeArray("hosts");
     if (hostsArrat.size() == 0)
         throw std::runtime_error("There should be at least one host");
     for (const auto &host : hostsArrat)
         hosts.push_back(*host);
     this->m_hosts = hosts;
-    this->m_modulesPath = modulesPath;
+    core::Configurations::modulesPath = modulesPath2;
 }
 
 void core::Configurations::print() const
 {
-    std::cout << "modulespath: " << this->m_modulesPath << std::endl;
+    std::cout << "modulespath: " << core::Configurations::modulesPath << std::endl;
     std::cout << "hosts:" << std::endl;
     for (const auto &host : this->m_hosts) {
         std::cout << "  - domain: " << host.getDomain() << std::endl;
@@ -95,9 +97,12 @@ const core::config::Host &core::Configurations::getHostByDomain(const std::strin
     throw std::runtime_error("Cannot find that host");
 }
 
-std::string core::Configurations::getModulePath() const
+const core::config::Host &core::Configurations::getHostByPort(unsigned short port) const
 {
-    return this->m_modulesPath;
+    auto res = std::find_if(std::begin(this->m_hosts), std::end(this->m_hosts), [port](const core::config::Host &host) {
+        return host.getPort() == port;
+    });
+    return *res;
 }
 
 const std::vector<core::config::Host> &core::Configurations::getHosts() const

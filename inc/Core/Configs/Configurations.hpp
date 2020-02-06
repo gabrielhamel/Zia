@@ -26,8 +26,6 @@ private:
 
     std::string m_filename;
 
-    std::string m_modulesPath;
-
     std::vector<core::config::Host> m_hosts;
 
 public:
@@ -44,9 +42,11 @@ public:
 
     const core::config::Host &getHostByDomain(const std::string &domain) const;
 
+    const core::config::Host &getHostByPort(unsigned short port) const;
+
     const std::vector<core::config::Host> &getHosts() const;
 
-    std::string getModulePath() const;
+    static std::string modulesPath;
 
 };
 

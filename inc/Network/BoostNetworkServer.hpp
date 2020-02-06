@@ -31,7 +31,7 @@ namespace net
             void bindAcceptor();
             void acceptHandler(boost::shared_ptr<net::BoostNetworkClient> connection, const boost::system::error_code &error);
         public:
-            BoostNetworkServer(unsigned short port, core::Configurations &configs);
+            BoostNetworkServer(unsigned short port, const core::config::Host &configs);
             ~BoostNetworkServer();
             void run();
             void stop();

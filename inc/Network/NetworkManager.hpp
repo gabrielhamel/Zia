@@ -25,9 +25,9 @@ namespace net
     {
         private:
             std::vector<boost::shared_ptr<net::IClient>> m_clients;
-            core::Configurations &m_configs;
+            const core::config::Host &m_configs;
         public:
-            NetworkManager(core::Configurations &configs);
+            NetworkManager(const core::config::Host &configs);
             ~NetworkManager();
             void newClient(boost::shared_ptr<net::IClient> client);
             void removeClient(boost::shared_ptr<net::IClient> client);

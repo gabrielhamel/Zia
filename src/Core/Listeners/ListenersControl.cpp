@@ -26,9 +26,8 @@ core::ListenersControl::~ListenersControl()
 
 void core::ListenersControl::newListener(unsigned short port)
 {
-    this->m_listeners.emplace(port, std::make_unique<net::BoostNetworkServer>(port, m_configs));
+    this->m_listeners.emplace(port, std::make_unique<net::BoostNetworkServer>(port, this->m_configs.getHostByPort(port)));
     this->m_threads.emplace(port, std::thread(&net::BoostNetworkServer::run, this->m_listeners[port].get()));
-
 }
 
 void core::ListenersControl::destroyListener(unsigned short port)
