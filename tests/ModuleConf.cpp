@@ -12,7 +12,7 @@
 #include <criterion/criterion.h>
 #include "yconf/ConfigNode.hpp"
 #include "yconf/Helper.hpp"
-#include "Module.hpp"
+#include "Modules.hpp"
 
 const static std::string example =
     "name: php-module\n"
