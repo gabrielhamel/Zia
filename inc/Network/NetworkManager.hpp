@@ -14,9 +14,10 @@
 #include <string>
 #include <vector>
 #include <boost/shared_ptr.hpp>
+#include <unordered_map>
 #include "IClient.hpp"
-#include "Request.hpp"
 #include "Configurations.hpp"
+#include "ModuleApi.hpp"
 
 namespace net
 {
@@ -26,6 +27,9 @@ namespace net
         private:
             std::vector<boost::shared_ptr<net::IClient>> m_clients;
             const core::config::Host &m_configs;
+            std::unordered_map<std::string, std::unique_ptr<module::Api>> m_modulesListen; // name -> module
+            std::unordered_multimap<std::string, std::unique_ptr<module::Api>> m_modulesRoutes; // routes -> module
+
         public:
             NetworkManager(const core::config::Host &configs);
             ~NetworkManager();

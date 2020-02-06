@@ -24,5 +24,5 @@ void net::NetworkManager::removeClient(boost::shared_ptr<IClient> client)
 
 void net::NetworkManager::recvData(boost::shared_ptr<net::IClient> client, const std::string &data)
 {
-    net::Request::execute(*client.get(), data);
+
 }

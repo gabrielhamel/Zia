@@ -18,7 +18,6 @@ SET(SRC
   src/Network/BoostNetworkClient.cpp
   src/Network/BoostNetworkServer.cpp
   src/Network/NetworkManager.cpp
-  src/Network/Request.cpp
 
   # Modules
   inc/Core/Module/ModuleApi.hpp
@@ -55,8 +54,9 @@ SET(INC
   inc/
   inc/Core/
   inc/Core/Listeners/
+  inc/Core/Module/
+  inc/Core/Configs/
   inc/Ihm/
-  inc/Core/Configs
 )
 
 add_executable(zia

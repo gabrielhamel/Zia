@@ -11,7 +11,7 @@
 
 #include <exception>
 
-#include "Module.hpp"
+#include "Modules.hpp"
 
 core::config::Module::Module(const IConfigNode &node)
 {

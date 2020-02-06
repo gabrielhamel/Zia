@@ -14,7 +14,7 @@
 
 #include "yconf/ConfigNode.hpp"
 #include "yconf/Helper.hpp"
-#include "Module.hpp"
+#include "Modules.hpp"
 
 namespace core::config
 {
