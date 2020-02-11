@@ -10,6 +10,7 @@
  */
 
 #include <exception>
+#include <vector>
 
 #include "Modules.hpp"
 
