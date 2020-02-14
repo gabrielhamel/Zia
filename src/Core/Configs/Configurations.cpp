@@ -10,7 +10,12 @@
  */
 
 #include <iostream>
+#include <mutex>
+
 #include "Configurations.hpp"
+#include <boost/foreach.hpp>
+
+using namespace boost::filesystem;
 
 std::string core::Configurations::modulesPath("");
 
@@ -108,4 +113,19 @@ const core::config::Host &core::Configurations::getHostByPort(unsigned short por
 const std::vector<core::config::Host> &core::Configurations::getHosts() const
 {
     return this->m_hosts;
+}
+
+std::vector<std::string> core::Configurations::getAllDynName()
+{
+    std::regex check("^.{1,}\\.so$");
+    std::vector<std::string> res;
+    path targetDir(Configurations::modulesPath);
+    directory_iterator iter(targetDir), eod;
+    BOOST_FOREACH(path const &i, std::make_pair(iter, eod)) {
+        if (!std::regex_search(i.string(), check) || i.string().substr(i.string().size() - 4) == "/.so")
+            continue;
+        if (is_regular_file(i))
+            res.push_back(i.string());
+    }
+    return res;
 }

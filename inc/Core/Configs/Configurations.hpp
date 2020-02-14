@@ -13,6 +13,8 @@
 #define CONFIGURATIONS_HPP
 
 #include <string>
+#include <boost/filesystem.hpp>
+
 #include "yconf/ConfigNode.hpp"
 #include "yconf/Helper.hpp"
 #include "Host.hpp"
@@ -45,6 +47,8 @@ public:
     const core::config::Host &getHostByPort(unsigned short port) const;
 
     const std::vector<core::config::Host> &getHosts() const;
+
+    static std::vector<std::string> getAllDynName();
 
     static std::string modulesPath;
 
