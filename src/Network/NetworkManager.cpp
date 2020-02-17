@@ -29,9 +29,9 @@ m_configs(configs)
     // find modules
     // insert it and configure it
 
-    auto res = core::Configurations::getAllDynName();
-    for (auto file : res) {
-        std::cout << file << std::endl;
+    for (auto file : core::Configurations::getAllDynName()) {
+        auto ptr = std::make_unique<Module>(file);
+        std::cout << ptr->get().name() << std::endl;
     }
 
     // TODO
