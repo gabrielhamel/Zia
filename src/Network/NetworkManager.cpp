@@ -12,29 +12,33 @@
 #include <iostream>
 
 #include "NetworkManager.hpp"
-#include "Module.hpp"
 #include "Configurations.hpp"
 
 net::NetworkManager::NetworkManager(const core::config::Host &configs) :
 m_configs(configs)
 {
-    // setConfigurations
     const auto modules = configs.getModules();
     for (const auto &module : modules) {
-        //Module(core::Configurations::modulesPath + "/")
-        // Create and insert module
-        // Configure it
+        auto tmp = std::pair<std::string, std::unique_ptr<Module>>(module.first, std::move(instanciateModule(module.first)));
+        this->m_modulesListen.push_back(std::move(tmp));
+        this->m_modulesListen.back().second->get().setConfigurations(module.second.getConfigs());
     }
-    // For in routes
-    // find modules
-    // insert it and configure it
+    for (const auto &route : configs.getRoutes())
+        for (const auto &module : route.getModules()) {
+            auto tmp = std::pair<std::regex, std::unique_ptr<Module>>(route.getPattern(), std::move(instanciateModule(module.first)));
+            this->m_modulesRoutes.push_back(std::move(tmp));
+            this->m_modulesRoutes.back().second->get().setConfigurations(module.second.getConfigs());
+        }
+}
 
+std::unique_ptr<Module> net::NetworkManager::instanciateModule(const std::string &name) const
+{
     for (auto file : core::Configurations::getAllDynName()) {
         auto ptr = std::make_unique<Module>(file);
-        std::cout << ptr->get().name() << std::endl;
+        if (ptr->get().name() == name)
+            return std::move(ptr);
     }
-
-    // TODO
+    throw std::runtime_error("Module " + name + " doesn't exists");
 }
 
 net::NetworkManager::~NetworkManager()
@@ -44,28 +48,26 @@ net::NetworkManager::~NetworkManager()
 
 void net::NetworkManager::newClient(boost::shared_ptr<net::IClient> client)
 {
-    // newConnection
     for (const auto &module : this->m_modulesListen)
-        module.second->newConnection(*client);
+        module.second->get().newConnection(*client);
     for (const auto &module : this->m_modulesRoutes)
-        module.second->newConnection(*client);
+        module.second->get().newConnection(*client);
 }
 
 void net::NetworkManager::removeClient(boost::shared_ptr<IClient> client)
 {
-    // disconnection
     for (const auto &module : this->m_modulesListen)
-        module.second->disconnection(*client);
+        module.second->get().disconnection(*client);
     for (const auto &module : this->m_modulesRoutes)
-        module.second->disconnection(*client);
+        module.second->get().disconnection(*client);
 }
 
 void net::NetworkManager::recvData(boost::shared_ptr<net::IClient> client, const std::string &data)
 {
+    // TODO
     // afterReceive
     // afterUnpacked
     // execute
     // beforePacked
     // beforeSend
-    // TODO
 }

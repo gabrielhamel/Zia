@@ -19,6 +19,7 @@
 #include "IClient.hpp"
 #include "Configurations.hpp"
 #include "ModuleApi.hpp"
+#include "Module.hpp"
 
 namespace net
 {
@@ -28,8 +29,9 @@ namespace net
         private:
             std::vector<boost::shared_ptr<net::IClient>> m_clients;
             const core::config::Host &m_configs;
-            std::vector<std::pair<std::string, std::unique_ptr<module::Api>>> m_modulesListen; // name -> module
-            std::vector<std::pair<std::string, std::unique_ptr<module::Api>>> m_modulesRoutes; // routes -> module
+            std::vector<std::pair<std::string, std::unique_ptr<Module>>> m_modulesListen; // name -> module
+            std::vector<std::pair<std::regex, std::unique_ptr<Module>>> m_modulesRoutes; // routes -> module
+            std::unique_ptr<Module> instanciateModule(const std::string &name) const;
 
         public:
             NetworkManager(const core::config::Host &configs);
