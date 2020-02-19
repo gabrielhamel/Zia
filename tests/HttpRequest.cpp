@@ -86,7 +86,7 @@ Test(HttpRequest, queryParameter_2)
 Test(HttpRequest, cookie)
 {
     HttpRequest request(BasicRequest);
-    
+
     cr_assert_eq(request.headerParameter("Cookie", "yummy_cookie=choco"), true);
     cr_assert_eq(request.cookie("yummy_cookie"), "choco");
 }

@@ -11,6 +11,8 @@
 
 #include <iostream>
 
+#include "HttpRequest.hpp"
+#include "HttpResponse.hpp"
 #include "NetworkManager.hpp"
 #include "Configurations.hpp"
 
@@ -62,12 +64,41 @@ void net::NetworkManager::removeClient(boost::shared_ptr<IClient> client)
         module.second->get().disconnection(*client);
 }
 
-void net::NetworkManager::recvData(boost::shared_ptr<net::IClient> client, const std::string &data)
+void net::NetworkManager::sendBadRequest(net::IClient &client, std::string msg) const
 {
-    // TODO
-    // afterReceive
-    // afterUnpacked
-    // execute
-    // beforePacked
-    // beforeSend
+    std::unique_ptr<http::IResponse> response(new HttpResponse());
+    response->statusCode(400);
+    response->statusMessage("Bad Request");
+    response->body( "<html>\r\n"                                            \
+                    "<head><title>400 Bad Request</title></head>\r\n"       \
+                    "<body>\r\n"                                            \
+                    "<center><h1>" + msg + "</h1></center>\r\n"             \
+                    "<hr><center>zia/1.0.0 (Gab is a monster)</center>\r\n" \
+                    "</body>\r\n"                                           \
+                    "</html>\r\n");
+    client.send(response->serialize());
+}
+
+void net::NetworkManager::recvData(boost::shared_ptr<net::IClient> client, std::string &data)
+{
+    try {
+        for (const auto &module : this->m_modulesListen)
+            module.second->get().afterReceive(*client, data);
+        std::unique_ptr<http::IRequest> request(new HttpRequest(data));
+        for (const auto &module : this->m_modulesListen)
+            module.second->get().afterUnpacked(*client, *request);
+        std::unique_ptr<http::IResponse> response(new HttpResponse());
+        for (const auto &module : this->m_modulesListen)
+            module.second->get().execute(*client, *request, *response);
+        for (const auto &module : this->m_modulesListen)
+            module.second->get().beforePacked(*client, *response);
+        std::string toSend(response->serialize());
+        for (const auto &module : this->m_modulesListen)
+            module.second->get().beforeSend(*client, toSend);
+        client->send(toSend);
+    }
+    catch (const std::exception &e) {
+        this->sendBadRequest(*client, e.what());
+    }
+    // TODO code retour + essai a l'infini tant que ça marche pas
 }

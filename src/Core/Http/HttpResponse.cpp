@@ -6,6 +6,7 @@
 */
 
 #include <iostream>
+#include <ctime>
 
 #include "HttpResponse.hpp"
 
@@ -60,6 +61,21 @@ HttpResponse::HttpResponse(std::string response) : m_status_code(200), m_status_
     });
 }
 
+HttpResponse::HttpResponse()
+{
+    this->m_protocol = "HTTP/1.1";
+    this->statusCode(200);
+    this->statusMessage("OK");
+    this->headerParameter("Server", "zia/1.0.0 (Gab is a monster)");
+    time_t now = time(0);
+    tm *gmt = gmtime(&now);
+    char buff[4096] = {0};
+    strftime(buff, sizeof(buff), "%a, %d %b %Y %H:%M:%S GMT", gmt);
+    this->headerParameter("Date", buff);
+    this->headerParameter("Content-Type", "text/html");
+    this->headerParameter("Connection", "close");
+    this->body("");
+}
 
 HttpResponse::~HttpResponse()
 {
@@ -94,7 +110,7 @@ bool HttpResponse::statusMessage(std::string statusMessage) noexcept
 {
     if (statusMessage == "")
         return false;
-    
+
     m_status_msg = statusMessage;
 
     return true;

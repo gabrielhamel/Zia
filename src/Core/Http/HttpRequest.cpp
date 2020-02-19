@@ -23,6 +23,7 @@ HttpRequest::HttpRequest(std::string request) : m_body("")
         else
             current_line += request.at(size);
     }
+    body_position = request_vector.size();
     for (auto it = request_vector.begin(); it != request_vector.end(); it++)
         if ((*it) == "")
             body_position = std::distance(request_vector.begin(), it);
@@ -38,7 +39,7 @@ HttpRequest::HttpRequest(std::string request) : m_body("")
     m_protocol = line[2];
     if (line[1].find("?") != std::string::npos)
         set_query_parameters(line[1].substr(line[1].find("?") + 1, line[1].length()));
-    std::for_each(request_vector.begin() + 1, request_vector.end() - (request_vector.size() - body_position), [this](auto &elem) {
+    std::for_each(request_vector.begin() + 1, request_vector.begin() + body_position, [this](auto &elem) {
         if (elem.find(": ") == std::string::npos)
             throw std::runtime_error("String not type of key: value");
         auto key = elem.substr(0, elem.find(": "));
@@ -186,7 +187,7 @@ bool HttpRequest::route(std::string route) noexcept
     m_route_without_query = route.substr(0, route.find("?"));
     if (route.find("?") != std::string::npos)
         set_query_parameters(route.substr(route.find("?") + 1, route.length()));
-    
+
     return true;
 }
 

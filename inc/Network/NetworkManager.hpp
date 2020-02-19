@@ -32,13 +32,14 @@ namespace net
             std::vector<std::pair<std::string, std::unique_ptr<Module>>> m_modulesListen; // name -> module
             std::vector<std::pair<std::regex, std::unique_ptr<Module>>> m_modulesRoutes; // routes -> module
             std::unique_ptr<Module> instanciateModule(const std::string &name) const;
+            void sendBadRequest(net::IClient &client, std::string msg) const;
 
         public:
             NetworkManager(const core::config::Host &configs);
             ~NetworkManager();
             void newClient(boost::shared_ptr<net::IClient> client);
             void removeClient(boost::shared_ptr<net::IClient> client);
-            void recvData(boost::shared_ptr<net::IClient> client, const std::string &data);
+            void recvData(boost::shared_ptr<net::IClient> client, std::string &data);
     };
 
 }
