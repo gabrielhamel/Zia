@@ -79,26 +79,72 @@ void net::NetworkManager::sendBadRequest(net::IClient &client, std::string msg) 
     client.send(response->serialize());
 }
 
+void net::NetworkManager::sendInternalError(net::IClient &client, std::string msg) const
+{
+    std::unique_ptr<http::IResponse> response(new HttpResponse());
+    response->statusCode(500);
+    response->statusMessage("Internal server error");
+    response->body( "<html>\r\n"                                                \
+                    "<head><title>500 Internal server error</title></head>\r\n" \
+                    "<body>\r\n"                                                \
+                    "<center><h1>" + msg + "</h1></center>\r\n"                 \
+                    "<hr><center>zia/1.0.0 (Gab is a monster)</center>\r\n"     \
+                    "</body>\r\n"                                               \
+                    "</html>\r\n");
+    client.send(response->serialize());
+}
+
+
 void net::NetworkManager::recvData(boost::shared_ptr<net::IClient> client, std::string &data)
 {
+    std::unique_ptr<http::IRequest> request;
+    for (const auto &module : this->m_modulesListen)
+        if (!module.second->get().afterReceive(*client, data)) {
+            this->sendBadRequest(*client, "Module error (afterReceive): " + module.second->get().name());
+            return;
+        }
     try {
-        for (const auto &module : this->m_modulesListen)
-            module.second->get().afterReceive(*client, data);
-        std::unique_ptr<http::IRequest> request(new HttpRequest(data));
-        for (const auto &module : this->m_modulesListen)
-            module.second->get().afterUnpacked(*client, *request);
-        std::unique_ptr<http::IResponse> response(new HttpResponse());
-        for (const auto &module : this->m_modulesListen)
-            module.second->get().execute(*client, *request, *response);
-        for (const auto &module : this->m_modulesListen)
-            module.second->get().beforePacked(*client, *response);
-        std::string toSend(response->serialize());
-        for (const auto &module : this->m_modulesListen)
-            module.second->get().beforeSend(*client, toSend);
-        client->send(toSend);
+        request = std::make_unique<HttpRequest>(data);
     }
     catch (const std::exception &e) {
-        this->sendBadRequest(*client, e.what());
+        this->sendBadRequest(*client, "Bad request: " + std::string(e.what()));
+        return;
     }
-    // TODO code retour + essai a l'infini tant que ça marche pas
+    for (const auto &module : this->m_modulesListen)
+        if (!module.second->get().afterUnpacked(*client, *request)) {
+            this->sendBadRequest(*client, "Module error (afterUnpacked): " + module.second->get().name());
+            return;
+        }
+    std::unique_ptr<http::IResponse> response;
+    try {
+        response = std::make_unique<HttpResponse>();
+    }
+    catch (const std::exception &e) {
+        this->sendInternalError(*client, "Cannot respond: " + std::string(e.what()));
+        return;
+    }
+    for (const auto &module : this->m_modulesListen)
+        if (!module.second->get().execute(*client, *request, *response)) {
+            this->sendInternalError(*client, "Module error (execute): " + module.second->get().name());
+            return;
+        }
+    for (const auto &module : this->m_modulesListen)
+        if (!module.second->get().beforePacked(*client, *response)) {
+            this->sendInternalError(*client, "Module error (beforePacked): " + module.second->get().name());
+            return;
+        }
+    std::string toSend;
+    try {
+        toSend = response->serialize();
+    }
+    catch (const std::exception &e) {
+        this->sendInternalError(*client, "Cannot pack response: " + std::string(e.what()));
+        return;
+    }
+    for (const auto &module : this->m_modulesListen)
+        if (!module.second->get().beforeSend(*client, toSend)) {
+            this->sendInternalError(*client, "Module error (beforeSend): " + module.second->get().name());
+            return;
+        }
+    client->send(toSend);
 }

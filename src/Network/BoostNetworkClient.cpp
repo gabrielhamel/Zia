@@ -1,4 +1,6 @@
 #include <boost/bind.hpp>
+#include <iostream>
+
 #include "BoostNetworkClient.hpp"
 
 using namespace boost::asio;
@@ -36,8 +38,13 @@ void net::BoostNetworkClient::readHandler(const boost::system::error_code &error
     auto ptr = static_cast<const char *>(m_buffer.data().data());
     auto size = m_buffer.data().size();
     std::string message(ptr, size);
-    this->m_buffer.consume(size);
-    this->m_networkManager.recvData(shared_from_this(), message);
+    this->m_buffer.consume(this->m_buffer.size());
+    try {
+        this->m_networkManager.recvData(shared_from_this(), message);
+    }
+    catch (const std::exception &e) {
+        std::cerr << e.what() << std::endl;
+    }
     bindRead();
 }
 

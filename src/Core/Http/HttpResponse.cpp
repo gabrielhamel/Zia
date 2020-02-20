@@ -73,7 +73,7 @@ HttpResponse::HttpResponse()
     strftime(buff, sizeof(buff), "%a, %d %b %Y %H:%M:%S GMT", gmt);
     this->headerParameter("Date", buff);
     this->headerParameter("Content-Type", "text/html");
-    this->headerParameter("Connection", "close");
+    this->headerParameter("Connection", "keep-alive");
     this->body("");
 }
 
