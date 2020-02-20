@@ -6,7 +6,7 @@
 using namespace boost::asio;
 
 net::BoostNetworkClient::BoostNetworkClient(basic_socket_acceptor<ip::tcp> &ec, NetworkManager &networkManager) :
-m_socket(ec.get_executor()), m_connected(false), m_networkManager(networkManager)
+m_socket(ec.get_executor()), m_connected(false), m_networkManager(networkManager), m_buffer(std::make_unique<streambuf>())
 {
 
 }
@@ -26,7 +26,7 @@ void net::BoostNetworkClient::bindRead()
     if (this->m_connected == false)
         this->m_connected = true;
     auto binding = boost::bind(&BoostNetworkClient::readHandler, shared_from_this(), placeholders::error, placeholders::bytes_transferred);
-    async_read_until(this->m_socket, this->m_buffer, "\0", binding);
+    async_read_until(this->m_socket, *this->m_buffer, "\0", binding);
 }
 
 void net::BoostNetworkClient::readHandler(const boost::system::error_code &error, std::size_t bytes_transferred)
@@ -35,10 +35,16 @@ void net::BoostNetworkClient::readHandler(const boost::system::error_code &error
         disconnect(error.message());
         return;
     }
-    auto ptr = static_cast<const char *>(m_buffer.data().data());
-    auto size = m_buffer.data().size();
+    const char *ptr;
+    try {
+        ptr = static_cast<const char *>(m_buffer->data().data());
+    }
+    catch (const std::exception &e) {
+        std::cout << e.what() << std::endl;
+    }
+    auto size = m_buffer->data().size();
     std::string message(ptr, size);
-    this->m_buffer.consume(this->m_buffer.size());
+    this->m_buffer = std::make_unique<streambuf>();
     try {
         this->m_networkManager.recvData(shared_from_this(), message);
     }

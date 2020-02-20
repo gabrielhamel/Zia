@@ -26,7 +26,7 @@ namespace net
         private:
             ip::tcp::socket m_socket;
             bool m_connected;
-            streambuf m_buffer;
+            std::unique_ptr<streambuf> m_buffer;
             net::NetworkManager &m_networkManager;
         public:
             BoostNetworkClient(basic_socket_acceptor<ip::tcp> &ec, NetworkManager &networkManager);

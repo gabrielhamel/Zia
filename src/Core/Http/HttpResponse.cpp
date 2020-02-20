@@ -74,7 +74,7 @@ HttpResponse::HttpResponse()
     this->headerParameter("Date", buff);
     this->headerParameter("Content-Type", "text/html");
     this->headerParameter("Connection", "keep-alive");
-    this->body("");
+    this->body("\r\n");
 }
 
 HttpResponse::~HttpResponse()
