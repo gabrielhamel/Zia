@@ -110,11 +110,21 @@ void net::NetworkManager::recvData(boost::shared_ptr<net::IClient> client, std::
         this->sendBadRequest(*client, "Bad request: " + std::string(e.what()));
         return;
     }
+    // Request modules
     for (const auto &module : this->m_modulesListen)
         if (!module.second->get().afterUnpacked(*client, *request)) {
             this->sendBadRequest(*client, "Module error (afterUnpacked): " + module.second->get().name());
             return;
         }
+    for (const auto &module : this->m_modulesRoutes) {
+        if (!std::regex_search(request->route(), module.first))
+            continue;
+        if (!module.second->get().afterUnpacked(*client, *request)) {
+            this->sendBadRequest(*client, "Module error (afterUnpacked): " + module.second->get().name());
+            return;
+        }
+        break;
+    }
     std::unique_ptr<http::IResponse> response;
     try {
         response = std::make_unique<HttpResponse>();
@@ -128,11 +138,29 @@ void net::NetworkManager::recvData(boost::shared_ptr<net::IClient> client, std::
             this->sendInternalError(*client, "Module error (execute): " + module.second->get().name());
             return;
         }
+    for (const auto &module : this->m_modulesRoutes) {
+        if (!std::regex_search(request->route(), module.first))
+            continue;
+        if (!module.second->get().execute(*client, *request, *response)) {
+            this->sendInternalError(*client, "Module error (execute): " + module.second->get().name());
+            return;
+        }
+        break;
+    }
     for (const auto &module : this->m_modulesListen)
         if (!module.second->get().beforePacked(*client, *response)) {
             this->sendInternalError(*client, "Module error (beforePacked): " + module.second->get().name());
             return;
         }
+    for (const auto &module : this->m_modulesRoutes) {
+        if (!std::regex_search(request->route(), module.first))
+            continue;
+        if (!module.second->get().beforePacked(*client, *response)) {
+            this->sendInternalError(*client, "Module error (beforePacked): " + module.second->get().name());
+            return;
+        }
+        break;
+    }
     std::string toSend;
     try {
         toSend = response->serialize();
@@ -146,5 +174,14 @@ void net::NetworkManager::recvData(boost::shared_ptr<net::IClient> client, std::
             this->sendInternalError(*client, "Module error (beforeSend): " + module.second->get().name());
             return;
         }
+    for (const auto &module : this->m_modulesRoutes) {
+        if (!std::regex_search(request->route(), module.first))
+            continue;
+        if (!module.second->get().beforeSend(*client, toSend)) {
+            this->sendInternalError(*client, "Module error (beforeSend): " + module.second->get().name());
+            return;
+        }
+        break;
+    }
     client->send(toSend);
 }

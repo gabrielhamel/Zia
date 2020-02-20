@@ -1,5 +1,5 @@
 /**
- * @file sayHello.hpp
+ * @file File.hpp
  * @author Gabriel Hamel (gabriel.hamel.pro@gmail.com)
  * @brief An basic module who say hello at each requests
  * @version 1.0
@@ -17,14 +17,14 @@
 namespace module
 {
 
-class SayHello : public Api
+class File : public Api
 {
 
 public:
 
-    SayHello();
+    File();
 
-    ~SayHello();
+    ~File();
 
     std::string name() const noexcept;
 

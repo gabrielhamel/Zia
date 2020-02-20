@@ -5,6 +5,8 @@
 ** Module.cpp
 */
 
+#include <iostream>
+
 #include "Module/Module.hpp"
 
 Module::Module(const std::string &path)

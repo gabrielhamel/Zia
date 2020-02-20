@@ -92,5 +92,8 @@ target_link_libraries(unit-tests PRIVATE ${CMAKE_DL_LIBS})
 
 ######################## MODULES ########################
 
-add_library(sayhello SHARED modules/sayhello/SayHello.cpp)
-target_include_directories(sayhello PUBLIC ${INC})
+add_library(file SHARED modules/File/File.cpp)
+target_include_directories(file PUBLIC ${INC})
+
+add_library(php SHARED modules/Php/Php.cpp)
+target_include_directories(php PUBLIC ${INC})
