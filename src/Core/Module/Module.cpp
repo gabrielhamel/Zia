@@ -9,8 +9,8 @@
 
 #include "Module/Module.hpp"
 
-Module::Module(const std::string &path)
-    : _impl(boost::dll::import_alias<ApiType *()>(path, "create_module", boost::dll::load_mode::append_decorations)())
+Module::Module(const std::string &path) :
+_lib(path), _impl(boost::dll::import_alias<ApiType *()>(_lib, "create_module")())
 {
     assert(_impl);
 }

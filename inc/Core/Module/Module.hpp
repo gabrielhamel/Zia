@@ -38,5 +38,6 @@ public:
     const ApiType *operator->() const;
 
 private:
+    boost::dll::shared_library _lib;
     std::unique_ptr<ApiType> _impl;
 };
