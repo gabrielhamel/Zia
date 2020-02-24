@@ -23,13 +23,15 @@ m_configs(configs)
     for (const auto &module : modules) {
         auto tmp = std::pair<std::string, std::unique_ptr<Module>>(module.first, std::move(instanciateModule(module.first)));
         this->m_modulesListen.push_back(std::move(tmp));
-        this->m_modulesListen.back().second->get().setConfigurations(module.second.getConfigs());
+        if (!this->m_modulesListen.back().second->get().setConfigurations(module.second.getConfigs()))
+            throw std::runtime_error(std::string(module.second.getName() + ": Invalid configurations").c_str());
     }
     for (const auto &route : configs.getRoutes())
         for (const auto &module : route.getModules()) {
             auto tmp = std::pair<std::regex, std::unique_ptr<Module>>(route.getPattern(), std::move(instanciateModule(module.first)));
             this->m_modulesRoutes.push_back(std::move(tmp));
-            this->m_modulesRoutes.back().second->get().setConfigurations(module.second.getConfigs());
+            if (!this->m_modulesRoutes.back().second->get().setConfigurations(module.second.getConfigs()))
+                throw std::runtime_error(std::string(module.second.getName() + ": Invalid configurations").c_str());
         }
 }
 
@@ -64,36 +66,32 @@ void net::NetworkManager::removeClient(boost::shared_ptr<IClient> client)
         module.second->get().disconnection(*client);
 }
 
-void net::NetworkManager::sendBadRequest(net::IClient &client, std::string msg) const
+void net::NetworkManager::responseError(int status, std::string message, http::IResponse &response) const
 {
-    std::unique_ptr<http::IResponse> response(new HttpResponse());
-    response->statusCode(400);
-    response->statusMessage("Bad Request");
-    response->body( "<html>\r\n"                                            \
-                    "<head><title>400 Bad Request</title></head>\r\n"       \
+    response.statusCode(status);
+    response.statusMessage(message);
+    response.body( "<html>\r\n"                                            \
+                    "<head><title>" + std::string(std::to_string(status) + std::string(" ") + message) + "</title></head>\r\n"       \
                     "<body>\r\n"                                            \
-                    "<center><h1>" + msg + "</h1></center>\r\n"             \
+                    "<center><h1>" + std::string(std::to_string(status) + std::string(" ") + message) + "</h1></center>\r\n"             \
                     "<hr><center>zia/1.0.0 (Gab is a monster)</center>\r\n" \
                     "</body>\r\n"                                           \
                     "</html>\r\n");
+}
+
+void net::NetworkManager::sendBadRequest(net::IClient &client, std::string msg) const
+{
+    std::unique_ptr<http::IResponse> response(new HttpResponse());
+    this->responseError(400, "Bad Request", *response);
     client.send(response->serialize());
 }
 
 void net::NetworkManager::sendInternalError(net::IClient &client, std::string msg) const
 {
     std::unique_ptr<http::IResponse> response(new HttpResponse());
-    response->statusCode(500);
-    response->statusMessage("Internal server error");
-    response->body( "<html>\r\n"                                                \
-                    "<head><title>500 Internal server error</title></head>\r\n" \
-                    "<body>\r\n"                                                \
-                    "<center><h1>" + msg + "</h1></center>\r\n"                 \
-                    "<hr><center>zia/1.0.0 (Gab is a monster)</center>\r\n"     \
-                    "</body>\r\n"                                               \
-                    "</html>\r\n");
+    this->responseError(500, "Internal server error", *response);
     client.send(response->serialize());
 }
-
 
 void net::NetworkManager::recvData(boost::shared_ptr<net::IClient> client, std::string &data)
 {

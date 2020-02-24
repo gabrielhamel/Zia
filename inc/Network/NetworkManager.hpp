@@ -34,6 +34,7 @@ namespace net
             std::unique_ptr<Module> instanciateModule(const std::string &name) const;
             void sendBadRequest(net::IClient &client, std::string msg) const;
             void sendInternalError(net::IClient &client, std::string msg) const;
+            void responseError(int status, std::string message, http::IResponse &response) const;
 
         public:
             NetworkManager(const core::config::Host &configs);

@@ -20,6 +20,14 @@ namespace module
 class File : public Api
 {
 
+private:
+
+    std::string m_rootFolder;
+
+    bool responseError(int status, std::string message, http::IResponse &response) const;
+
+    void fillMimeType(const std::string &filepath, http::IResponse &response) const;
+
 public:
 
     File();
