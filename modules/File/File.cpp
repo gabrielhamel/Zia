@@ -11,6 +11,7 @@
 
 #include <boost/dll/alias.hpp>
 #include <iostream>
+#include <sstream>
 #include <fstream>
 #include <boost/filesystem.hpp>
 #include <algorithm>
@@ -126,9 +127,9 @@ bool module::File::execute(const net::IClient &client, http::IRequest &request, 
     }
     try {
         std::ifstream content(path);
-        std::string s;
-        while (content >> s)
-            response.bodyAppend(s);
+        std::stringstream s;
+        s << content.rdbuf();
+        response.body(s.str());
         this->fillMimeType(path, response);
     }
     catch (const std::exception &e) {
