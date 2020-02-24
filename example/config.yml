@@ -1,0 +1,14 @@
+modulespath: '/home/gabriel/repositories/CPP_zia_2019/build/lib'
+hosts:
+  - domain: localhost
+    listen:
+      port: 8080
+      routes:
+        - name: \/.*\.php$
+          modules:
+            - name: php
+        - name: \/
+          modules:
+            - name: file
+              configs:
+                root: www
