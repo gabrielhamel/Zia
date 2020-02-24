@@ -96,14 +96,14 @@ bool module::File::responseError(int status, std::string message, http::IRespons
 
 void module::File::fillMimeType(const std::string &filepath, http::IResponse &response) const
 {
-    std::regex regex("\\..{1,}$");
-    auto matching = std::regex_match(filepath, regex);
+    std::regex regex("\\.[^\\/]{1,}$");
+    auto matching = std::regex_search(filepath, regex);
     if (matching == false) {
         response.headerParameter("Content-Type", "application/octet-stream");
         return;
     }
-    auto matchs = std::sregex_token_iterator(filepath.begin(), filepath.end(), regex);
-    std::string extension = "png";
+    std::sregex_token_iterator it(filepath.begin(), filepath.end(), regex);
+    std::string extension(it->str().substr(1));
     auto find = mimetype.find(extension);
     if (find == mimetype.end())
         response.headerParameter("Content-Type", "application/octet-stream");
@@ -129,6 +129,7 @@ bool module::File::execute(const net::IClient &client, http::IRequest &request, 
         std::string s;
         while (content >> s)
             response.bodyAppend(s);
+        this->fillMimeType(path, response);
     }
     catch (const std::exception &e) {
         return false;

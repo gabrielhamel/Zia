@@ -73,8 +73,8 @@ HttpResponse::HttpResponse()
     strftime(buff, sizeof(buff), "%a, %d %b %Y %H:%M:%S GMT", gmt);
     this->headerParameter("Date", buff);
     this->headerParameter("Content-Type", "text/html");
+    this->headerParameter("Content-Length", "0");
     this->headerParameter("Connection", "keep-alive");
-    this->body("\r\n");
 }
 
 HttpResponse::~HttpResponse()
@@ -190,36 +190,16 @@ std::string HttpResponse::body() const noexcept
 
 bool HttpResponse::body(std::string body) noexcept
 {
-    if (body == "")
-        return false;
-    for (auto &elem : m_response_header) {
-        if (elem.first == "Content-Length") {
-            elem.second = std::to_string(std::stoi(elem.second) + body.length());
-            m_body = body;
-            return true;
-        }
-    }
-    m_response_header.push_back(std::pair<std::string, std::string>("Content-Length", std::to_string(body.length())));
     m_body = body;
-
+    this->headerParameter("Content-Length", std::to_string(m_body.size()));
     return true;
 }
 
 
 bool HttpResponse::bodyAppend(std::string body) noexcept
 {
-    if (body == "")
-        return false;
-    for (auto &elem : m_response_header) {
-        if (elem.first == "Content-Length") {
-            elem.second = std::to_string(std::stoi(elem.second) + body.length());
-            m_body += body;
-            return true;
-        }
-    }
-    m_response_header.push_back(std::pair<std::string, std::string>("Content-Length", std::to_string(body.length())));
     m_body += body;
-
+    this->headerParameter("Content-Length", std::to_string(m_body.size()));
     return true;
 }
 
@@ -230,7 +210,6 @@ std::string HttpResponse::serialize() const noexcept
     to_return += m_protocol + " " + std::to_string(m_status_code) + " " + m_status_msg + "\r\n";
     for (auto &elem : m_response_header)
         to_return += elem.first + ": " + elem.second + "\r\n";
-    to_return += "\r\n" + m_body + "\r\n";
-
+    to_return += "\r\n" + m_body;
     return to_return;
 }
