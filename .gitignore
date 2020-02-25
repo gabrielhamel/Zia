@@ -8,6 +8,7 @@ a.out
 cmake-build-debug/
 
 *.so
+*.dll
 
 sample.yaml
 html/

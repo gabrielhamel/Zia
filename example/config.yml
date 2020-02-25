@@ -4,6 +4,12 @@ hosts:
     listen:
       port: 8080
       routes:
+        - name: \/proxy
+          modules:
+            - name: proxy
+              configs:
+                hostname: '127.0.0.1'
+                port: 80
         - name: \/.*\.php$
           modules:
             - name: php

@@ -117,12 +117,12 @@ const std::vector<core::config::Host> &core::Configurations::getHosts() const
 
 std::vector<std::string> core::Configurations::getAllDynName()
 {
-    std::regex check("^.{1,}\\.so$");
+    std::regex check("^.{1,}\\.(dll|so)$");
     std::vector<std::string> res;
     path targetDir(Configurations::modulesPath);
     directory_iterator iter(targetDir), eod;
     BOOST_FOREACH(path const &i, std::make_pair(iter, eod)) {
-        if (!std::regex_search(i.string(), check) || i.string().substr(i.string().size() - 4) == "/.so")
+        if (!std::regex_search(i.string(), check))
             continue;
         if (is_regular_file(i))
             res.push_back(i.string());
