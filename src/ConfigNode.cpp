@@ -6,6 +6,8 @@
 */
 
 #include <stdexcept>
+#include <iostream>
+
 #include "yconf/ConfigNode.hpp"
 
 yconf::ConfigNode::ConfigNode(const std::string &filePath)
@@ -101,8 +103,7 @@ YAML::Node yconf::ConfigNode::getNode(const std::string &name) const
 {
     auto childPath = util::split(name, '.');
     auto fieldName = childPath.back();
-
-    childPath.erase(childPath.end());
+    childPath.erase(childPath.end() - 1);
     if (!childPath.empty())
         return getChild(childPath.begin(), childPath.end()).getNode(fieldName);
 
