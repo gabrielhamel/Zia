@@ -11,7 +11,11 @@
 
 #include <boost/dll/alias.hpp>
 #include <iostream>
-
+#include <sstream>
+#include <fstream>
+#include <boost/filesystem.hpp>
+#include <algorithm>
+#include <regex>
 #include "Php.hpp"
 
 module::Php::Php()
@@ -41,6 +45,12 @@ bool module::Php::disconnection(const net::IClient &client) noexcept
 
 bool module::Php::setConfigurations(Configs configs) noexcept
 {
+    const auto &root = configs.find("root");
+    if (root == configs.end()) {
+        std::cerr << "Missing root folder" << std::endl;
+        return false;
+    }
+    m_rootFolder = root->second;
     return true;
 }
 
@@ -54,9 +64,33 @@ bool module::Php::afterUnpacked(const net::IClient &client, http::IRequest &requ
     return true;
 }
 
+bool module::Php::responseError(int status, std::string message, http::IResponse &response) const
+{
+    response.statusCode(status);
+    response.statusMessage(message);
+    response.body( "<html>\r\n"                                            \
+                    "<head><title>" + std::string(std::to_string(status) + std::string(" ") + message) + "</title></head>\r\n"       \
+                    "<body>\r\n"                                            \
+                    "<center><h1>" + std::string(std::to_string(status) + std::string(" ") + message) + "</h1></center>\r\n"             \
+                    "<hr><center>zia/1.0.0 (Gab is a monster)</center>\r\n" \
+                    "</body>\r\n"                                           \
+                    "</html>\r\n");
+    return true;
+}
+
 bool module::Php::execute(const net::IClient &client, http::IRequest &request, http::IResponse &response) noexcept
 {
-    std::cout << "Into php" << std::endl;
+    auto path = this->m_rootFolder + "/" + request.route();
+    boost::filesystem::path file(path);
+    if (!boost::filesystem::exists(file) || !boost::filesystem::is_regular_file(file))
+        return responseError(404, "Not found", response);
+    try {
+        // Use path variable
+        std::cout << "LOAD PHP " << path << std::endl;
+    }
+    catch (const std::exception &e) {
+        return false;
+    }
     return true;
 }
 

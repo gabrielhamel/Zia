@@ -20,6 +20,12 @@ namespace module
 class Php : public Api
 {
 
+private:
+
+    std::string m_rootFolder;
+
+    bool responseError(int status, std::string message, http::IResponse &response) const;
+
 public:
 
     Php();

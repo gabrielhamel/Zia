@@ -97,4 +97,5 @@ target_link_libraries(file PRIVATE ${CONAN_LIBS})
 target_include_directories(file PUBLIC ${INC})
 
 add_library(php SHARED modules/Php/Php.cpp)
+target_link_libraries(php PRIVATE ${CONAN_LIBS})
 target_include_directories(php PUBLIC ${INC})

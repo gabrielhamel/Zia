@@ -1,4 +1,4 @@
-modulespath: '/home/gabriel/repositories/CPP_zia_2019/build/lib'
+modulespath: 'build/lib'
 hosts:
   - domain: localhost
     listen:
@@ -7,8 +7,10 @@ hosts:
         - name: \/.*\.php$
           modules:
             - name: php
+              configs:
+                root: example/www
         - name: \/
           modules:
             - name: file
               configs:
-                root: www
+                root: example/www
