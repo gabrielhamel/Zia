@@ -59,15 +59,15 @@ HttpRequest::~HttpRequest() {}
 
 void HttpRequest::init_map()
 {
-    map_request_method["GET"] = http::GET;
-    map_request_method["HEAD"] = http::HEAD;
-    map_request_method["POST"] = http::POST;
-    map_request_method["PUT"] = http::PUT;
-    map_request_method["DELETE"] = http::DELETE;
-    map_request_method["CONNECT"] = http::CONNECT;
-    map_request_method["OPTIONS"] = http::OPTIONS;
-    map_request_method["TRACE"] = http::TRACE;
-    map_request_method["PATCH"] = http::PATCH;
+    map_request_method["GET"] = http::HTTP_GET;
+    map_request_method["HEAD"] = http::HTTP_HEAD;
+    map_request_method["POST"] = http::HTTP_POST;
+    map_request_method["PUT"] = http::HTTP_PUT;
+    map_request_method["DELETE"] = http::HTTP_DELETE;
+    map_request_method["CONNECT"] = http::HTTP_CONNECT;
+    map_request_method["OPTIONS"] = http::HTTP_OPTIONS;
+    map_request_method["TRACE"] = http::HTTP_TRACE;
+    map_request_method["PATCH"] = http::HTTP_PATCH;
 
     url_encode["%0A"] = "\n";
     url_encode["%0D"] = "\n";
@@ -179,7 +179,7 @@ bool HttpRequest::route(std::string route) noexcept
 {
     if (route == "" || route.at(0) != '/')
         return false;
-    for (size_t i; i < route.length(); i++)
+    for (size_t i = 0; i < route.length(); i++)
         if (i + 1 < route.length() && route.at(i) == '/' && route.at(i + 1) == '/')
             return false;
 

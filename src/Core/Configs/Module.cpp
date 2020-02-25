@@ -20,7 +20,7 @@ core::config::Module::Module(const IConfigNode &node)
     try {
         this->m_configs = node.getAllScalarsOf("configs");
     }
-    catch (const std::runtime_error &e) {
+    catch (const std::exception e) {
         if (std::string(e.what()) == "Non scalar value in node")
             throw e;
     }

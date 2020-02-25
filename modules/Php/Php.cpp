@@ -87,7 +87,12 @@ bool module::Php::execute(const net::IClient &client, http::IRequest &request, h
     if (!boost::filesystem::exists(file) || !boost::filesystem::is_regular_file(file))
         return responseError(404, "Not found", response);
     try {
-        auto pipe = popen(std::string("php " + path).c_str(), "r");
+        std::string command("php " + path);
+        #ifdef _WIN32
+            auto pipe = _popen(command.c_str(), "r");
+        #else
+            auto pipe = popen(command.c_str(), "r");
+        #endif
         if (pipe == NULL) {
             std::cerr << "It seem you doesn't have php-cli" << std::endl;
             return false;
@@ -95,9 +100,13 @@ bool module::Php::execute(const net::IClient &client, http::IRequest &request, h
         char buff[4096] = {0};
         while (fread(buff, sizeof(char), 4096, pipe))
             response.bodyAppend(buff);
-        pclose(pipe);
+        #ifdef _WIN32
+            _pclose(pipe);
+        #else
+            pclose(pipe);
+        #endif
     }
-    catch (const std::exception &e) {
+    catch (const std::exception e) {
         return false;
     }
     return true;

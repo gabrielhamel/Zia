@@ -132,7 +132,7 @@ bool module::File::execute(const net::IClient &client, http::IRequest &request, 
         response.body(s.str());
         this->fillMimeType(path, response);
     }
-    catch (const std::exception &e) {
+    catch (const std::exception e) {
         return false;
     }
     return true;
