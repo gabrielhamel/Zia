@@ -26,14 +26,14 @@ Test(HttpRequest, verb_1)
 {
     HttpRequest request(BasicRequest);
 
-    cr_assert_eq(request.verb(), http::GET);
+    cr_assert_eq(request.verb(), http::HTTP_GET);
 }
 
 Test(HttpRequest, verb_2)
 {
     HttpRequest request(BasicRequest);
 
-    cr_assert_eq(request.verb(http::POST), true);
+    cr_assert_eq(request.verb(http::HTTP_POST), true);
 }
 
 Test(HttpRequest, route_1)

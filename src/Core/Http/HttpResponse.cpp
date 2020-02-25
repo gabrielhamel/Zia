@@ -68,10 +68,15 @@ HttpResponse::HttpResponse()
     this->statusMessage("OK");
     this->headerParameter("Server", "zia/1.0.0 (Gab is a monster)");
     time_t now = time(0);
-    tm gmt = {0};
-    gmtime_s(&gmt, &now);
     char buff[4096] = {0};
-    strftime(buff, sizeof(buff), "%a, %d %b %Y %H:%M:%S GMT", &gmt);
+    #ifdef _WIN32
+        tm gmt = {0};
+        gmtime_s(&gmt, &now);
+        strftime(buff, sizeof(buff), "%a, %d %b %Y %H:%M:%S GMT", &gmt);
+    #else
+        tm *gmt = gmtime(&now);
+        strftime(buff, sizeof(buff), "%a, %d %b %Y %H:%M:%S GMT", gmt);
+    #endif
     this->headerParameter("Date", buff);
     this->headerParameter("Content-Type", "text/html");
     this->headerParameter("Content-Length", "0");
