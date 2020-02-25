@@ -1,1 +1,6 @@
-<?php echo "salut"; ?>
+<?php
+
+    echo "salut\n";
+    echo "bonsoir\n";
+
+?>

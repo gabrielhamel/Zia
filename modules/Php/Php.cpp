@@ -16,6 +16,8 @@
 #include <boost/filesystem.hpp>
 #include <algorithm>
 #include <regex>
+#include <stdio.h>
+
 #include "Php.hpp"
 
 module::Php::Php()
@@ -85,8 +87,15 @@ bool module::Php::execute(const net::IClient &client, http::IRequest &request, h
     if (!boost::filesystem::exists(file) || !boost::filesystem::is_regular_file(file))
         return responseError(404, "Not found", response);
     try {
-        // Use path variable
-        std::cout << "LOAD PHP " << path << std::endl;
+        auto pipe = popen(std::string("php " + path).c_str(), "r");
+        if (pipe == NULL) {
+            std::cerr << "It seem you doesn't have php-cli" << std::endl;
+            return false;
+        }
+        char buff[4096] = {0};
+        while (fread(buff, sizeof(char), 4096, pipe))
+            response.bodyAppend(buff);
+        pclose(pipe);
     }
     catch (const std::exception &e) {
         return false;
