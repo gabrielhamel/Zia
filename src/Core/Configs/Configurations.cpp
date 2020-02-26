@@ -13,6 +13,8 @@
 #include <mutex>
 
 #include "Configurations.hpp"
+
+#include <boost/dll.hpp>
 #include <boost/foreach.hpp>
 
 using namespace boost::filesystem;
@@ -124,8 +126,12 @@ std::vector<std::string> core::Configurations::getAllDynName()
     BOOST_FOREACH(path const &i, std::make_pair(iter, eod)) {
         if (!std::regex_search(i.string(), check))
             continue;
-        if (is_regular_file(i))
+        if (is_regular_file(i)) {
+            boost::dll::shared_library lib(i.string());
+            if (!lib.has("create_module"))
+                continue;
             res.push_back(i.string());
+        }
     }
     return res;
 }

@@ -34,3 +34,8 @@ const Module::ApiType *Module::operator->() const
 {
     return _impl.get();
 }
+
+const boost::dll::shared_library &Module::getLibrary() const
+{
+    return _lib;
+}
