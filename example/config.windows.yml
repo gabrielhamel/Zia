@@ -10,6 +10,11 @@ hosts:
               configs:
                 hostname: '127.0.0.1'
                 port: 80
+        - name: \/documentation
+          modules:
+            - name: file
+              configs:
+                root: .
         - name: \/.*\.php$
           modules:
             - name: php

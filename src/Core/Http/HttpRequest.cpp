@@ -121,7 +121,11 @@ void HttpRequest::get_request_method(std::string line)
 
 void HttpRequest::set_query_parameters(std::string line) noexcept
 {
-    m_query_parameters = get_query_parameters(line);
+    try {
+        m_query_parameters = get_query_parameters(line);
+    } catch (...) {
+
+    }
 }
 
 

@@ -116,7 +116,6 @@ bool module::File::execute(const net::IClient &client, http::IRequest &request, 
 {
     auto path = this->m_rootFolder + "/" + request.route();
     boost::filesystem::path file(path);
-
     if (!boost::filesystem::exists(file))
         return responseError(404, "Not found", response);
     if (boost::filesystem::is_directory(file)) {
