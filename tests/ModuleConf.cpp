@@ -10,6 +10,7 @@
  */
 
 #include <criterion/criterion.h>
+#include <iostream>
 #include "yconf/ConfigNode.hpp"
 #include "yconf/Helper.hpp"
 #include "Modules.hpp"
@@ -78,26 +79,4 @@ Test(ModuleConf, withoutConfig)
     std::vector<std::string> names;
     cr_assert_eq(module.getConfigsName(), names);
     cr_assert_eq(module.getName(), "php-module");
-}
-
-Test(ModuleConf, configAdvancedError)
-{
-    const std::string newExample =
-    "name: php-module\n"
-    "configs:\n"
-    "  key:\n"
-    "    key1: value1\n"
-    "    key2: value2\n"
-    "  port: 9000\n";
-    auto node = YAML::Load(newExample);
-    bool ok = false;
-    try {
-        auto module = core::config::Module(yconf::ConfigNode(node));
-        module.getConfigsName();
-    }
-    catch (const std::exception &e) {
-        if (std::string(e.what()) == "Non scalar value in node")
-            ok = true;
-    }
-    cr_assert_eq(ok, true);
 }

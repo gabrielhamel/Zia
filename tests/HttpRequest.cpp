@@ -48,7 +48,7 @@ Test(HttpRequest, route_2)
     HttpRequest request(BasicRequest);
 
     cr_assert_eq(request.route("/ft/master/"), true);
-    cr_assert_eq(request.route("/ft//master/"), true);
+    cr_assert_eq(request.route("/ft//master/"), false);
     cr_assert_eq(request.route("oui/"), false);
 }
 

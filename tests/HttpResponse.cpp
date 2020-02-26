@@ -13,7 +13,7 @@
 #include "HttpResponse.hpp"
 
 static const std::string BasicResponse = "HTTP/1.1 400 Bad Request\r\nServer: nginx/1.12.1\r\n"
-    "Date: Mon, 20 Jan 2020 15:53:24 GMT\r\nContent-Type: text/html\r\nContent-Length: 173\r\n"
+    "Date: Mon, 20 Jan 2020 15:53:24 GMT\r\nContent-Type: text/html\r\nContent-Length: 175\r\n"
     "Connection: close\r\n\r\n<html>\r\n<head><title>400 Bad Request</title></head>\r\n"
     "<body bgcolor=\"white\">\r\n<center><h1>400 Bad Request</h1></center>\r\n<hr><center>nginx/1.12.1</center>\r\n"
     "</body>\r\n</html>\r\n\r\n";
@@ -93,24 +93,24 @@ Test(HttpResponse, body)
 
     cr_assert_eq(response.body(), "<html>\r\n<head><title>400 Bad Request</title></head>\r\n"
     "<body bgcolor=\"white\">\r\n<center><h1>400 Bad Request</h1></center>\r\n<hr><center>nginx/1.12.1</center>\r\n"
-    "</body>\r\n</html>\r\n");
+    "</body>\r\n</html>\r\n\r\n");
 }
 
 Test(HttpResponse, bodyAppend)
 {
     HttpResponse response(BasicResponse);
 
-    cr_assert_eq(response.bodyAppend(""), false);
+    cr_assert_eq(response.bodyAppend(""), true);
     cr_assert_eq(response.bodyAppend("Test\r\n"), true);
     cr_assert_eq(response.body(), "<html>\r\n<head><title>400 Bad Request</title></head>\r\n"
     "<body bgcolor=\"white\">\r\n<center><h1>400 Bad Request</h1></center>\r\n<hr><center>nginx/1.12.1</center>\r\n"
-    "</body>\r\n</html>\r\nTest\r\n");
-    cr_assert_eq(response.headerParameter("Content-Length"), "179");
+    "</body>\r\n</html>\r\n\r\nTest\r\n");
+    cr_assert_eq(response.headerParameter("Content-Length"), "181");
 }
 
 Test(HttpResponse, serialize)
 {
     HttpResponse response(BasicResponse);
 
-    cr_assert_eq(response.serialize(), BasicResponse);
+    cr_assert_eq(response.serialize(), BasicResponse, "GOT: %s\nEXPECT: %s\n", response.serialize().c_str(), BasicResponse.c_str());
 }
