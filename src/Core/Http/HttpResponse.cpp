@@ -10,7 +10,7 @@
 
 #include "HttpResponse.hpp"
 
-HttpResponse::HttpResponse(std::string response) : m_status_code(200), m_status_msg("OK")
+HttpResponse::HttpResponse(std::string response)
 {
     std::vector<std::string> response_vector;
     size_t body_position = 0;
@@ -38,8 +38,6 @@ HttpResponse::HttpResponse(std::string response) : m_status_code(200), m_status_
     m_status_code = std::stoi(line[1]);
     if (m_status_code < 0)
         throw std::runtime_error("Status code less than 0");
-    if (m_status_code != 200)
-        m_status_msg = "";
     std::for_each(line.begin() + 2, line.end(), [this](auto &elem) {
         m_status_msg += elem + " ";
     });
@@ -54,11 +52,13 @@ HttpResponse::HttpResponse(std::string response) : m_status_code(200), m_status_
         auto value = elem.substr(elem.find(": ") + 2, elem.length());
         m_response_header.emplace(m_response_header.end(), std::pair<std::string, std::string>(key, value));
     });
-
-    if (body_position != 0 && body_position < response_vector.size())
-    std::for_each(response_vector.begin() + body_position + 1, response_vector.end(), [this](auto &elem) {
-        m_body += elem + "\r\n";
-    });
+    if (body_position != 0 && body_position < response_vector.size()) {
+        auto it = response.find("\r\n\r\n");
+        if (it != std::string::npos) {
+            this->m_body = response.substr(it + 4);
+            this->headerParameter("Content-Length", std::to_string(m_body.size()));
+        }
+    }
 }
 
 HttpResponse::HttpResponse()

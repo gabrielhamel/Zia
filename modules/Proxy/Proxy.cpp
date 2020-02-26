@@ -84,14 +84,12 @@ bool module::Proxy::execute(const net::IClient &client, http::IRequest &request,
         std::stringstream message;
         while (read(socket, responseBuff, transfer_at_least(1), error))
             message << &responseBuff;
-        std::cout << "LOL\n" << message.str() << std::endl;
         auto dest = new HttpResponse(message.str());
         response.statusCode(dest->statusCode());
         response.statusMessage(dest->statusMessage());
         response.body(dest->body());
         delete dest;
         response.headerParameter("Connection", "keep-alive");
-        std::cout << "LOL2\n" << response.serialize() << std::endl;
     }
     catch (const std::exception &e) {
         std::cerr << e.what() << std::endl;
