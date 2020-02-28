@@ -125,10 +125,9 @@ bool module::File::execute(const net::IClient &client, http::IRequest &request, 
             return responseError(404, "Not found", response);
     }
     try {
-        std::ifstream content(path);
-        std::stringstream s;
-        s << content.rdbuf();
-        response.body(s.str());
+        std::string content;
+        boost::filesystem::load_string_file(boost::filesystem::path(path), content);
+        response.body(content);
         this->fillMimeType(path, response);
     }
     catch (const std::exception e) {
