@@ -65,10 +65,9 @@ Test(ModuleConf, getConfigsName)
     auto node = YAML::Load(example);
     auto module = core::config::Module(yconf::ConfigNode(node));
 
-    std::vector<std::string> names;
-    names.push_back("port");
-    names.push_back("host");
-    cr_assert_eq(module.getConfigsName(), names);
+    auto res = module.getConfigsName();
+    cr_assert_neq(std::find(res.begin(), res.end(), "port"), res.end());
+    cr_assert_neq(std::find(res.begin(), res.end(), "host"), res.end());
 }
 
 Test(ModuleConf, withoutConfig)
