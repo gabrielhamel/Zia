@@ -30,6 +30,7 @@ TESTS_SRC =	HttpRequest.cpp		\
 			ModuleConf.cpp		\
 			ModulePhp.cpp		\
 			HostConf.cpp		\
+			ModuleFile.cpp		\
 
 LIB_INC =	-I ~/.conan/data/yaml-cpp/0.6.2/bincrafters/stable/package/b911f48570f9bb2902d9e83b2b9ebf9d376c8c56/include \
 			-I ~/.conan/data/boost/1.70.0/conan/stable/package/71a3ea6bfbaaf69a904e48a2da11313dfabb0b9d/include

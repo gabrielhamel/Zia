@@ -1,5 +1,5 @@
 /**
- * @file ModulePhp.cpp
+ * @file ModuleFile.cpp
  * @author Gabriel Hamel (gabriel.hamel.pro@gmail.com)
  * @brief
  * @version 1.0
@@ -19,35 +19,27 @@
 #include "HttpResponse.hpp"
 
 #ifndef _WIN32
-    static const std::string path("build/lib/libphp.so");
+    static const std::string path("build/lib/libfile.so");
 #else
-    static const std::string path("build\\bin\\php.dll");
-#endif
-
-#ifndef _WIN32
-    static const std::string www("example/www");
-#else
-    static const std::string www("example\\www");
+    static const std::string path("build\\bin\\file.dll");
 #endif
 
 static const std::string BasicRequest =
-    "GET /index.php HTTP/1.1\r\n"
+    "GET /index.html HTTP/1.1\r\n"
     "Host: localhost:8080\r\n"
     "Connection: keep-alive\r\n\r\n";
 
 static std::unique_ptr<http::IRequest> request = std::make_unique<HttpRequest>(BasicRequest);
-static std::unique_ptr<http::IResponse> response = std::make_unique<HttpResponse>();
-
-class FakeClient : public net::IClient
-{
-    bool send(const std::string &data) { return true; }
-    std::size_t getId() const noexcept { return 0; }
-};
-
-static std::unique_ptr<net::IClient> client = std::make_unique<FakeClient>();
-
 static boost::dll::shared_library library(path);
+
+#ifndef _WIN32
+    const std::string www("example/www");
+#else
+    const std::string www("example\\www");
+#endif
+
 static module::Api *mod = nullptr;
+
 static std::string nullBuffer;
 
 static void moduleCreate(void)
@@ -61,19 +53,28 @@ static void moduleDestroy(void)
     mod = nullptr;
 }
 
-TestSuite(ModulePhp);
+class FakeClient : public net::IClient
+{
+    bool send(const std::string &data) { return true; }
+    std::size_t getId() const noexcept { return 0; }
+};
 
-Test(ModulePhp, hasFactory)
+std::unique_ptr<net::IClient> client = std::make_unique<FakeClient>();
+std::unique_ptr<http::IResponse> response = std::make_unique<HttpResponse>();
+
+TestSuite(ModuleFile);
+
+Test(ModuleFile, hasFactory)
 {
     cr_assert_eq(library.has("create_module"), true);
 }
 
-Test(ModulePhp, namse, .init = moduleCreate, .fini = moduleDestroy)
+Test(ModuleFile, namse, .init = moduleCreate, .fini = moduleDestroy)
 {
-    cr_assert_eq(mod->name(), "php");
+    cr_assert_eq(mod->name(), "file");
 }
 
-Test(ModulePhp, setConfiguration, .init = moduleCreate, .fini = moduleDestroy)
+Test(ModuleFile, setConfiguration, .init = moduleCreate, .fini = moduleDestroy)
 {
     std::unordered_map<std::string, std::string> configs;
     configs.emplace("root", www);
@@ -81,7 +82,7 @@ Test(ModulePhp, setConfiguration, .init = moduleCreate, .fini = moduleDestroy)
     cr_assert_eq(mod->setConfigurations(configs), true);
 }
 
-Test(ModulePhp, unknownRoot, .init = moduleCreate, .fini = moduleDestroy)
+Test(ModuleFile, unknownRoot, .init = moduleCreate, .fini = moduleDestroy)
 {
     Redirector redirect(std::cerr);
     std::unordered_map<std::string, std::string> configs;
@@ -90,7 +91,7 @@ Test(ModulePhp, unknownRoot, .init = moduleCreate, .fini = moduleDestroy)
     cr_assert_eq(redirect.getContent(), "Missing root folder\n");
 }
 
-Test(ModulePhp, uselessFunctions, .init = moduleCreate, .fini = moduleDestroy)
+Test(ModuleFile, uselessFunctions, .init = moduleCreate, .fini = moduleDestroy)
 {
     cr_expect_eq(mod->newConnection(*client), true);
     cr_expect_eq(mod->disconnection(*client), true);
@@ -100,7 +101,7 @@ Test(ModulePhp, uselessFunctions, .init = moduleCreate, .fini = moduleDestroy)
     cr_expect_eq(mod->beforeSend(*client, nullBuffer), true);
 }
 
-Test(ModulePhp, basicExecution, .init = moduleCreate, .fini = moduleDestroy)
+Test(ModuleFile, basicExecution, .init = moduleCreate, .fini = moduleDestroy)
 {
     std::unordered_map<std::string, std::string> configs;
     configs.emplace("root", www);
@@ -110,11 +111,11 @@ Test(ModulePhp, basicExecution, .init = moduleCreate, .fini = moduleDestroy)
     cr_assert_eq(mod->execute(*client, *request, *res), true);
     cr_assert_eq(res->statusCode(), 200);
     cr_assert_eq(res->statusMessage(), "OK");
-    cr_assert_eq(res->headerParameter("Content-Length"), "14");
-    cr_assert_eq(res->body(), "salut\nbonsoir\n");
+    cr_assert_eq(res->headerParameter("Content-Length"), "15");
+    cr_assert_eq(res->body(), "<h1>SALUT</h1>\n");
 }
 
-Test(ModulePhp, notFound, .init = moduleCreate, .fini = moduleDestroy)
+Test(ModuleFile, notFound, .init = moduleCreate, .fini = moduleDestroy)
 {
     std::unordered_map<std::string, std::string> configs;
     configs.emplace("root", www);
