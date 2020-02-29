@@ -22,6 +22,8 @@ core::ListenersControl::~ListenersControl()
 {
     for (auto &elem : this->m_listeners)
         this->destroyListener(elem.first);
+    this->m_listeners.clear();
+    this->m_threads.clear();
 }
 
 void core::ListenersControl::newListener(unsigned short port)

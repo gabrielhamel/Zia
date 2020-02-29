@@ -41,5 +41,6 @@ public:
 
 private:
     boost::dll::shared_library _lib;
+    boost::function<ApiType*()> _alias;
     std::unique_ptr<ApiType> _impl;
 };
