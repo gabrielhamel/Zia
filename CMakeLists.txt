@@ -80,6 +80,7 @@ add_executable(unit-tests
   tests/ModuleConf.cpp
   tests/RouteConf.cpp
   tests/HostConf.cpp
+  tests/ModulePhp.cpp
 )
 
 target_include_directories(unit-tests PUBLIC
