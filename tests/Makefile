@@ -55,6 +55,8 @@ MOD_FILE_SRC = ../modules/File/File.cpp
 
 MOD_PROXY_SRC = ../modules/Proxy/Proxy.cpp
 
+CONAN := $(shell conan config home)
+
 all: $(ZIA_OBJ) $(TESTS_OBJ) $(MOD_PHP_OBJ) $(MOD_FILE_OBJ) $(MOD_PROXY_OBJ)
 	@$(CXX) $(ZIA_OBJ) $(TESTS_OBJ) -o unit-tests $(LIB_DIR) $(LDFLAGS) --coverage
 	@mkdir -p ../build/lib
@@ -62,9 +64,41 @@ all: $(ZIA_OBJ) $(TESTS_OBJ) $(MOD_PHP_OBJ) $(MOD_FILE_OBJ) $(MOD_PROXY_OBJ)
 	@$(CXX) -fPIC -shared $(MOD_FILE_SRC) $(LIB_DIR) $(LDFLAGS) $(CXXFLAGS) -o ../build/lib/libfile.so
 	@$(CXX) -fPIC -shared $(MOD_PROXY_SRC) $(LIB_DIR) $(LDFLAGS) $(CXXFLAGS) -o ../build/lib/libproxy.so
 
+
+
 coverage:
 	lcov -c -d .. --output-file Coverage
 	lcov --remove Coverage -o Coverage '/usr/include/c++/9/*'
+	lcov --remove Coverage -o Coverage '$(CONAN)/data/boost/1.70.0/conan/stable/package/71a3ea6bfbaaf69a904e48a2da11313dfabb0b9d/include/boost/algorithm/string/*'
+	lcov --remove Coverage -o Coverage '$(CONAN)/data/boost/1.70.0/conan/stable/package/71a3ea6bfbaaf69a904e48a2da11313dfabb0b9d/include/boost/algorithm/string/detail/*'
+	lcov --remove Coverage -o Coverage '$(CONAN)/data/boost/1.70.0/conan/stable/package/71a3ea6bfbaaf69a904e48a2da11313dfabb0b9d/include/boost/asio/*'
+	lcov --remove Coverage -o Coverage '$(CONAN)/data/boost/1.70.0/conan/stable/package/71a3ea6bfbaaf69a904e48a2da11313dfabb0b9d/include/boost/asio/detail/impl/*'
+	lcov --remove Coverage -o Coverage '$(CONAN)/data/boost/1.70.0/conan/stable/package/71a3ea6bfbaaf69a904e48a2da11313dfabb0b9d/include/boost/asio/detail/*'
+	lcov --remove Coverage -o Coverage '$(CONAN)/data/boost/1.70.0/conan/stable/package/71a3ea6bfbaaf69a904e48a2da11313dfabb0b9d/include/boost/asio/ip/detail/impl/*'
+	lcov --remove Coverage -o Coverage '$(CONAN)/data/boost/1.70.0/conan/stable/package/71a3ea6bfbaaf69a904e48a2da11313dfabb0b9d/include/boost/asio/impl/*'
+	lcov --remove Coverage -o Coverage '$(CONAN)/data/boost/1.70.0/conan/stable/package/71a3ea6bfbaaf69a904e48a2da11313dfabb0b9d/include/boost/asio/ip/detail/*'
+	lcov --remove Coverage -o Coverage '$(CONAN)/data/boost/1.70.0/conan/stable/package/71a3ea6bfbaaf69a904e48a2da11313dfabb0b9d/include/boost/asio/ip/*'
+	lcov --remove Coverage -o Coverage '$(CONAN)/data/boost/1.70.0/conan/stable/package/71a3ea6bfbaaf69a904e48a2da11313dfabb0b9d/include/boost/bind/*'
+	lcov --remove Coverage -o Coverage '$(CONAN)/data/boost/1.70.0/conan/stable/package/71a3ea6bfbaaf69a904e48a2da11313dfabb0b9d/include/boost/core/*'
+	lcov --remove Coverage -o Coverage '$(CONAN)/data/boost/1.70.0/conan/stable/package/71a3ea6bfbaaf69a904e48a2da11313dfabb0b9d/include/boost/dll/*'
+	lcov --remove Coverage -o Coverage '$(CONAN)/data/boost/1.70.0/conan/stable/package/71a3ea6bfbaaf69a904e48a2da11313dfabb0b9d/include/boost/dll/detail/posix/*'
+	lcov --remove Coverage -o Coverage '$(CONAN)/data/boost/1.70.0/conan/stable/package/71a3ea6bfbaaf69a904e48a2da11313dfabb0b9d/include/boost/dll/detail/*'
+	lcov --remove Coverage -o Coverage '$(CONAN)/data/boost/1.70.0/conan/stable/package/71a3ea6bfbaaf69a904e48a2da11313dfabb0b9d/include/boost/exception/*'
+	lcov --remove Coverage -o Coverage '$(CONAN)/data/boost/1.70.0/conan/stable/package/71a3ea6bfbaaf69a904e48a2da11313dfabb0b9d/include/boost/filesystem/*'
+	lcov --remove Coverage -o Coverage '$(CONAN)/data/boost/1.70.0/conan/stable/package/71a3ea6bfbaaf69a904e48a2da11313dfabb0b9d/include/boost/function/*'
+	lcov --remove Coverage -o Coverage '$(CONAN)/data/boost/1.70.0/conan/stable/package/71a3ea6bfbaaf69a904e48a2da11313dfabb0b9d/include/boost/iterator/*'
+	lcov --remove Coverage -o Coverage '$(CONAN)/data/boost/1.70.0/conan/stable/package/71a3ea6bfbaaf69a904e48a2da11313dfabb0b9d/include/boost/range/algorithm/*'
+	lcov --remove Coverage -o Coverage '$(CONAN)/data/boost/1.70.0/conan/stable/package/71a3ea6bfbaaf69a904e48a2da11313dfabb0b9d/include/boost/range/*'
+	lcov --remove Coverage -o Coverage '$(CONAN)/data/boost/1.70.0/conan/stable/package/71a3ea6bfbaaf69a904e48a2da11313dfabb0b9d/include/boost/smart_ptr/detail/*'
+	lcov --remove Coverage -o Coverage '$(CONAN)/data/boost/1.70.0/conan/stable/package/71a3ea6bfbaaf69a904e48a2da11313dfabb0b9d/include/boost/smart_ptr/*'
+	lcov --remove Coverage -o Coverage '$(CONAN)/data/boost/1.70.0/conan/stable/package/71a3ea6bfbaaf69a904e48a2da11313dfabb0b9d/include/boost/system/detail/*'
+	lcov --remove Coverage -o Coverage '$(CONAN)/data/boost/1.70.0/conan/stable/package/71a3ea6bfbaaf69a904e48a2da11313dfabb0b9d/include/boost/system/*'
+	lcov --remove Coverage -o Coverage '$(CONAN)/data/boost/1.70.0/conan/stable/package/71a3ea6bfbaaf69a904e48a2da11313dfabb0b9d/include/boost/type_index/*'
+	lcov --remove Coverage -o Coverage '$(CONAN)/data/boost/1.70.0/conan/stable/package/71a3ea6bfbaaf69a904e48a2da11313dfabb0b9d/include/boost/type_traits/*'
+	lcov --remove Coverage -o Coverage '$(CONAN)/data/boost/1.70.0/conan/stable/package/71a3ea6bfbaaf69a904e48a2da11313dfabb0b9d/include/boost/*'
+	lcov --remove Coverage -o Coverage '$(CONAN)/data/yaml-cpp/0.6.2/bincrafters/stable/package/b911f48570f9bb2902d9e83b2b9ebf9d376c8c56/include/yaml-cpp/*'
+	lcov --remove Coverage -o Coverage '/usr/include/x86_64-linux-gnu/c++/9/bits/*'
+	lcov --remove Coverage -o Coverage '/usr/local/include/criterion/*'
 	mkdir -p html
 	genhtml Coverage --output-directory html
 
@@ -75,6 +109,8 @@ clean:
 	$(RM) ../build/lib/libphp.so
 	$(RM) ../build/lib/libfile.so
 	$(RM) ../build/lib/libproxy.so
+	$(RM) -rf html
+	$(RM) Coverage
 
 fclean: clean
 	$(RM) unit-tests
