@@ -2,7 +2,10 @@ zia
 build
 .vscode
 a.out
-
+*.gcda
+*.gcno
+*.o
+tests/unit-tests
 .idea/
 
 cmake-build-debug/
@@ -17,3 +20,4 @@ latex/
 node_modules/
 package-lock.json
 package.json
+tests/Coverage
