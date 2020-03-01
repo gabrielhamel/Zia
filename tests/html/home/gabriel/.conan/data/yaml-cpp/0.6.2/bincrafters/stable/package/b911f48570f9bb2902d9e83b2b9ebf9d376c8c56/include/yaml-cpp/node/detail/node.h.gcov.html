@@ -1,0 +1,245 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+
+<html lang="en">
+
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>LCOV - Coverage.filter - /home/gabriel/.conan/data/yaml-cpp/0.6.2/bincrafters/stable/package/b911f48570f9bb2902d9e83b2b9ebf9d376c8c56/include/yaml-cpp/node/detail/node.h</title>
+  <link rel="stylesheet" type="text/css" href="../../../../../../../../../../../../../../gcov.css">
+</head>
+
+<body>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="title">LCOV - code coverage report</td></tr>
+    <tr><td class="ruler"><img src="../../../../../../../../../../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+
+    <tr>
+      <td width="100%">
+        <table cellpadding=1 border=0 width="100%">
+          <tr>
+            <td width="10%" class="headerItem">Current view:</td>
+            <td width="35%" class="headerValue"><a href="../../../../../../../../../../../../../../index.html">top level</a> - <a href="index.html">home/gabriel/.conan/data/yaml-cpp/0.6.2/bincrafters/stable/package/b911f48570f9bb2902d9e83b2b9ebf9d376c8c56/include/yaml-cpp/node/detail</a> - node.h<span style="font-size: 80%;"> (source / <a href="node.h.func-sort-c.html">functions</a>)</span></td>
+            <td width="5%"></td>
+            <td width="15%"></td>
+            <td width="10%" class="headerCovTableHead">Hit</td>
+            <td width="10%" class="headerCovTableHead">Total</td>
+            <td width="15%" class="headerCovTableHead">Coverage</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Test:</td>
+            <td class="headerValue">Coverage.filter</td>
+            <td></td>
+            <td class="headerItem">Lines:</td>
+            <td class="headerCovTableEntry">7</td>
+            <td class="headerCovTableEntry">20</td>
+            <td class="headerCovTableEntryLo">35.0 %</td>
+          </tr>
+          <tr>
+            <td class="headerItem">Date:</td>
+            <td class="headerValue">2020-02-29 16:47:05</td>
+            <td></td>
+            <td class="headerItem">Functions:</td>
+            <td class="headerCovTableEntry">6</td>
+            <td class="headerCovTableEntry">9</td>
+            <td class="headerCovTableEntryLo">66.7 %</td>
+          </tr>
+          <tr><td><img src="../../../../../../../../../../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+        </table>
+      </td>
+    </tr>
+
+    <tr><td class="ruler"><img src="../../../../../../../../../../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+  </table>
+
+  <table cellpadding=0 cellspacing=0 border=0>
+    <tr>
+      <td><br></td>
+    </tr>
+    <tr>
+      <td>
+<pre class="sourceHeading">          Line data    Source code</pre>
+<pre class="source">
+<a name="1"><span class="lineNum">       1 </span>            : #ifndef NODE_DETAIL_NODE_H_62B23520_7C8E_11DE_8A39_0800200C9A66</a>
+<a name="2"><span class="lineNum">       2 </span>            : #define NODE_DETAIL_NODE_H_62B23520_7C8E_11DE_8A39_0800200C9A66</a>
+<a name="3"><span class="lineNum">       3 </span>            : </a>
+<a name="4"><span class="lineNum">       4 </span>            : #if defined(_MSC_VER) ||                                            \</a>
+<a name="5"><span class="lineNum">       5 </span>            :     (defined(__GNUC__) &amp;&amp; (__GNUC__ == 3 &amp;&amp; __GNUC_MINOR__ &gt;= 4) || \</a>
+<a name="6"><span class="lineNum">       6 </span>            :      (__GNUC__ &gt;= 4))  // GCC supports &quot;pragma once&quot; correctly since 3.4</a>
+<a name="7"><span class="lineNum">       7 </span>            : #pragma once</a>
+<a name="8"><span class="lineNum">       8 </span>            : #endif</a>
+<a name="9"><span class="lineNum">       9 </span>            : </a>
+<a name="10"><span class="lineNum">      10 </span>            : #include &quot;yaml-cpp/emitterstyle.h&quot;</a>
+<a name="11"><span class="lineNum">      11 </span>            : #include &quot;yaml-cpp/dll.h&quot;</a>
+<a name="12"><span class="lineNum">      12 </span>            : #include &quot;yaml-cpp/node/type.h&quot;</a>
+<a name="13"><span class="lineNum">      13 </span>            : #include &quot;yaml-cpp/node/ptr.h&quot;</a>
+<a name="14"><span class="lineNum">      14 </span>            : #include &quot;yaml-cpp/node/detail/node_ref.h&quot;</a>
+<a name="15"><span class="lineNum">      15 </span>            : #include &lt;set&gt;</a>
+<a name="16"><span class="lineNum">      16 </span>            : </a>
+<a name="17"><span class="lineNum">      17 </span>            : namespace YAML {</a>
+<a name="18"><span class="lineNum">      18 </span>            : namespace detail {</a>
+<a name="19"><span class="lineNum">      19 </span>            : class node {</a>
+<a name="20"><span class="lineNum">      20 </span>            :  public:</a>
+<a name="21"><span class="lineNum">      21 </span>            :   node() : m_pRef(new node_ref) {}</a>
+<a name="22"><span class="lineNum">      22 </span>            :   node(const node&amp;) = delete;</a>
+<a name="23"><span class="lineNum">      23 </span>            :   node&amp; operator=(const node&amp;) = delete;</a>
+<a name="24"><span class="lineNum">      24 </span>            : </a>
+<a name="25"><span class="lineNum">      25 </span>            :   bool is(const node&amp; rhs) const { return m_pRef == rhs.m_pRef; }</a>
+<a name="26"><span class="lineNum">      26 </span>            :   const node_ref* ref() const { return m_pRef.get(); }</a>
+<a name="27"><span class="lineNum">      27 </span>            : </a>
+<a name="28"><span class="lineNum">      28 </span><span class="lineCov">        297 :   bool is_defined() const { return m_pRef-&gt;is_defined(); }</span></a>
+<a name="29"><span class="lineNum">      29 </span><span class="lineNoCov">          0 :   const Mark&amp; mark() const { return m_pRef-&gt;mark(); }</span></a>
+<a name="30"><span class="lineNum">      30 </span><span class="lineCov">       2893 :   NodeType::value type() const { return m_pRef-&gt;type(); }</span></a>
+<a name="31"><span class="lineNum">      31 </span>            : </a>
+<a name="32"><span class="lineNum">      32 </span><span class="lineCov">       2508 :   const std::string&amp; scalar() const { return m_pRef-&gt;scalar(); }</span></a>
+<a name="33"><span class="lineNum">      33 </span>            :   const std::string&amp; tag() const { return m_pRef-&gt;tag(); }</a>
+<a name="34"><span class="lineNum">      34 </span>            :   EmitterStyle::value style() const { return m_pRef-&gt;style(); }</a>
+<a name="35"><span class="lineNum">      35 </span>            : </a>
+<a name="36"><span class="lineNum">      36 </span>            :   template &lt;typename T&gt;</a>
+<a name="37"><span class="lineNum">      37 </span>            :   bool equals(const T&amp; rhs, shared_memory_holder pMemory);</a>
+<a name="38"><span class="lineNum">      38 </span>            :   bool equals(const char* rhs, shared_memory_holder pMemory);</a>
+<a name="39"><span class="lineNum">      39 </span>            : </a>
+<a name="40"><span class="lineNum">      40 </span><span class="lineNoCov">          0 :   void mark_defined() {</span></a>
+<a name="41"><span class="lineNum">      41 </span><span class="lineNoCov">          0 :     if (is_defined())</span></a>
+<a name="42"><span class="lineNum">      42 </span><span class="lineNoCov">          0 :       return;</span></a>
+<a name="43"><span class="lineNum">      43 </span>            : </a>
+<a name="44"><span class="lineNum">      44 </span><span class="lineNoCov">          0 :     m_pRef-&gt;mark_defined();</span></a>
+<a name="45"><span class="lineNum">      45 </span><span class="lineNoCov">          0 :     for (nodes::iterator it = m_dependencies.begin();</span></a>
+<a name="46"><span class="lineNum">      46 </span><span class="lineNoCov">          0 :          it != m_dependencies.end(); ++it)</span></a>
+<a name="47"><span class="lineNum">      47 </span><span class="lineNoCov">          0 :       (*it)-&gt;mark_defined();</span></a>
+<a name="48"><span class="lineNum">      48 </span><span class="lineNoCov">          0 :     m_dependencies.clear();</span></a>
+<a name="49"><span class="lineNum">      49 </span>            :   }</a>
+<a name="50"><span class="lineNum">      50 </span>            : </a>
+<a name="51"><span class="lineNum">      51 </span>            :   void add_dependency(node&amp; rhs) {</a>
+<a name="52"><span class="lineNum">      52 </span>            :     if (is_defined())</a>
+<a name="53"><span class="lineNum">      53 </span>            :       rhs.mark_defined();</a>
+<a name="54"><span class="lineNum">      54 </span>            :     else</a>
+<a name="55"><span class="lineNum">      55 </span>            :       m_dependencies.insert(&amp;rhs);</a>
+<a name="56"><span class="lineNum">      56 </span>            :   }</a>
+<a name="57"><span class="lineNum">      57 </span>            : </a>
+<a name="58"><span class="lineNum">      58 </span>            :   void set_ref(const node&amp; rhs) {</a>
+<a name="59"><span class="lineNum">      59 </span>            :     if (rhs.is_defined())</a>
+<a name="60"><span class="lineNum">      60 </span>            :       mark_defined();</a>
+<a name="61"><span class="lineNum">      61 </span>            :     m_pRef = rhs.m_pRef;</a>
+<a name="62"><span class="lineNum">      62 </span>            :   }</a>
+<a name="63"><span class="lineNum">      63 </span>            :   void set_data(const node&amp; rhs) {</a>
+<a name="64"><span class="lineNum">      64 </span>            :     if (rhs.is_defined())</a>
+<a name="65"><span class="lineNum">      65 </span>            :       mark_defined();</a>
+<a name="66"><span class="lineNum">      66 </span>            :     m_pRef-&gt;set_data(*rhs.m_pRef);</a>
+<a name="67"><span class="lineNum">      67 </span>            :   }</a>
+<a name="68"><span class="lineNum">      68 </span>            : </a>
+<a name="69"><span class="lineNum">      69 </span>            :   void set_mark(const Mark&amp; mark) { m_pRef-&gt;set_mark(mark); }</a>
+<a name="70"><span class="lineNum">      70 </span>            : </a>
+<a name="71"><span class="lineNum">      71 </span>            :   void set_type(NodeType::value type) {</a>
+<a name="72"><span class="lineNum">      72 </span>            :     if (type != NodeType::Undefined)</a>
+<a name="73"><span class="lineNum">      73 </span>            :       mark_defined();</a>
+<a name="74"><span class="lineNum">      74 </span>            :     m_pRef-&gt;set_type(type);</a>
+<a name="75"><span class="lineNum">      75 </span>            :   }</a>
+<a name="76"><span class="lineNum">      76 </span><span class="lineNoCov">          0 :   void set_null() {</span></a>
+<a name="77"><span class="lineNum">      77 </span><span class="lineNoCov">          0 :     mark_defined();</span></a>
+<a name="78"><span class="lineNum">      78 </span><span class="lineNoCov">          0 :     m_pRef-&gt;set_null();</span></a>
+<a name="79"><span class="lineNum">      79 </span><span class="lineNoCov">          0 :   }</span></a>
+<a name="80"><span class="lineNum">      80 </span>            :   void set_scalar(const std::string&amp; scalar) {</a>
+<a name="81"><span class="lineNum">      81 </span>            :     mark_defined();</a>
+<a name="82"><span class="lineNum">      82 </span>            :     m_pRef-&gt;set_scalar(scalar);</a>
+<a name="83"><span class="lineNum">      83 </span>            :   }</a>
+<a name="84"><span class="lineNum">      84 </span>            :   void set_tag(const std::string&amp; tag) {</a>
+<a name="85"><span class="lineNum">      85 </span>            :     mark_defined();</a>
+<a name="86"><span class="lineNum">      86 </span>            :     m_pRef-&gt;set_tag(tag);</a>
+<a name="87"><span class="lineNum">      87 </span>            :   }</a>
+<a name="88"><span class="lineNum">      88 </span>            : </a>
+<a name="89"><span class="lineNum">      89 </span>            :   // style</a>
+<a name="90"><span class="lineNum">      90 </span>            :   void set_style(EmitterStyle::value style) {</a>
+<a name="91"><span class="lineNum">      91 </span>            :     mark_defined();</a>
+<a name="92"><span class="lineNum">      92 </span>            :     m_pRef-&gt;set_style(style);</a>
+<a name="93"><span class="lineNum">      93 </span>            :   }</a>
+<a name="94"><span class="lineNum">      94 </span>            : </a>
+<a name="95"><span class="lineNum">      95 </span>            :   // size/iterator</a>
+<a name="96"><span class="lineNum">      96 </span>            :   std::size_t size() const { return m_pRef-&gt;size(); }</a>
+<a name="97"><span class="lineNum">      97 </span>            : </a>
+<a name="98"><span class="lineNum">      98 </span>            :   const_node_iterator begin() const {</a>
+<a name="99"><span class="lineNum">      99 </span>            :     return static_cast&lt;const node_ref&amp;&gt;(*m_pRef).begin();</a>
+<a name="100"><span class="lineNum">     100 </span>            :   }</a>
+<a name="101"><span class="lineNum">     101 </span><span class="lineCov">        264 :   node_iterator begin() { return m_pRef-&gt;begin(); }</span></a>
+<a name="102"><span class="lineNum">     102 </span>            : </a>
+<a name="103"><span class="lineNum">     103 </span>            :   const_node_iterator end() const {</a>
+<a name="104"><span class="lineNum">     104 </span>            :     return static_cast&lt;const node_ref&amp;&gt;(*m_pRef).end();</a>
+<a name="105"><span class="lineNum">     105 </span>            :   }</a>
+<a name="106"><span class="lineNum">     106 </span><span class="lineCov">        495 :   node_iterator end() { return m_pRef-&gt;end(); }</span></a>
+<a name="107"><span class="lineNum">     107 </span>            : </a>
+<a name="108"><span class="lineNum">     108 </span>            :   // sequence</a>
+<a name="109"><span class="lineNum">     109 </span>            :   void push_back(node&amp; input, shared_memory_holder pMemory) {</a>
+<a name="110"><span class="lineNum">     110 </span>            :     m_pRef-&gt;push_back(input, pMemory);</a>
+<a name="111"><span class="lineNum">     111 </span>            :     input.add_dependency(*this);</a>
+<a name="112"><span class="lineNum">     112 </span>            :   }</a>
+<a name="113"><span class="lineNum">     113 </span>            :   void insert(node&amp; key, node&amp; value, shared_memory_holder pMemory) {</a>
+<a name="114"><span class="lineNum">     114 </span>            :     m_pRef-&gt;insert(key, value, pMemory);</a>
+<a name="115"><span class="lineNum">     115 </span>            :     key.add_dependency(*this);</a>
+<a name="116"><span class="lineNum">     116 </span>            :     value.add_dependency(*this);</a>
+<a name="117"><span class="lineNum">     117 </span>            :   }</a>
+<a name="118"><span class="lineNum">     118 </span>            : </a>
+<a name="119"><span class="lineNum">     119 </span>            :   // indexing</a>
+<a name="120"><span class="lineNum">     120 </span>            :   template &lt;typename Key&gt;</a>
+<a name="121"><span class="lineNum">     121 </span><span class="lineCov">       1078 :   node* get(const Key&amp; key, shared_memory_holder pMemory) const {</span></a>
+<a name="122"><span class="lineNum">     122 </span>            :     // NOTE: this returns a non-const node so that the top-level Node can wrap</a>
+<a name="123"><span class="lineNum">     123 </span>            :     // it, and returns a pointer so that it can be NULL (if there is no such</a>
+<a name="124"><span class="lineNum">     124 </span>            :     // key).</a>
+<a name="125"><span class="lineNum">     125 </span><span class="lineCov">       1078 :     return static_cast&lt;const node_ref&amp;&gt;(*m_pRef).get(key, pMemory);</span></a>
+<a name="126"><span class="lineNum">     126 </span>            :   }</a>
+<a name="127"><span class="lineNum">     127 </span>            :   template &lt;typename Key&gt;</a>
+<a name="128"><span class="lineNum">     128 </span>            :   node&amp; get(const Key&amp; key, shared_memory_holder pMemory) {</a>
+<a name="129"><span class="lineNum">     129 </span>            :     node&amp; value = m_pRef-&gt;get(key, pMemory);</a>
+<a name="130"><span class="lineNum">     130 </span>            :     value.add_dependency(*this);</a>
+<a name="131"><span class="lineNum">     131 </span>            :     return value;</a>
+<a name="132"><span class="lineNum">     132 </span>            :   }</a>
+<a name="133"><span class="lineNum">     133 </span>            :   template &lt;typename Key&gt;</a>
+<a name="134"><span class="lineNum">     134 </span>            :   bool remove(const Key&amp; key, shared_memory_holder pMemory) {</a>
+<a name="135"><span class="lineNum">     135 </span>            :     return m_pRef-&gt;remove(key, pMemory);</a>
+<a name="136"><span class="lineNum">     136 </span>            :   }</a>
+<a name="137"><span class="lineNum">     137 </span>            : </a>
+<a name="138"><span class="lineNum">     138 </span>            :   node* get(node&amp; key, shared_memory_holder pMemory) const {</a>
+<a name="139"><span class="lineNum">     139 </span>            :     // NOTE: this returns a non-const node so that the top-level Node can wrap</a>
+<a name="140"><span class="lineNum">     140 </span>            :     // it, and returns a pointer so that it can be NULL (if there is no such</a>
+<a name="141"><span class="lineNum">     141 </span>            :     // key).</a>
+<a name="142"><span class="lineNum">     142 </span>            :     return static_cast&lt;const node_ref&amp;&gt;(*m_pRef).get(key, pMemory);</a>
+<a name="143"><span class="lineNum">     143 </span>            :   }</a>
+<a name="144"><span class="lineNum">     144 </span>            :   node&amp; get(node&amp; key, shared_memory_holder pMemory) {</a>
+<a name="145"><span class="lineNum">     145 </span>            :     node&amp; value = m_pRef-&gt;get(key, pMemory);</a>
+<a name="146"><span class="lineNum">     146 </span>            :     key.add_dependency(*this);</a>
+<a name="147"><span class="lineNum">     147 </span>            :     value.add_dependency(*this);</a>
+<a name="148"><span class="lineNum">     148 </span>            :     return value;</a>
+<a name="149"><span class="lineNum">     149 </span>            :   }</a>
+<a name="150"><span class="lineNum">     150 </span>            :   bool remove(node&amp; key, shared_memory_holder pMemory) {</a>
+<a name="151"><span class="lineNum">     151 </span>            :     return m_pRef-&gt;remove(key, pMemory);</a>
+<a name="152"><span class="lineNum">     152 </span>            :   }</a>
+<a name="153"><span class="lineNum">     153 </span>            : </a>
+<a name="154"><span class="lineNum">     154 </span>            :   // map</a>
+<a name="155"><span class="lineNum">     155 </span>            :   template &lt;typename Key, typename Value&gt;</a>
+<a name="156"><span class="lineNum">     156 </span>            :   void force_insert(const Key&amp; key, const Value&amp; value,</a>
+<a name="157"><span class="lineNum">     157 </span>            :                     shared_memory_holder pMemory) {</a>
+<a name="158"><span class="lineNum">     158 </span>            :     m_pRef-&gt;force_insert(key, value, pMemory);</a>
+<a name="159"><span class="lineNum">     159 </span>            :   }</a>
+<a name="160"><span class="lineNum">     160 </span>            : </a>
+<a name="161"><span class="lineNum">     161 </span>            :  private:</a>
+<a name="162"><span class="lineNum">     162 </span>            :   shared_node_ref m_pRef;</a>
+<a name="163"><span class="lineNum">     163 </span>            :   typedef std::set&lt;node*&gt; nodes;</a>
+<a name="164"><span class="lineNum">     164 </span>            :   nodes m_dependencies;</a>
+<a name="165"><span class="lineNum">     165 </span>            : };</a>
+<a name="166"><span class="lineNum">     166 </span>            : }</a>
+<a name="167"><span class="lineNum">     167 </span>            : }</a>
+<a name="168"><span class="lineNum">     168 </span>            : </a>
+<a name="169"><span class="lineNum">     169 </span>            : #endif  // NODE_DETAIL_NODE_H_62B23520_7C8E_11DE_8A39_0800200C9A66</a>
+</pre>
+      </td>
+    </tr>
+  </table>
+  <br>
+
+  <table width="100%" border=0 cellspacing=0 cellpadding=0>
+    <tr><td class="ruler"><img src="../../../../../../../../../../../../../../glass.png" width=3 height=3 alt=""></td></tr>
+    <tr><td class="versionInfo">Generated by: <a href="http://ltp.sourceforge.net/coverage/lcov.php" target="_parent">LCOV version 1.14</a></td></tr>
+  </table>
+  <br>
+
+</body>
+</html>
