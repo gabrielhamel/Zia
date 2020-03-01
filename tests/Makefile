@@ -74,7 +74,6 @@ coverage:
 	lcov --remove Coverage -o Coverage '$(CONAN)/*'
 	lcov --remove Coverage -o Coverage '/usr/*'
 	lcov --remove Coverage -o Coverage '$(FOLDER)/*'
-	lcov --remove Coverage -o Coverage '$(NO_TEST)/inc/*'
 	mkdir -p html
 	genhtml Coverage --output-directory html
 
