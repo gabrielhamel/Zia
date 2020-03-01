@@ -111,8 +111,13 @@ Test(ModuleFile, basicExecution, .init = moduleCreate, .fini = moduleDestroy)
     cr_assert_eq(mod->execute(*client, *request, *res), true);
     cr_assert_eq(res->statusCode(), 200);
     cr_assert_eq(res->statusMessage(), "OK");
-    cr_assert_eq(res->headerParameter("Content-Length"), "15");
-    cr_assert_eq(res->body(), "<h1>SALUT</h1>\n");
+    #ifdef _WIN32
+        cr_assert_eq(res->headerParameter("Content-Length"), "16");
+        cr_assert_eq(res->body(), "<h1>SALUT</h1>\r\n");
+    #else
+        cr_assert_eq(res->headerParameter("Content-Length"), "15");
+        cr_assert_eq(res->body(), "<h1>SALUT</h1>\n");
+    #endif
 }
 
 Test(ModuleFile, notFound, .init = moduleCreate, .fini = moduleDestroy)
