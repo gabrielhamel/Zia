@@ -114,3 +114,16 @@ Test(HttpResponse, serialize)
 
     cr_assert_eq(response.serialize(), BasicResponse, "GOT: %s\nEXPECT: %s\n", response.serialize().c_str(), BasicResponse.c_str());
 }
+
+Test(HttpResponse, noProtocol)
+{
+    std::string text("400 Bad Request\r\n");
+    bool ok = false;
+    try {
+        HttpResponse response(text);
+    }
+    catch (...) {
+        ok = true;
+    }
+    cr_assert_eq(ok, true);
+}

@@ -28,17 +28,17 @@ HttpRequest::HttpRequest(std::string request) : m_body("")
         if ((*it) == "")
             body_position = std::distance(request_vector.begin(), it);
 
-    auto &elem = request_vector[0];
+    auto &elem = request_vector.at(0);
     get_request_method(elem);
     std::vector<std::string> line;
     boost::split(line, elem, boost::is_any_of(" "));
     if (line.size() != 3)
         throw std::runtime_error("Error no route or no protocol or no request method or more parameters");
-    m_route = line[1];
-    m_route_without_query = line[1].substr(0, line[1].find("?"));
-    m_protocol = line[2];
-    if (line[1].find("?") != std::string::npos)
-        set_query_parameters(line[1].substr(line[1].find("?") + 1, line[1].length()));
+    m_route = line.at(1);
+    m_route_without_query = line.at(1).substr(0, line.at(1).find("?"));
+    m_protocol = line.at(2);
+    if (line.at(1).find("?") != std::string::npos)
+        set_query_parameters(line.at(1).substr(line.at(1).find("?") + 1, line.at(1).length()));
     std::for_each(request_vector.begin() + 1, request_vector.begin() + body_position, [this](auto &elem) {
         if (elem.find(": ") == std::string::npos)
             throw std::runtime_error("String not type of key: value");

@@ -29,13 +29,13 @@ HttpResponse::HttpResponse(std::string response)
         if ((*it) == "")
             body_position = std::distance(response_vector.begin(), it);
 
-    auto &elem = response_vector[0];
+    auto &elem = response_vector.at(0);
     std::vector<std::string> line;
     boost::split(line, elem, boost::is_any_of(" "));
     if (line.size() < 3)
         throw std::runtime_error("Error no protocol or no status code or no status msg or missing one of them");
-    m_protocol = line[0];
-    m_status_code = std::stoi(line[1]);
+    m_protocol = line.at(0);
+    m_status_code = std::stoi(line.at(1));
     if (m_status_code < 0)
         throw std::runtime_error("Status code less than 0");
     std::for_each(line.begin() + 2, line.end(), [this](auto &elem) {
