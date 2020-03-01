@@ -121,7 +121,77 @@ Test(ModuleFile, notFound, .init = moduleCreate, .fini = moduleDestroy)
     configs.emplace("root", www);
     mod->setConfigurations(configs);
     static const std::string errorRequest =
-        "GET /issou.php HTTP/1.1\r\n"
+        "GET /issou.html HTTP/1.1\r\n"
+        "Host: localhost:8080\r\n"
+        "Connection: keep-alive\r\n\r\n";
+    std::unique_ptr<http::IRequest> req = std::make_unique<HttpRequest>(errorRequest);
+    std::unique_ptr<http::IResponse> res = std::make_unique<HttpResponse>();
+
+    cr_assert_eq(mod->execute(*client, *req, *res), true);
+    cr_assert_eq(res->statusCode(), 404);
+    cr_assert_eq(res->statusMessage(), "Not found");
+}
+
+Test(ModuleFile, defaultMimetype, .init = moduleCreate, .fini = moduleDestroy)
+{
+    std::unordered_map<std::string, std::string> configs;
+    configs.emplace("root", www);
+    mod->setConfigurations(configs);
+    static const std::string errorRequest =
+        "GET /info.txt HTTP/1.1\r\n"
+        "Host: localhost:8080\r\n"
+        "Connection: keep-alive\r\n\r\n";
+    std::unique_ptr<http::IRequest> req = std::make_unique<HttpRequest>(errorRequest);
+    std::unique_ptr<http::IResponse> res = std::make_unique<HttpResponse>();
+
+    cr_assert_eq(mod->execute(*client, *req, *res), true);
+    cr_assert_eq(res->statusCode(), 200);
+    cr_assert_eq(res->statusMessage(), "OK");
+    cr_assert_eq(res->headerParameter("Content-Type"), "application/octet-stream");
+}
+
+Test(ModuleFile, noExtension, .init = moduleCreate, .fini = moduleDestroy)
+{
+    std::unordered_map<std::string, std::string> configs;
+    configs.emplace("root", www);
+    mod->setConfigurations(configs);
+    static const std::string errorRequest =
+        "GET /noextension HTTP/1.1\r\n"
+        "Host: localhost:8080\r\n"
+        "Connection: keep-alive\r\n\r\n";
+    std::unique_ptr<http::IRequest> req = std::make_unique<HttpRequest>(errorRequest);
+    std::unique_ptr<http::IResponse> res = std::make_unique<HttpResponse>();
+
+    cr_assert_eq(mod->execute(*client, *req, *res), true);
+    cr_assert_eq(res->statusCode(), 200);
+    cr_assert_eq(res->statusMessage(), "OK");
+    cr_assert_eq(res->headerParameter("Content-Type"), "application/octet-stream");
+}
+
+Test(ModuleFile, indexRedir, .init = moduleCreate, .fini = moduleDestroy)
+{
+    std::unordered_map<std::string, std::string> configs;
+    configs.emplace("root", www);
+    mod->setConfigurations(configs);
+    static const std::string errorRequest =
+        "GET / HTTP/1.1\r\n"
+        "Host: localhost:8080\r\n"
+        "Connection: keep-alive\r\n\r\n";
+    std::unique_ptr<http::IRequest> req = std::make_unique<HttpRequest>(errorRequest);
+    std::unique_ptr<http::IResponse> res = std::make_unique<HttpResponse>();
+
+    cr_assert_eq(mod->execute(*client, *req, *res), true);
+    cr_assert_eq(res->statusCode(), 200);
+    cr_assert_eq(res->statusMessage(), "OK");
+}
+
+Test(ModuleFile, noIndex, .init = moduleCreate, .fini = moduleDestroy)
+{
+    std::unordered_map<std::string, std::string> configs;
+    configs.emplace("root", www);
+    mod->setConfigurations(configs);
+    static const std::string errorRequest =
+        "GET /../ HTTP/1.1\r\n"
         "Host: localhost:8080\r\n"
         "Connection: keep-alive\r\n\r\n";
     std::unique_ptr<http::IRequest> req = std::make_unique<HttpRequest>(errorRequest);
