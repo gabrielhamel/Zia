@@ -1,0 +1,140 @@
+\hypertarget{structhttp_1_1IBasicObject}{}\section{http\+:\+:I\+Basic\+Object Struct Reference}
+\label{structhttp_1_1IBasicObject}\index{http\+::\+I\+Basic\+Object@{http\+::\+I\+Basic\+Object}}
+
+
+\href{http::IBasicObject}{\tt http\+::\+I\+Basic\+Object} is a interface that describe same object in a http request / response  
+
+
+
+
+{\ttfamily \#include $<$I\+Basic\+Object.\+hpp$>$}
+
+
+
+Inheritance diagram for http\+:\+:I\+Basic\+Object\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=264pt]{structhttp_1_1IBasicObject__inherit__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structhttp_1_1IBasicObject_ab605c64288bb38ef22741ee5ae1d1f41}\label{structhttp_1_1IBasicObject_ab605c64288bb38ef22741ee5ae1d1f41}} 
+virtual \hyperlink{structhttp_1_1IBasicObject_ab605c64288bb38ef22741ee5ae1d1f41}{$\sim$\+I\+Basic\+Object} ()=default
+\begin{DoxyCompactList}\small\item\em Default destructor. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structhttp_1_1IBasicObject_a691aac60028d3b8785b80bfff286c51a}\label{structhttp_1_1IBasicObject_a691aac60028d3b8785b80bfff286c51a}} 
+virtual std\+::string \hyperlink{structhttp_1_1IBasicObject_a691aac60028d3b8785b80bfff286c51a}{protocol} () const noexcept=0
+\begin{DoxyCompactList}\small\item\em Return the protocol of the object. \end{DoxyCompactList}\item 
+virtual bool \hyperlink{structhttp_1_1IBasicObject_a581e48c03a666b87082c75427f0ff835}{header\+Parameter\+Exist} (const std\+::string \&key) const noexcept=0
+\begin{DoxyCompactList}\small\item\em Checks if in object, there are a named \textquotesingle{}key\textquotesingle{} header parameter. \end{DoxyCompactList}\item 
+virtual std\+::string \hyperlink{structhttp_1_1IBasicObject_a17f97dd4917fdd7dd694d3d191eaebca}{header\+Parameter} (const std\+::string \&key) const noexcept=0
+\begin{DoxyCompactList}\small\item\em Return the header parameter \char`\"{}key\char`\"{} found in the object. \end{DoxyCompactList}\item 
+virtual bool \hyperlink{structhttp_1_1IBasicObject_a0d1fff270c6069bedf87e86cdac6bf3d}{header\+Parameter} (std\+::string key, std\+::string value) noexcept=0
+\begin{DoxyCompactList}\small\item\em Add / Update a header parameter. \end{DoxyCompactList}\item 
+virtual std\+::string \hyperlink{structhttp_1_1IBasicObject_a42eda0e62758f23d9d7d1fee01d8747a}{body} () const noexcept=0
+\begin{DoxyCompactList}\small\item\em Return the body of the object. \end{DoxyCompactList}\item 
+virtual bool \hyperlink{structhttp_1_1IBasicObject_aa304f3a3137912f1dbff798531fa4c09}{body} (std\+::string body) noexcept=0
+\begin{DoxyCompactList}\small\item\em Set / Add a new body in the object. \end{DoxyCompactList}\item 
+virtual bool \hyperlink{structhttp_1_1IBasicObject_abf2cb4a0e7908313b827ad4635bad730}{body\+Append} (std\+::string \hyperlink{structhttp_1_1IBasicObject_a42eda0e62758f23d9d7d1fee01d8747a}{body}) noexcept=0
+\begin{DoxyCompactList}\small\item\em Append data in the body or create it if not exist. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structhttp_1_1IBasicObject_a2d7945a7f4c4e38ce29525bb17c8a5a5}\label{structhttp_1_1IBasicObject_a2d7945a7f4c4e38ce29525bb17c8a5a5}} 
+virtual std\+::string \hyperlink{structhttp_1_1IBasicObject_a2d7945a7f4c4e38ce29525bb17c8a5a5}{serialize} () const noexcept=0
+\begin{DoxyCompactList}\small\item\em Transform this object in a true http object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\href{http::IBasicObject}{\tt http\+::\+I\+Basic\+Object} is a interface that describe same object in a http request / response 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{structhttp_1_1IBasicObject_a42eda0e62758f23d9d7d1fee01d8747a}\label{structhttp_1_1IBasicObject_a42eda0e62758f23d9d7d1fee01d8747a}} 
+\index{http\+::\+I\+Basic\+Object@{http\+::\+I\+Basic\+Object}!body@{body}}
+\index{body@{body}!http\+::\+I\+Basic\+Object@{http\+::\+I\+Basic\+Object}}
+\subsubsection{\texorpdfstring{body()}{body()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily virtual std\+::string http\+::\+I\+Basic\+Object\+::body (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}, {\ttfamily [noexcept]}}
+
+
+
+Return the body of the object. 
+
+Sometimes in object like P\+O\+ST there are a body He can take any form (json, form-\/url-\/encoded, xml, plain text, ...) 
+
+Implemented in \hyperlink{classHttpRequest_a16be46a53c2d2f8d29ad89aa213f30bb}{Http\+Request}, and \hyperlink{classHttpResponse_a696715c993a4ec50a609efcd43d98a62}{Http\+Response}.
+
+\mbox{\Hypertarget{structhttp_1_1IBasicObject_aa304f3a3137912f1dbff798531fa4c09}\label{structhttp_1_1IBasicObject_aa304f3a3137912f1dbff798531fa4c09}} 
+\index{http\+::\+I\+Basic\+Object@{http\+::\+I\+Basic\+Object}!body@{body}}
+\index{body@{body}!http\+::\+I\+Basic\+Object@{http\+::\+I\+Basic\+Object}}
+\subsubsection{\texorpdfstring{body()}{body()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily virtual bool http\+::\+I\+Basic\+Object\+::body (\begin{DoxyParamCaption}\item[{std\+::string}]{body }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}, {\ttfamily [noexcept]}}
+
+
+
+Set / Add a new body in the object. 
+
+Sometimes in object like P\+O\+ST there are a body He can take any form (json, form-\/url-\/encoded, xml, plain text, ...) Change / Add the \textquotesingle{}Content-\/\+Length\textquotesingle{} header parameter Return false if the body is empty or too large... 
+
+Implemented in \hyperlink{classHttpRequest_a591fb5ec9430764ed5b3578d49c3858f}{Http\+Request}, and \hyperlink{classHttpResponse_a26f66b018b250a0ee37859730e131404}{Http\+Response}.
+
+\mbox{\Hypertarget{structhttp_1_1IBasicObject_abf2cb4a0e7908313b827ad4635bad730}\label{structhttp_1_1IBasicObject_abf2cb4a0e7908313b827ad4635bad730}} 
+\index{http\+::\+I\+Basic\+Object@{http\+::\+I\+Basic\+Object}!body\+Append@{body\+Append}}
+\index{body\+Append@{body\+Append}!http\+::\+I\+Basic\+Object@{http\+::\+I\+Basic\+Object}}
+\subsubsection{\texorpdfstring{body\+Append()}{bodyAppend()}}
+{\footnotesize\ttfamily virtual bool http\+::\+I\+Basic\+Object\+::body\+Append (\begin{DoxyParamCaption}\item[{std\+::string}]{body }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}, {\ttfamily [noexcept]}}
+
+
+
+Append data in the body or create it if not exist. 
+
+Sometimes in object like P\+O\+ST there are a body He can take any form (json, form-\/url-\/encoded, xml, plain text, ...) Change / Add the \textquotesingle{}Content-\/\+Length\textquotesingle{} header parameter Return false if the body is empty or too large... 
+
+Implemented in \hyperlink{classHttpRequest_afd8f9f22651d2844b7b2d4cb882b7e19}{Http\+Request}, and \hyperlink{classHttpResponse_af8f8669568d6bcc7b0e3c7a247e456bd}{Http\+Response}.
+
+\mbox{\Hypertarget{structhttp_1_1IBasicObject_a17f97dd4917fdd7dd694d3d191eaebca}\label{structhttp_1_1IBasicObject_a17f97dd4917fdd7dd694d3d191eaebca}} 
+\index{http\+::\+I\+Basic\+Object@{http\+::\+I\+Basic\+Object}!header\+Parameter@{header\+Parameter}}
+\index{header\+Parameter@{header\+Parameter}!http\+::\+I\+Basic\+Object@{http\+::\+I\+Basic\+Object}}
+\subsubsection{\texorpdfstring{header\+Parameter()}{headerParameter()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily virtual std\+::string http\+::\+I\+Basic\+Object\+::header\+Parameter (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{key }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}, {\ttfamily [noexcept]}}
+
+
+
+Return the header parameter \char`\"{}key\char`\"{} found in the object. 
+
+In http object there are some header parameters like \char`\"{}\+Content-\/\+Lenght\+: 166\char`\"{}, \char`\"{}host\+: localhost\char`\"{}. They are described by \char`\"{}\{\+K\+E\+Y\}\+: \{\+V\+A\+L\+U\+E\}\char`\"{} Return an empty string if the parameters key not exist 
+
+Implemented in \hyperlink{classHttpRequest_a96f232879fff933182a3ed5c80229df6}{Http\+Request}, and \hyperlink{classHttpResponse_a257c44a876f78e131e32d5af9f81d4fc}{Http\+Response}.
+
+\mbox{\Hypertarget{structhttp_1_1IBasicObject_a0d1fff270c6069bedf87e86cdac6bf3d}\label{structhttp_1_1IBasicObject_a0d1fff270c6069bedf87e86cdac6bf3d}} 
+\index{http\+::\+I\+Basic\+Object@{http\+::\+I\+Basic\+Object}!header\+Parameter@{header\+Parameter}}
+\index{header\+Parameter@{header\+Parameter}!http\+::\+I\+Basic\+Object@{http\+::\+I\+Basic\+Object}}
+\subsubsection{\texorpdfstring{header\+Parameter()}{headerParameter()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily virtual bool http\+::\+I\+Basic\+Object\+::header\+Parameter (\begin{DoxyParamCaption}\item[{std\+::string}]{key,  }\item[{std\+::string}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}, {\ttfamily [noexcept]}}
+
+
+
+Add / Update a header parameter. 
+
+In http object there are some header parameters like \char`\"{}\+Content-\/\+Lenght\+: 166\char`\"{}, \char`\"{}host\+: localhost\char`\"{}. They are described by \char`\"{}\{\+K\+E\+Y\}\+: \{\+V\+A\+L\+U\+E\}\char`\"{} Return false if the key or value aren\textquotesingle{}t valid 
+
+Implemented in \hyperlink{classHttpRequest_a04f974104da7c06c568a8e648693e92c}{Http\+Request}, and \hyperlink{classHttpResponse_a193cf7b72bfedfc7f37318aff1d55158}{Http\+Response}.
+
+\mbox{\Hypertarget{structhttp_1_1IBasicObject_a581e48c03a666b87082c75427f0ff835}\label{structhttp_1_1IBasicObject_a581e48c03a666b87082c75427f0ff835}} 
+\index{http\+::\+I\+Basic\+Object@{http\+::\+I\+Basic\+Object}!header\+Parameter\+Exist@{header\+Parameter\+Exist}}
+\index{header\+Parameter\+Exist@{header\+Parameter\+Exist}!http\+::\+I\+Basic\+Object@{http\+::\+I\+Basic\+Object}}
+\subsubsection{\texorpdfstring{header\+Parameter\+Exist()}{headerParameterExist()}}
+{\footnotesize\ttfamily virtual bool http\+::\+I\+Basic\+Object\+::header\+Parameter\+Exist (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{key }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}, {\ttfamily [noexcept]}}
+
+
+
+Checks if in object, there are a named \textquotesingle{}key\textquotesingle{} header parameter. 
+
+In http object there are some header parameters like \char`\"{}\+Content-\/\+Lenght\+: 166\char`\"{}, \char`\"{}host\+: localhost\char`\"{}. They are described by \char`\"{}\{\+K\+E\+Y\}\+: \{\+V\+A\+L\+U\+E\}\char`\"{} 
+
+Implemented in \hyperlink{classHttpRequest_a74ea75d8685647989346bd5d1d25702a}{Http\+Request}, and \hyperlink{classHttpResponse_ae119bd9c54b39e392b2fd87c3012f53e}{Http\+Response}.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+inc/\+Core/\+Http/api/I\+Basic\+Object.\+hpp\end{DoxyCompactItemize}

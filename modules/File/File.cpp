@@ -97,7 +97,7 @@ bool module::File::responseError(int status, std::string message, http::IRespons
 
 void module::File::fillMimeType(const std::string &filepath, http::IResponse &response) const
 {
-    std::regex regex("\\.[^\\/]{1,}$");
+    std::regex regex("\\.[^\\/^\\.]{1,}$");
     auto matching = std::regex_search(filepath, regex);
     if (matching == false) {
         response.headerParameter("Content-Type", "application/octet-stream");

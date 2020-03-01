@@ -1,0 +1,71 @@
+\hypertarget{classnet_1_1BoostNetworkClient}{}\section{net\+:\+:Boost\+Network\+Client Class Reference}
+\label{classnet_1_1BoostNetworkClient}\index{net\+::\+Boost\+Network\+Client@{net\+::\+Boost\+Network\+Client}}
+
+
+Inheritance diagram for net\+:\+:Boost\+Network\+Client\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=316pt]{classnet_1_1BoostNetworkClient__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for net\+:\+:Boost\+Network\+Client\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=316pt]{classnet_1_1BoostNetworkClient__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classnet_1_1BoostNetworkClient_a832aefb3748593253acdc953c733476e}\label{classnet_1_1BoostNetworkClient_a832aefb3748593253acdc953c733476e}} 
+{\bfseries Boost\+Network\+Client} (basic\+\_\+socket\+\_\+acceptor$<$ ip\+::tcp $>$ \&ec, \hyperlink{classnet_1_1NetworkManager}{Network\+Manager} \&network\+Manager)
+\item 
+bool \hyperlink{classnet_1_1BoostNetworkClient_af584270d274c31b315eba24effd86b46}{send} (const std\+::string \&data)
+\begin{DoxyCompactList}\small\item\em Send \textquotesingle{}data\textquotesingle{} into a tcp packet to the client. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classnet_1_1BoostNetworkClient_a50ffb3f1689aebecf724d466894a25d1}\label{classnet_1_1BoostNetworkClient_a50ffb3f1689aebecf724d466894a25d1}} 
+ip\+::tcp\+::socket \& {\bfseries get\+Socket} ()
+\item 
+\mbox{\Hypertarget{classnet_1_1BoostNetworkClient_ab552e0d494a73e0b6e97e4790642dab5}\label{classnet_1_1BoostNetworkClient_ab552e0d494a73e0b6e97e4790642dab5}} 
+void {\bfseries bind\+Read} ()
+\item 
+\mbox{\Hypertarget{classnet_1_1BoostNetworkClient_a4228d9f794ae8e546e475852bdb495f7}\label{classnet_1_1BoostNetworkClient_a4228d9f794ae8e546e475852bdb495f7}} 
+void {\bfseries disconnect} (const std\+::string \&message)
+\item 
+\mbox{\Hypertarget{classnet_1_1BoostNetworkClient_aa17822d06f0d13c4dfa44a32c877b31b}\label{classnet_1_1BoostNetworkClient_aa17822d06f0d13c4dfa44a32c877b31b}} 
+void {\bfseries read\+Handler} (const boost\+::system\+::error\+\_\+code \&error, std\+::size\+\_\+t bytes\+\_\+transferred)
+\item 
+\mbox{\Hypertarget{classnet_1_1BoostNetworkClient_aea5d66edb8f42881ef279ca09c8e2e15}\label{classnet_1_1BoostNetworkClient_aea5d66edb8f42881ef279ca09c8e2e15}} 
+void {\bfseries write\+Handler} (const boost\+::system\+::error\+\_\+code \&error, std\+::size\+\_\+t bytes\+\_\+transferred)
+\item 
+\mbox{\Hypertarget{classnet_1_1BoostNetworkClient_a149fe4688e9854153e4f4bce737f4dfd}\label{classnet_1_1BoostNetworkClient_a149fe4688e9854153e4f4bce737f4dfd}} 
+std\+::size\+\_\+t \hyperlink{classnet_1_1BoostNetworkClient_a149fe4688e9854153e4f4bce737f4dfd}{get\+Id} () const noexcept
+\begin{DoxyCompactList}\small\item\em Gets an unique ID on the client. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classnet_1_1BoostNetworkClient_af584270d274c31b315eba24effd86b46}\label{classnet_1_1BoostNetworkClient_af584270d274c31b315eba24effd86b46}} 
+\index{net\+::\+Boost\+Network\+Client@{net\+::\+Boost\+Network\+Client}!send@{send}}
+\index{send@{send}!net\+::\+Boost\+Network\+Client@{net\+::\+Boost\+Network\+Client}}
+\subsubsection{\texorpdfstring{send()}{send()}}
+{\footnotesize\ttfamily bool net\+::\+Boost\+Network\+Client\+::send (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{data }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Send \textquotesingle{}data\textquotesingle{} into a tcp packet to the client. 
+
+Return true if there are no problems 
+
+Implements \hyperlink{structnet_1_1IClient_a44691ffe41185a41b5637d7c0068b5f2}{net\+::\+I\+Client}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+inc/\+Network/\hyperlink{BoostNetworkClient_8hpp}{Boost\+Network\+Client.\+hpp}\item 
+src/\+Network/Boost\+Network\+Client.\+cpp\end{DoxyCompactItemize}

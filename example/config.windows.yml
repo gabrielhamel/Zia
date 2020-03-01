@@ -15,6 +15,11 @@ hosts:
             - name: file
               configs:
                 root: .
+        - name: \/tests
+          modules:
+            - name: file
+              configs:
+                root: .
         - name: \/.*\.php$
           modules:
             - name: php

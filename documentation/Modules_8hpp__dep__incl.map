@@ -1,0 +1,22 @@
+<map id="inc/Core/Configs/Modules.hpp" name="inc/Core/Configs/Modules.hpp">
+<area shape="rect" id="node2" href="$ModulesContainer_8hpp.html" title="inc/Core/Configs/Modules\lContainer.hpp" alt="" coords="1000,80,1173,121"/>
+<area shape="rect" id="node3" href="$Route_8hpp.html" title="inc/Core/Configs/Route.hpp" alt="" coords="893,177,1077,203"/>
+<area shape="rect" id="node21" href="$ModulesContainer_8cpp.html" title="src/Core/Configs/Modules\lContainer.cpp" alt="" coords="1102,169,1277,211"/>
+<area shape="rect" id="node4" href="$Host_8hpp.html" title="inc/Core/Configs/Host.hpp" alt="" coords="691,259,869,285"/>
+<area shape="rect" id="node19" href="$Route_8cpp.html" title="src/Core/Configs/Route.cpp" alt="" coords="893,259,1078,285"/>
+<area shape="rect" id="node20" href="$RouteConf_8cpp.html" title="tests/RouteConf.cpp" alt="" coords="1102,259,1245,285"/>
+<area shape="rect" id="node5" href="$Configurations_8hpp.html" title="inc/Core/Configs/Configurations.hpp" alt="" coords="549,333,782,360"/>
+<area shape="rect" id="node18" href="$Host_8cpp.html" title="src/Core/Configs/Host.cpp" alt="" coords="807,333,985,360"/>
+<area shape="rect" id="node6" href="$ListenersControl_8hpp_source.html" title="inc/Core/Listeners\l/ListenersControl.hpp" alt="" coords="91,661,237,703"/>
+<area shape="rect" id="node10" href="$NetworkManager_8hpp.html" title="Class to interract with network part and worker. " alt="" coords="283,408,503,435"/>
+<area shape="rect" id="node12" href="$BoostNetworkServer_8hpp.html" title="Boost encapsulation of the server tcp. " alt="" coords="256,572,435,613"/>
+<area shape="rect" id="node14" href="$NetworkManager_8cpp.html" title="src/Network/NetworkManager.cpp" alt="" coords="407,490,628,517"/>
+<area shape="rect" id="node15" href="$Configurations_8cpp.html" title="src/Core/Configs/Configurations.cpp" alt="" coords="703,408,937,435"/>
+<area shape="rect" id="node16" href="$ModuleProxy_8cpp.html" title="tests/ModuleProxy.cpp" alt="" coords="962,408,1118,435"/>
+<area shape="rect" id="node17" href="$yml_8cpp.html" title="tests/yml.cpp" alt="" coords="1143,408,1244,435"/>
+<area shape="rect" id="node7" href="$CmdLine_8hpp.html" title="inc/Ihm/CmdLine.hpp" alt="" coords="5,758,152,785"/>
+<area shape="rect" id="node9" href="$ListenersControl_8cpp.html" title="src/Core/Listeners\l/ListenersControl.cpp" alt="" coords="176,751,323,792"/>
+<area shape="rect" id="node8" href="$CmdLine_8cpp.html" title="src/Ihm/CmdLine.cpp" alt="" coords="5,840,152,867"/>
+<area shape="rect" id="node11" href="$BoostNetworkClient_8hpp.html" title="An boost asio instance to store and comunicate with a network client. " alt="" coords="153,483,332,524"/>
+<area shape="rect" id="node13" href="$Server_8cpp.html" title="tests/Server.cpp" alt="" coords="286,669,405,695"/>
+</map>

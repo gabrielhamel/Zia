@@ -1,0 +1,163 @@
+\hypertarget{structhttp_1_1IRequest}{}\section{http\+:\+:I\+Request Struct Reference}
+\label{structhttp_1_1IRequest}\index{http\+::\+I\+Request@{http\+::\+I\+Request}}
+
+
+\href{http::IRequest}{\tt http\+::\+I\+Request} is a interface that encapsulates a http request  
+
+
+
+
+{\ttfamily \#include $<$I\+Request.\+hpp$>$}
+
+
+
+Inheritance diagram for http\+:\+:I\+Request\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=175pt]{structhttp_1_1IRequest__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for http\+:\+:I\+Request\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=175pt]{structhttp_1_1IRequest__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structhttp_1_1IRequest_afafa06d3a8691b6faf06f2a0cc53845c}\label{structhttp_1_1IRequest_afafa06d3a8691b6faf06f2a0cc53845c}} 
+virtual \hyperlink{structhttp_1_1IRequest_afafa06d3a8691b6faf06f2a0cc53845c}{$\sim$\+I\+Request} ()=default
+\begin{DoxyCompactList}\small\item\em Default destructor. \end{DoxyCompactList}\item 
+virtual http\+::\+Verb \hyperlink{structhttp_1_1IRequest_aef9304b69674a5c9873a33564b51d527}{verb} () const noexcept=0
+\begin{DoxyCompactList}\small\item\em Returns the http verb. \end{DoxyCompactList}\item 
+virtual bool \hyperlink{structhttp_1_1IRequest_abcb6f9f77b7d800677e9af3728500fa8}{verb} (http\+::\+Verb verb) noexcept=0
+\begin{DoxyCompactList}\small\item\em Change the verb of the request. \end{DoxyCompactList}\item 
+virtual std\+::string \hyperlink{structhttp_1_1IRequest_aa7827e21a7d25038ebc1124ae08f02de}{route} () const noexcept=0
+\begin{DoxyCompactList}\small\item\em Returns the route. \end{DoxyCompactList}\item 
+virtual bool \hyperlink{structhttp_1_1IRequest_a76f3dfba1e9396a0865ea133af371b80}{route} (std\+::string route) noexcept=0
+\begin{DoxyCompactList}\small\item\em Change the route. \end{DoxyCompactList}\item 
+virtual bool \hyperlink{structhttp_1_1IRequest_a3f2a5c8775396ac91971881d88d59c62}{query\+Parameter\+Exist} (const std\+::string \&key) const noexcept=0
+\begin{DoxyCompactList}\small\item\em Checks if in the route, there are a named \textquotesingle{}key\textquotesingle{} query parameter. \end{DoxyCompactList}\item 
+virtual std\+::string \hyperlink{structhttp_1_1IRequest_ae6177a18241aff420fa2e6f93195a7a7}{query\+Parameter} (const std\+::string \&key) const noexcept=0
+\begin{DoxyCompactList}\small\item\em Return the query parameter \char`\"{}key\char`\"{} found in the route. \end{DoxyCompactList}\item 
+virtual bool \hyperlink{structhttp_1_1IRequest_aded13d22f58bf5f622524929a52de7ef}{query\+Parameter} (std\+::string key, std\+::string value) noexcept=0
+\begin{DoxyCompactList}\small\item\em Add / Update a query parameter. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structhttp_1_1IRequest_adf6b9c910c1b2ad11ac9fec2f216b16e}\label{structhttp_1_1IRequest_adf6b9c910c1b2ad11ac9fec2f216b16e}} 
+virtual std\+::string \hyperlink{structhttp_1_1IRequest_adf6b9c910c1b2ad11ac9fec2f216b16e}{cookie} (const std\+::string \&name) const noexcept=0
+\begin{DoxyCompactList}\small\item\em Return the value of the cookie \textquotesingle{}name\textquotesingle{} In header there are an header parameter name \textquotesingle{}Cookie\textquotesingle{} who has all cookies of the request ex\+: \char`\"{}\+Cookie\+: yummy\+\_\+cookie=choco; tasty\+\_\+cookie=strawberry\char`\"{} Return a empty string if the cookie not exist. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\href{http::IRequest}{\tt http\+::\+I\+Request} is a interface that encapsulates a http request 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{structhttp_1_1IRequest_ae6177a18241aff420fa2e6f93195a7a7}\label{structhttp_1_1IRequest_ae6177a18241aff420fa2e6f93195a7a7}} 
+\index{http\+::\+I\+Request@{http\+::\+I\+Request}!query\+Parameter@{query\+Parameter}}
+\index{query\+Parameter@{query\+Parameter}!http\+::\+I\+Request@{http\+::\+I\+Request}}
+\subsubsection{\texorpdfstring{query\+Parameter()}{queryParameter()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily virtual std\+::string http\+::\+I\+Request\+::query\+Parameter (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{key }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}, {\ttfamily [noexcept]}}
+
+
+
+Return the query parameter \char`\"{}key\char`\"{} found in the route. 
+
+In \char`\"{}http\+://example.\+com/index?key=value\&test=yes\char`\"{} the query parameters are \char`\"{}key\char`\"{} and \char`\"{}test\char`\"{} for the values of \char`\"{}value\char`\"{} and \char`\"{}yes\char`\"{} Return a empty string if the parameter is not found 
+
+Implemented in \hyperlink{classHttpRequest_a10cef7d5ff51ddc7eb5ebd2f25a0f66c}{Http\+Request}.
+
+\mbox{\Hypertarget{structhttp_1_1IRequest_aded13d22f58bf5f622524929a52de7ef}\label{structhttp_1_1IRequest_aded13d22f58bf5f622524929a52de7ef}} 
+\index{http\+::\+I\+Request@{http\+::\+I\+Request}!query\+Parameter@{query\+Parameter}}
+\index{query\+Parameter@{query\+Parameter}!http\+::\+I\+Request@{http\+::\+I\+Request}}
+\subsubsection{\texorpdfstring{query\+Parameter()}{queryParameter()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily virtual bool http\+::\+I\+Request\+::query\+Parameter (\begin{DoxyParamCaption}\item[{std\+::string}]{key,  }\item[{std\+::string}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}, {\ttfamily [noexcept]}}
+
+
+
+Add / Update a query parameter. 
+
+In \char`\"{}http\+://example.\+com/index?key=value\&test=yes\char`\"{} the query parameters are \char`\"{}key\char`\"{} and \char`\"{}test\char`\"{} for the values of \char`\"{}value\char`\"{} and \char`\"{}yes\char`\"{} Return false if the parameter is not valid 
+
+Implemented in \hyperlink{classHttpRequest_a09bf36e9a2c76927ee45e6c5c699c461}{Http\+Request}.
+
+\mbox{\Hypertarget{structhttp_1_1IRequest_a3f2a5c8775396ac91971881d88d59c62}\label{structhttp_1_1IRequest_a3f2a5c8775396ac91971881d88d59c62}} 
+\index{http\+::\+I\+Request@{http\+::\+I\+Request}!query\+Parameter\+Exist@{query\+Parameter\+Exist}}
+\index{query\+Parameter\+Exist@{query\+Parameter\+Exist}!http\+::\+I\+Request@{http\+::\+I\+Request}}
+\subsubsection{\texorpdfstring{query\+Parameter\+Exist()}{queryParameterExist()}}
+{\footnotesize\ttfamily virtual bool http\+::\+I\+Request\+::query\+Parameter\+Exist (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{key }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}, {\ttfamily [noexcept]}}
+
+
+
+Checks if in the route, there are a named \textquotesingle{}key\textquotesingle{} query parameter. 
+
+In \char`\"{}http\+://example.\+com/index?key=value\&test=yes\char`\"{} the query parameters are \char`\"{}key\char`\"{} and \char`\"{}test\char`\"{} for the values of \char`\"{}value\char`\"{} and \char`\"{}yes\char`\"{} 
+
+Implemented in \hyperlink{classHttpRequest_a81ce6a379efeba53bd3d40699462628b}{Http\+Request}.
+
+\mbox{\Hypertarget{structhttp_1_1IRequest_aa7827e21a7d25038ebc1124ae08f02de}\label{structhttp_1_1IRequest_aa7827e21a7d25038ebc1124ae08f02de}} 
+\index{http\+::\+I\+Request@{http\+::\+I\+Request}!route@{route}}
+\index{route@{route}!http\+::\+I\+Request@{http\+::\+I\+Request}}
+\subsubsection{\texorpdfstring{route()}{route()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily virtual std\+::string http\+::\+I\+Request\+::route (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}, {\ttfamily [noexcept]}}
+
+
+
+Returns the route. 
+
+In \char`\"{}http\+://example.\+com/index?key=value\&test=yes\char`\"{} returns \char`\"{}/index\char`\"{} She doesn\textquotesingle{}t returns the query parameters (\char`\"{}?key=value\&test=yes\char`\"{}) 
+
+Implemented in \hyperlink{classHttpRequest_a313930a1717c2635ad092b7f6c7d2460}{Http\+Request}.
+
+\mbox{\Hypertarget{structhttp_1_1IRequest_a76f3dfba1e9396a0865ea133af371b80}\label{structhttp_1_1IRequest_a76f3dfba1e9396a0865ea133af371b80}} 
+\index{http\+::\+I\+Request@{http\+::\+I\+Request}!route@{route}}
+\index{route@{route}!http\+::\+I\+Request@{http\+::\+I\+Request}}
+\subsubsection{\texorpdfstring{route()}{route()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily virtual bool http\+::\+I\+Request\+::route (\begin{DoxyParamCaption}\item[{std\+::string}]{route }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}, {\ttfamily [noexcept]}}
+
+
+
+Change the route. 
+
+In \char`\"{}http\+://example.\+com/index?key=value\&test=yes\char`\"{} returns \char`\"{}/index\char`\"{} She doesn\textquotesingle{}t returns the query parameters (\char`\"{}?key=value\&test=yes\char`\"{}) Return false if route aren\textquotesingle{}t valid 
+
+Implemented in \hyperlink{classHttpRequest_aa71843738db71fe1f826bd30fbf5bb29}{Http\+Request}.
+
+\mbox{\Hypertarget{structhttp_1_1IRequest_aef9304b69674a5c9873a33564b51d527}\label{structhttp_1_1IRequest_aef9304b69674a5c9873a33564b51d527}} 
+\index{http\+::\+I\+Request@{http\+::\+I\+Request}!verb@{verb}}
+\index{verb@{verb}!http\+::\+I\+Request@{http\+::\+I\+Request}}
+\subsubsection{\texorpdfstring{verb()}{verb()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily virtual http\+::\+Verb http\+::\+I\+Request\+::verb (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}, {\ttfamily [noexcept]}}
+
+
+
+Returns the http verb. 
+
+The verb can be G\+ET, H\+E\+AD, P\+O\+ST, P\+UT, D\+E\+L\+E\+TE, C\+O\+N\+N\+E\+CT, O\+P\+T\+I\+O\+NS, T\+R\+A\+CE, P\+A\+T\+CH 
+
+Implemented in \hyperlink{classHttpRequest_aded380ba96f29fb1cc6da1679a975dd8}{Http\+Request}.
+
+\mbox{\Hypertarget{structhttp_1_1IRequest_abcb6f9f77b7d800677e9af3728500fa8}\label{structhttp_1_1IRequest_abcb6f9f77b7d800677e9af3728500fa8}} 
+\index{http\+::\+I\+Request@{http\+::\+I\+Request}!verb@{verb}}
+\index{verb@{verb}!http\+::\+I\+Request@{http\+::\+I\+Request}}
+\subsubsection{\texorpdfstring{verb()}{verb()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily virtual bool http\+::\+I\+Request\+::verb (\begin{DoxyParamCaption}\item[{http\+::\+Verb}]{verb }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}, {\ttfamily [noexcept]}}
+
+
+
+Change the verb of the request. 
+
+The verb can be G\+ET, H\+E\+AD, P\+O\+ST, P\+UT, D\+E\+L\+E\+TE, C\+O\+N\+N\+E\+CT, O\+P\+T\+I\+O\+NS, T\+R\+A\+CE, P\+A\+T\+CH Return true if there are no problems 
+
+Implemented in \hyperlink{classHttpRequest_a243897d5dd8ba0195ce0acb6e9dd79ae}{Http\+Request}.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+inc/\+Core/\+Http/api/I\+Request.\+hpp\end{DoxyCompactItemize}

@@ -1,0 +1,152 @@
+\hypertarget{classmodule_1_1Php}{}\section{module\+:\+:Php Class Reference}
+\label{classmodule_1_1Php}\index{module\+::\+Php@{module\+::\+Php}}
+
+
+Inheritance diagram for module\+:\+:Php\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=151pt]{classmodule_1_1Php__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for module\+:\+:Php\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=151pt]{classmodule_1_1Php__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classmodule_1_1Php_a0c36f6f31d9bc9459c19cc65781c03e3}\label{classmodule_1_1Php_a0c36f6f31d9bc9459c19cc65781c03e3}} 
+std\+::string \hyperlink{classmodule_1_1Php_a0c36f6f31d9bc9459c19cc65781c03e3}{name} () const noexcept
+\begin{DoxyCompactList}\small\item\em Returns the module name. \end{DoxyCompactList}\item 
+bool \hyperlink{classmodule_1_1Php_adc03ae040e0a938640bd4ba9a6eb2d3c}{new\+Connection} (const \hyperlink{structnet_1_1IClient}{net\+::\+I\+Client} \&client) noexcept
+\begin{DoxyCompactList}\small\item\em When a new client connects to the http server. \end{DoxyCompactList}\item 
+bool \hyperlink{classmodule_1_1Php_af828a98b73d3da6a53a64d4b3b3927c4}{disconnection} (const \hyperlink{structnet_1_1IClient}{net\+::\+I\+Client} \&client) noexcept
+\begin{DoxyCompactList}\small\item\em When a client disconnects. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classmodule_1_1Php_a3a71c84751d3333ad538826d7a485bac}\label{classmodule_1_1Php_a3a71c84751d3333ad538826d7a485bac}} 
+bool \hyperlink{classmodule_1_1Php_a3a71c84751d3333ad538826d7a485bac}{set\+Configurations} (Configs configs) noexcept
+\begin{DoxyCompactList}\small\item\em Set the Global configs of the module. \end{DoxyCompactList}\item 
+bool \hyperlink{classmodule_1_1Php_a553dd60d283baf309a9ba8ddb87681b8}{after\+Receive} (const \hyperlink{structnet_1_1IClient}{net\+::\+I\+Client} \&client, std\+::string \&buffer) noexcept
+\begin{DoxyCompactList}\small\item\em Just before the deserialization of the packet. \end{DoxyCompactList}\item 
+bool \hyperlink{classmodule_1_1Php_ae3f23ea75718c51e0427fa2d13ab9755}{after\+Unpacked} (const \hyperlink{structnet_1_1IClient}{net\+::\+I\+Client} \&client, \hyperlink{structhttp_1_1IRequest}{http\+::\+I\+Request} \&request) noexcept
+\begin{DoxyCompactList}\small\item\em Call before the main behavior of the module. \end{DoxyCompactList}\item 
+bool \hyperlink{classmodule_1_1Php_aa73bfe086a0015a892f7d5687639aafb}{execute} (const \hyperlink{structnet_1_1IClient}{net\+::\+I\+Client} \&client, \hyperlink{structhttp_1_1IRequest}{http\+::\+I\+Request} \&request, \hyperlink{structhttp_1_1IResponse}{http\+::\+I\+Response} \&response) noexcept
+\begin{DoxyCompactList}\small\item\em This is the main behavior of the module. \end{DoxyCompactList}\item 
+bool \hyperlink{classmodule_1_1Php_a71b22ae01eedfd3406d01907cd7dc3d9}{before\+Packed} (const \hyperlink{structnet_1_1IClient}{net\+::\+I\+Client} \&client, \hyperlink{structhttp_1_1IResponse}{http\+::\+I\+Response} \&response) noexcept
+\begin{DoxyCompactList}\small\item\em Just before the serialization of the response. \end{DoxyCompactList}\item 
+bool \hyperlink{classmodule_1_1Php_a9ba9768f149e9dbf3094d5cdb4967fc3}{before\+Send} (const \hyperlink{structnet_1_1IClient}{net\+::\+I\+Client} \&client, std\+::string \&buffer) noexcept
+\begin{DoxyCompactList}\small\item\em Just before packet delivery. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classmodule_1_1Php_a553dd60d283baf309a9ba8ddb87681b8}\label{classmodule_1_1Php_a553dd60d283baf309a9ba8ddb87681b8}} 
+\index{module\+::\+Php@{module\+::\+Php}!after\+Receive@{after\+Receive}}
+\index{after\+Receive@{after\+Receive}!module\+::\+Php@{module\+::\+Php}}
+\subsubsection{\texorpdfstring{after\+Receive()}{afterReceive()}}
+{\footnotesize\ttfamily bool module\+::\+Php\+::after\+Receive (\begin{DoxyParamCaption}\item[{const \hyperlink{structnet_1_1IClient}{net\+::\+I\+Client} \&}]{client,  }\item[{std\+::string \&}]{buffer }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+Just before the deserialization of the packet. 
+
+It can be useful to decrypt an tls packet 
+
+Implements \hyperlink{structmodule_1_1Api_ad8b56820e4f53bf65d34447184edef20}{module\+::\+Api}.
+
+\mbox{\Hypertarget{classmodule_1_1Php_ae3f23ea75718c51e0427fa2d13ab9755}\label{classmodule_1_1Php_ae3f23ea75718c51e0427fa2d13ab9755}} 
+\index{module\+::\+Php@{module\+::\+Php}!after\+Unpacked@{after\+Unpacked}}
+\index{after\+Unpacked@{after\+Unpacked}!module\+::\+Php@{module\+::\+Php}}
+\subsubsection{\texorpdfstring{after\+Unpacked()}{afterUnpacked()}}
+{\footnotesize\ttfamily bool module\+::\+Php\+::after\+Unpacked (\begin{DoxyParamCaption}\item[{const \hyperlink{structnet_1_1IClient}{net\+::\+I\+Client} \&}]{client,  }\item[{\hyperlink{structhttp_1_1IRequest}{http\+::\+I\+Request} \&}]{request }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+Call before the main behavior of the module. 
+
+It can be useful to decompresses a http body (gzip, ...) 
+
+Implements \hyperlink{structmodule_1_1Api_a291297e6d233e69b82c976e085f7c237}{module\+::\+Api}.
+
+\mbox{\Hypertarget{classmodule_1_1Php_a71b22ae01eedfd3406d01907cd7dc3d9}\label{classmodule_1_1Php_a71b22ae01eedfd3406d01907cd7dc3d9}} 
+\index{module\+::\+Php@{module\+::\+Php}!before\+Packed@{before\+Packed}}
+\index{before\+Packed@{before\+Packed}!module\+::\+Php@{module\+::\+Php}}
+\subsubsection{\texorpdfstring{before\+Packed()}{beforePacked()}}
+{\footnotesize\ttfamily bool module\+::\+Php\+::before\+Packed (\begin{DoxyParamCaption}\item[{const \hyperlink{structnet_1_1IClient}{net\+::\+I\+Client} \&}]{client,  }\item[{\hyperlink{structhttp_1_1IResponse}{http\+::\+I\+Response} \&}]{response }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+Just before the serialization of the response. 
+
+Useful if we need to add something in the packet or to compress it 
+
+Implements \hyperlink{structmodule_1_1Api_a5293babe6b28a397b7a11f32da0a6f51}{module\+::\+Api}.
+
+\mbox{\Hypertarget{classmodule_1_1Php_a9ba9768f149e9dbf3094d5cdb4967fc3}\label{classmodule_1_1Php_a9ba9768f149e9dbf3094d5cdb4967fc3}} 
+\index{module\+::\+Php@{module\+::\+Php}!before\+Send@{before\+Send}}
+\index{before\+Send@{before\+Send}!module\+::\+Php@{module\+::\+Php}}
+\subsubsection{\texorpdfstring{before\+Send()}{beforeSend()}}
+{\footnotesize\ttfamily bool module\+::\+Php\+::before\+Send (\begin{DoxyParamCaption}\item[{const \hyperlink{structnet_1_1IClient}{net\+::\+I\+Client} \&}]{client,  }\item[{std\+::string \&}]{buffer }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+Just before packet delivery. 
+
+Useful if we need to add something in the packet or to encrypt 
+
+Implements \hyperlink{structmodule_1_1Api_a71d1ada8bc5fc81fd71607315dd86185}{module\+::\+Api}.
+
+\mbox{\Hypertarget{classmodule_1_1Php_af828a98b73d3da6a53a64d4b3b3927c4}\label{classmodule_1_1Php_af828a98b73d3da6a53a64d4b3b3927c4}} 
+\index{module\+::\+Php@{module\+::\+Php}!disconnection@{disconnection}}
+\index{disconnection@{disconnection}!module\+::\+Php@{module\+::\+Php}}
+\subsubsection{\texorpdfstring{disconnection()}{disconnection()}}
+{\footnotesize\ttfamily bool module\+::\+Php\+::disconnection (\begin{DoxyParamCaption}\item[{const \hyperlink{structnet_1_1IClient}{net\+::\+I\+Client} \&}]{client }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+When a client disconnects. 
+
+To inform the module of the client\textquotesingle{}s disconnection 
+
+Implements \hyperlink{structmodule_1_1Api_a8aa98bd4094fb13916e100509a948763}{module\+::\+Api}.
+
+\mbox{\Hypertarget{classmodule_1_1Php_aa73bfe086a0015a892f7d5687639aafb}\label{classmodule_1_1Php_aa73bfe086a0015a892f7d5687639aafb}} 
+\index{module\+::\+Php@{module\+::\+Php}!execute@{execute}}
+\index{execute@{execute}!module\+::\+Php@{module\+::\+Php}}
+\subsubsection{\texorpdfstring{execute()}{execute()}}
+{\footnotesize\ttfamily bool module\+::\+Php\+::execute (\begin{DoxyParamCaption}\item[{const \hyperlink{structnet_1_1IClient}{net\+::\+I\+Client} \&}]{client,  }\item[{\hyperlink{structhttp_1_1IRequest}{http\+::\+I\+Request} \&}]{request,  }\item[{\hyperlink{structhttp_1_1IResponse}{http\+::\+I\+Response} \&}]{response }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+This is the main behavior of the module. 
+
+Reaction to the client\textquotesingle{}s request 
+
+Implements \hyperlink{structmodule_1_1Api_afd1f5243a90811d06d96f725490bcba6}{module\+::\+Api}.
+
+\mbox{\Hypertarget{classmodule_1_1Php_adc03ae040e0a938640bd4ba9a6eb2d3c}\label{classmodule_1_1Php_adc03ae040e0a938640bd4ba9a6eb2d3c}} 
+\index{module\+::\+Php@{module\+::\+Php}!new\+Connection@{new\+Connection}}
+\index{new\+Connection@{new\+Connection}!module\+::\+Php@{module\+::\+Php}}
+\subsubsection{\texorpdfstring{new\+Connection()}{newConnection()}}
+{\footnotesize\ttfamily bool module\+::\+Php\+::new\+Connection (\begin{DoxyParamCaption}\item[{const \hyperlink{structnet_1_1IClient}{net\+::\+I\+Client} \&}]{client }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+When a new client connects to the http server. 
+
+It can be useful to store the id of the client to recognize him after 
+
+Implements \hyperlink{structmodule_1_1Api_aa83ddc92765200dd65f915498175c2be}{module\+::\+Api}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+modules/\+Php/\hyperlink{Php_8hpp}{Php.\+hpp}\item 
+modules/\+Php/\hyperlink{Php_8cpp}{Php.\+cpp}\end{DoxyCompactItemize}

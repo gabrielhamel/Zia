@@ -1,0 +1,20 @@
+<map id="inc/Network/BoostNetworkServer.hpp" name="inc/Network/BoostNetworkServer.hpp">
+<area shape="rect" id="node3" href="$INetworkServer_8hpp.html" title="server interface " alt="" coords="5,95,144,121"/>
+<area shape="rect" id="node5" href="$NetworkManager_8hpp.html" title="Class to interract with network part and worker. " alt="" coords="460,177,607,203"/>
+<area shape="rect" id="node10" href="$Configurations_8hpp.html" title="Configurations.hpp" alt="" coords="1105,259,1236,285"/>
+<area shape="rect" id="node33" href="$BoostNetworkClient_8hpp.html" title="An boost asio instance to store and comunicate with a network client. " alt="" coords="303,95,467,121"/>
+<area shape="rect" id="node9" href="$IClient_8hpp_source.html" title="IClient.hpp" alt="" coords="193,557,279,584"/>
+<area shape="rect" id="node24" href="$ModuleApi_8hpp_source.html" title="ModuleApi.hpp" alt="" coords="871,483,979,509"/>
+<area shape="rect" id="node28" href="$Module_8hpp_source.html" title="Module.hpp" alt="" coords="635,408,725,435"/>
+<area shape="rect" id="node12" href="$ConfigNode_8hpp_source.html" title="yconf/ConfigNode.hpp" alt="" coords="1119,557,1271,584"/>
+<area shape="rect" id="node17" href="$Helper_8hpp_source.html" title="yconf/Helper.hpp" alt="" coords="1469,557,1590,584"/>
+<area shape="rect" id="node19" href="$Host_8hpp.html" title="Host.hpp" alt="" coords="1156,333,1231,360"/>
+<area shape="rect" id="node14" href="$IConfigNode_8hpp_source.html" title="IConfigNode.hpp" alt="" coords="1297,632,1417,659"/>
+<area shape="rect" id="node16" href="$util_8hpp_source.html" title="util.hpp" alt="" coords="913,632,977,659"/>
+<area shape="rect" id="node20" href="$Route_8hpp.html" title="Route.hpp" alt="" coords="1292,408,1375,435"/>
+<area shape="rect" id="node22" href="$ModulesContainer_8hpp.html" title="ModulesContainer.hpp" alt="" coords="1257,483,1409,509"/>
+<area shape="rect" id="node23" href="$Modules_8hpp.html" title="Modules.hpp" alt="" coords="1303,557,1399,584"/>
+<area shape="rect" id="node25" href="$IResponse_8hpp_source.html" title="IResponse.hpp" alt="" coords="677,557,787,584"/>
+<area shape="rect" id="node27" href="$IRequest_8hpp_source.html" title="IRequest.hpp" alt="" coords="818,557,918,584"/>
+<area shape="rect" id="node26" href="$IBasicObject_8hpp_source.html" title="IBasicObject.hpp" alt="" coords="665,632,788,659"/>
+</map>

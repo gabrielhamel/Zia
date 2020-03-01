@@ -1,0 +1,6 @@
+<map id="http::IBasicObject" name="http::IBasicObject">
+<area shape="rect" id="node2" href="$structhttp_1_1IRequest.html" title="http::IRequest is a interface that encapsulates a http request " alt="" coords="5,80,111,107"/>
+<area shape="rect" id="node4" href="$structhttp_1_1IResponse.html" title="http::IResponse is a interface that encapsulates a http response " alt="" coords="135,80,250,107"/>
+<area shape="rect" id="node3" href="$classHttpRequest.html" title="HttpRequest" alt="" coords="10,155,106,181"/>
+<area shape="rect" id="node5" href="$classHttpResponse.html" title="HttpResponse" alt="" coords="139,155,246,181"/>
+</map>

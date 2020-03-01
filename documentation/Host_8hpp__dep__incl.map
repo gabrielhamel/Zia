@@ -1,0 +1,16 @@
+<map id="inc/Core/Configs/Host.hpp" name="inc/Core/Configs/Host.hpp">
+<area shape="rect" id="node2" href="$Configurations_8hpp.html" title="inc/Core/Configs/Configurations.hpp" alt="" coords="549,80,782,107"/>
+<area shape="rect" id="node15" href="$Host_8cpp.html" title="src/Core/Configs/Host.cpp" alt="" coords="807,80,985,107"/>
+<area shape="rect" id="node3" href="$ListenersControl_8hpp_source.html" title="inc/Core/Listeners\l/ListenersControl.hpp" alt="" coords="91,408,237,449"/>
+<area shape="rect" id="node7" href="$NetworkManager_8hpp.html" title="Class to interract with network part and worker. " alt="" coords="283,155,503,181"/>
+<area shape="rect" id="node9" href="$BoostNetworkServer_8hpp.html" title="Boost encapsulation of the server tcp. " alt="" coords="256,319,435,360"/>
+<area shape="rect" id="node11" href="$NetworkManager_8cpp.html" title="src/Network/NetworkManager.cpp" alt="" coords="407,237,628,263"/>
+<area shape="rect" id="node12" href="$Configurations_8cpp.html" title="src/Core/Configs/Configurations.cpp" alt="" coords="703,155,937,181"/>
+<area shape="rect" id="node13" href="$ModuleProxy_8cpp.html" title="tests/ModuleProxy.cpp" alt="" coords="962,155,1118,181"/>
+<area shape="rect" id="node14" href="$yml_8cpp.html" title="tests/yml.cpp" alt="" coords="1143,155,1244,181"/>
+<area shape="rect" id="node4" href="$CmdLine_8hpp.html" title="inc/Ihm/CmdLine.hpp" alt="" coords="5,505,152,531"/>
+<area shape="rect" id="node6" href="$ListenersControl_8cpp.html" title="src/Core/Listeners\l/ListenersControl.cpp" alt="" coords="176,497,323,539"/>
+<area shape="rect" id="node5" href="$CmdLine_8cpp.html" title="src/Ihm/CmdLine.cpp" alt="" coords="5,587,152,613"/>
+<area shape="rect" id="node8" href="$BoostNetworkClient_8hpp.html" title="An boost asio instance to store and comunicate with a network client. " alt="" coords="153,229,332,271"/>
+<area shape="rect" id="node10" href="$Server_8cpp.html" title="tests/Server.cpp" alt="" coords="286,415,405,442"/>
+</map>

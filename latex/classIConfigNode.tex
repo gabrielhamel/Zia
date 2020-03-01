@@ -1,0 +1,175 @@
+\hypertarget{classIConfigNode}{}\section{I\+Config\+Node Class Reference}
+\label{classIConfigNode}\index{I\+Config\+Node@{I\+Config\+Node}}
+
+
+Inheritance diagram for I\+Config\+Node\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=178pt]{classIConfigNode__inherit__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual std\+::unique\+\_\+ptr$<$ \hyperlink{classIConfigNode}{I\+Config\+Node} $>$ \hyperlink{classIConfigNode_a113e74aac6e8c62f5d5762b766f934e6}{get\+Child} (const std\+::string \&name) const =0
+\begin{DoxyCompactList}\small\item\em Gets a child node. \end{DoxyCompactList}\item 
+virtual std\+::string \hyperlink{classIConfigNode_ae32a49d812d3f98cbc048ab3cce5f7d6}{get\+Value} (const std\+::string \&name) const =0
+\begin{DoxyCompactList}\small\item\em Gets the value of a property. \end{DoxyCompactList}\item 
+virtual std\+::vector$<$ std\+::string $>$ \hyperlink{classIConfigNode_aaa66c9d23d521b5b5c9f5f6bf35087fb}{get\+Scalar\+Array} (const std\+::string \&name) const =0
+\begin{DoxyCompactList}\small\item\em Gets the content of the array, as scalars. \end{DoxyCompactList}\item 
+virtual std\+::vector$<$ std\+::unique\+\_\+ptr$<$ \hyperlink{classIConfigNode}{I\+Config\+Node} $>$ $>$ \hyperlink{classIConfigNode_a3a15562e0598f5bb105ddd006e298157}{get\+Node\+Array} (const std\+::string \&name) const =0
+\begin{DoxyCompactList}\small\item\em Gets the content of the array, as nodes. \end{DoxyCompactList}\item 
+virtual std\+::unordered\+\_\+map$<$ std\+::string, std\+::string $>$ \hyperlink{classIConfigNode_ae6abd34301fc7141963ef125117db0c5}{get\+All\+Scalars\+Of} (const std\+::string \&name) const =0
+\begin{DoxyCompactList}\small\item\em Returns all the properties from the node. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classIConfigNode_ae6abd34301fc7141963ef125117db0c5}\label{classIConfigNode_ae6abd34301fc7141963ef125117db0c5}} 
+\index{I\+Config\+Node@{I\+Config\+Node}!get\+All\+Scalars\+Of@{get\+All\+Scalars\+Of}}
+\index{get\+All\+Scalars\+Of@{get\+All\+Scalars\+Of}!I\+Config\+Node@{I\+Config\+Node}}
+\subsubsection{\texorpdfstring{get\+All\+Scalars\+Of()}{getAllScalarsOf()}}
+{\footnotesize\ttfamily virtual std\+::unordered\+\_\+map$<$std\+::string, std\+::string$>$ I\+Config\+Node\+::get\+All\+Scalars\+Of (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{name }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Returns all the properties from the node. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em name} & The name of the wanted node If the name contains dot ({\ttfamily .}), it will get the child of the child, and so on until the last field that is the value name\\
+\hline
+\end{DoxyParams}
+so {\ttfamily get\+All\+Scalars\+Of(\char`\"{}abc.\+def.\+xyz\char`\"{})} is the same as {\ttfamily get\+Child(\char`\"{}abc.\+def\char`\"{})-\/$>$get\+All\+Scalars\+Of(\char`\"{}xyz\char`\"{})}
+
+
+\begin{DoxyExceptions}{Exceptions}
+{\em $<$tt$>$std\+::out\+\_\+of\+\_\+range$<$/tt$>$} & if no such property exists \\
+\hline
+\end{DoxyExceptions}
+
+
+Implemented in \hyperlink{classyconf_1_1ConfigNode_af15d6504faf3cf1be0aa5efc5603035f}{yconf\+::\+Config\+Node}.
+
+\mbox{\Hypertarget{classIConfigNode_a113e74aac6e8c62f5d5762b766f934e6}\label{classIConfigNode_a113e74aac6e8c62f5d5762b766f934e6}} 
+\index{I\+Config\+Node@{I\+Config\+Node}!get\+Child@{get\+Child}}
+\index{get\+Child@{get\+Child}!I\+Config\+Node@{I\+Config\+Node}}
+\subsubsection{\texorpdfstring{get\+Child()}{getChild()}}
+{\footnotesize\ttfamily virtual std\+::unique\+\_\+ptr$<$\hyperlink{classIConfigNode}{I\+Config\+Node}$>$ I\+Config\+Node\+::get\+Child (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{name }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Gets a child node. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em name} & Name of the wanted child node If the name contains dot ({\ttfamily .}), it will return the child of the child, and so on\\
+\hline
+\end{DoxyParams}
+so {\ttfamily get\+Child(\char`\"{}abc.\+def.\+xyz\char`\"{})} is the same as {\ttfamily get\+Child(\char`\"{}abc\char`\"{})-\/$>$get\+Child(\char`\"{}def\char`\"{})-\/$>$get\+Child(\char`\"{}xyz\char`\"{})}
+
+\begin{DoxyReturn}{Returns}
+unique pointer to the child node 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em $<$tt$>$std\+::out\+\_\+of\+\_\+range$<$/tt$>$} & if no such child exists \\
+\hline
+\end{DoxyExceptions}
+
+
+Implemented in \hyperlink{classyconf_1_1ConfigNode_a419f3e4e042f7cd0746f83d96977d18e}{yconf\+::\+Config\+Node}.
+
+\mbox{\Hypertarget{classIConfigNode_a3a15562e0598f5bb105ddd006e298157}\label{classIConfigNode_a3a15562e0598f5bb105ddd006e298157}} 
+\index{I\+Config\+Node@{I\+Config\+Node}!get\+Node\+Array@{get\+Node\+Array}}
+\index{get\+Node\+Array@{get\+Node\+Array}!I\+Config\+Node@{I\+Config\+Node}}
+\subsubsection{\texorpdfstring{get\+Node\+Array()}{getNodeArray()}}
+{\footnotesize\ttfamily virtual std\+::vector$<$std\+::unique\+\_\+ptr$<$\hyperlink{classIConfigNode}{I\+Config\+Node}$>$ $>$ I\+Config\+Node\+::get\+Node\+Array (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{name }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Gets the content of the array, as nodes. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em name} & The name of the wanted array If the name contains dot ({\ttfamily .}), it will get the child of the child, and so on until the last field that is the value name\\
+\hline
+\end{DoxyParams}
+so {\ttfamily get\+Node\+Array(\char`\"{}abc.\+def.\+xyz\char`\"{})} is the same as {\ttfamily get\+Child(\char`\"{}abc.\+def\char`\"{})-\/$>$get\+Node\+Array(\char`\"{}xyz\char`\"{})}
+
+\begin{DoxyReturn}{Returns}
+Array content as nodes 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em $<$tt$>$std\+::out\+\_\+of\+\_\+range$<$/tt$>$} & if no such property exists \\
+\hline
+\end{DoxyExceptions}
+
+
+Implemented in \hyperlink{classyconf_1_1ConfigNode_a3f590d4507699b6f9a9f3ca336f95255}{yconf\+::\+Config\+Node}.
+
+\mbox{\Hypertarget{classIConfigNode_aaa66c9d23d521b5b5c9f5f6bf35087fb}\label{classIConfigNode_aaa66c9d23d521b5b5c9f5f6bf35087fb}} 
+\index{I\+Config\+Node@{I\+Config\+Node}!get\+Scalar\+Array@{get\+Scalar\+Array}}
+\index{get\+Scalar\+Array@{get\+Scalar\+Array}!I\+Config\+Node@{I\+Config\+Node}}
+\subsubsection{\texorpdfstring{get\+Scalar\+Array()}{getScalarArray()}}
+{\footnotesize\ttfamily virtual std\+::vector$<$std\+::string$>$ I\+Config\+Node\+::get\+Scalar\+Array (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{name }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Gets the content of the array, as scalars. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em name} & The name of the wanted array If the name contains dot ({\ttfamily .}), it will get the child of the child, and so on until the last field that is the value name\\
+\hline
+\end{DoxyParams}
+so {\ttfamily get\+Scalar\+Array(\char`\"{}abc.\+def.\+xyz\char`\"{})} is the same as {\ttfamily get\+Child(\char`\"{}abc.\+def\char`\"{})-\/$>$get\+Scalar\+Array(\char`\"{}xyz\char`\"{})}
+
+\begin{DoxyReturn}{Returns}
+Array content as scalar 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em $<$tt$>$std\+::out\+\_\+of\+\_\+range$<$/tt$>$} & if no such property exists \\
+\hline
+\end{DoxyExceptions}
+
+
+Implemented in \hyperlink{classyconf_1_1ConfigNode_a4a1ed4e489687b3f1d4d514dbf57595d}{yconf\+::\+Config\+Node}.
+
+\mbox{\Hypertarget{classIConfigNode_ae32a49d812d3f98cbc048ab3cce5f7d6}\label{classIConfigNode_ae32a49d812d3f98cbc048ab3cce5f7d6}} 
+\index{I\+Config\+Node@{I\+Config\+Node}!get\+Value@{get\+Value}}
+\index{get\+Value@{get\+Value}!I\+Config\+Node@{I\+Config\+Node}}
+\subsubsection{\texorpdfstring{get\+Value()}{getValue()}}
+{\footnotesize\ttfamily virtual std\+::string I\+Config\+Node\+::get\+Value (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{name }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Gets the value of a property. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em name} & The name of the wanted property If the name contains dot ({\ttfamily .}), it will get the child of the child, and so on until the last field that is the value name\\
+\hline
+\end{DoxyParams}
+so {\ttfamily get\+Value(\char`\"{}abc.\+def.\+xyz\char`\"{})} is the same as {\ttfamily get\+Child(\char`\"{}abc.\+def\char`\"{})-\/$>$get\+Value(\char`\"{}xyz\char`\"{})}
+
+\begin{DoxyReturn}{Returns}
+Property value 
+\end{DoxyReturn}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em $<$tt$>$std\+::out\+\_\+of\+\_\+range$<$/tt$>$} & if no such property exists \\
+\hline
+\end{DoxyExceptions}
+
+
+Implemented in \hyperlink{classyconf_1_1ConfigNode_a4670a614581800cfaef06670ad2a0276}{yconf\+::\+Config\+Node}.
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+inc/I\+Config\+Node.\+hpp\end{DoxyCompactItemize}

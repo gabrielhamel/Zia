@@ -1,0 +1,115 @@
+\hypertarget{structhttp_1_1IResponse}{}\section{http\+:\+:I\+Response Struct Reference}
+\label{structhttp_1_1IResponse}\index{http\+::\+I\+Response@{http\+::\+I\+Response}}
+
+
+\href{http::IResponse}{\tt http\+::\+I\+Response} is a interface that encapsulates a http response  
+
+
+
+
+{\ttfamily \#include $<$I\+Response.\+hpp$>$}
+
+
+
+Inheritance diagram for http\+:\+:I\+Response\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=175pt]{structhttp_1_1IResponse__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for http\+:\+:I\+Response\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=175pt]{structhttp_1_1IResponse__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structhttp_1_1IResponse_aba6a570f0288e63f38b3a8835001a94e}\label{structhttp_1_1IResponse_aba6a570f0288e63f38b3a8835001a94e}} 
+virtual \hyperlink{structhttp_1_1IResponse_aba6a570f0288e63f38b3a8835001a94e}{$\sim$\+I\+Response} ()=default
+\begin{DoxyCompactList}\small\item\em Default destructor. \end{DoxyCompactList}\item 
+virtual int \hyperlink{structhttp_1_1IResponse_ad980a7a0b5f1de80bd1faa84706e922f}{status\+Code} () const noexcept=0
+\begin{DoxyCompactList}\small\item\em Returns the status code of the response. \end{DoxyCompactList}\item 
+virtual bool \hyperlink{structhttp_1_1IResponse_a7d85b2b27acb82d13cf26eb0d3801735}{status\+Code} (int status\+Code) noexcept=0
+\begin{DoxyCompactList}\small\item\em Set the status code of the response. \end{DoxyCompactList}\item 
+virtual std\+::string \hyperlink{structhttp_1_1IResponse_a4339fd29b105c9ea5319b2e01f27290c}{status\+Message} () const noexcept=0
+\begin{DoxyCompactList}\small\item\em Returns the status message of the response. \end{DoxyCompactList}\item 
+virtual bool \hyperlink{structhttp_1_1IResponse_ae2a223c2d714b456f2a064e13cafc2e2}{status\+Message} (std\+::string status\+Message) noexcept=0
+\begin{DoxyCompactList}\small\item\em Set the status message of the response. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structhttp_1_1IResponse_ad682cbed4ec24a5c96979e2021794a15}\label{structhttp_1_1IResponse_ad682cbed4ec24a5c96979e2021794a15}} 
+virtual bool \hyperlink{structhttp_1_1IResponse_ad682cbed4ec24a5c96979e2021794a15}{set\+Cookie} (std\+::string name, std\+::string value, Cookie\+Options options=Cookie\+Options()) noexcept=0
+\begin{DoxyCompactList}\small\item\em Return the value of the cookie \textquotesingle{}name\textquotesingle{} In header there are an header parameter name \textquotesingle{}Cookie\textquotesingle{} who has all cookies of the request ex\+: \char`\"{}\+Cookie\+: yummy\+\_\+cookie=choco; tasty\+\_\+cookie=strawberry\char`\"{} He can have options like Expires, Domain, Max-\/\+Age, ... Return false if the name or the value are invalids. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+\href{http::IResponse}{\tt http\+::\+I\+Response} is a interface that encapsulates a http response 
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{structhttp_1_1IResponse_ad980a7a0b5f1de80bd1faa84706e922f}\label{structhttp_1_1IResponse_ad980a7a0b5f1de80bd1faa84706e922f}} 
+\index{http\+::\+I\+Response@{http\+::\+I\+Response}!status\+Code@{status\+Code}}
+\index{status\+Code@{status\+Code}!http\+::\+I\+Response@{http\+::\+I\+Response}}
+\subsubsection{\texorpdfstring{status\+Code()}{statusCode()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily virtual int http\+::\+I\+Response\+::status\+Code (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}, {\ttfamily [noexcept]}}
+
+
+
+Returns the status code of the response. 
+
+In http response there are always status code like 200 or 404 To describe if the request is executed correctly 
+
+Implemented in \hyperlink{classHttpResponse_a5cb28c82fc2f657808b61f0f6bb67f28}{Http\+Response}.
+
+\mbox{\Hypertarget{structhttp_1_1IResponse_a7d85b2b27acb82d13cf26eb0d3801735}\label{structhttp_1_1IResponse_a7d85b2b27acb82d13cf26eb0d3801735}} 
+\index{http\+::\+I\+Response@{http\+::\+I\+Response}!status\+Code@{status\+Code}}
+\index{status\+Code@{status\+Code}!http\+::\+I\+Response@{http\+::\+I\+Response}}
+\subsubsection{\texorpdfstring{status\+Code()}{statusCode()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily virtual bool http\+::\+I\+Response\+::status\+Code (\begin{DoxyParamCaption}\item[{int}]{status\+Code }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}, {\ttfamily [noexcept]}}
+
+
+
+Set the status code of the response. 
+
+In http response there are always status code like \char`\"{}200\char`\"{} or \char`\"{}404\char`\"{} To describe if the request is executed correctly Return false if the status code isn\textquotesingle{}t valid 
+
+Implemented in \hyperlink{classHttpResponse_a8a6cc8f27e81ca4d2ef4ec60450974d1}{Http\+Response}.
+
+\mbox{\Hypertarget{structhttp_1_1IResponse_a4339fd29b105c9ea5319b2e01f27290c}\label{structhttp_1_1IResponse_a4339fd29b105c9ea5319b2e01f27290c}} 
+\index{http\+::\+I\+Response@{http\+::\+I\+Response}!status\+Message@{status\+Message}}
+\index{status\+Message@{status\+Message}!http\+::\+I\+Response@{http\+::\+I\+Response}}
+\subsubsection{\texorpdfstring{status\+Message()}{statusMessage()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily virtual std\+::string http\+::\+I\+Response\+::status\+Message (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [pure virtual]}, {\ttfamily [noexcept]}}
+
+
+
+Returns the status message of the response. 
+
+In http response there are always status message after the status code like \char`\"{}200 O\+K\char`\"{} or \char`\"{}404 Not found\char`\"{} 
+
+Implemented in \hyperlink{classHttpResponse_a5463015a6d521c4c4da46505c0740f63}{Http\+Response}.
+
+\mbox{\Hypertarget{structhttp_1_1IResponse_ae2a223c2d714b456f2a064e13cafc2e2}\label{structhttp_1_1IResponse_ae2a223c2d714b456f2a064e13cafc2e2}} 
+\index{http\+::\+I\+Response@{http\+::\+I\+Response}!status\+Message@{status\+Message}}
+\index{status\+Message@{status\+Message}!http\+::\+I\+Response@{http\+::\+I\+Response}}
+\subsubsection{\texorpdfstring{status\+Message()}{statusMessage()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily virtual bool http\+::\+I\+Response\+::status\+Message (\begin{DoxyParamCaption}\item[{std\+::string}]{status\+Message }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}, {\ttfamily [noexcept]}}
+
+
+
+Set the status message of the response. 
+
+In http response there are always status message after the status code like \char`\"{}200 O\+K\char`\"{} or \char`\"{}404 Not found\char`\"{} Return false if the status message isn\textquotesingle{}t valid 
+
+Implemented in \hyperlink{classHttpResponse_ad705d5d1846c261e2ca80c24c9e1d75c}{Http\+Response}.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+inc/\+Core/\+Http/api/I\+Response.\+hpp\end{DoxyCompactItemize}

@@ -1,0 +1,49 @@
+\hypertarget{classModule}{}\section{Module Class Reference}
+\label{classModule}\index{Module@{Module}}
+
+
+Loads module from dynamic library.  
+
+
+
+
+{\ttfamily \#include $<$Module.\+hpp$>$}
+
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classModule_a1f7e6ae9be9168b287c355b5160cea7b}\label{classModule_a1f7e6ae9be9168b287c355b5160cea7b}} 
+{\bfseries Module} (const std\+::string \&path)
+\item 
+\mbox{\Hypertarget{classModule_a57b5394e3c8a21cdade52255ed59cefc}\label{classModule_a57b5394e3c8a21cdade52255ed59cefc}} 
+\hyperlink{structmodule_1_1Api}{Api\+Type} \& {\bfseries get} ()
+\item 
+\mbox{\Hypertarget{classModule_a62490216d6f3d013ad51df7ff873e884}\label{classModule_a62490216d6f3d013ad51df7ff873e884}} 
+const \hyperlink{structmodule_1_1Api}{Api\+Type} \& {\bfseries get} () const
+\item 
+\mbox{\Hypertarget{classModule_a9cc54514b4135990fccef2176f847749}\label{classModule_a9cc54514b4135990fccef2176f847749}} 
+\hyperlink{structmodule_1_1Api}{Api\+Type} $\ast$ {\bfseries operator-\/$>$} ()
+\item 
+\mbox{\Hypertarget{classModule_a076c605faaac3b0a58690f070ea39aa8}\label{classModule_a076c605faaac3b0a58690f070ea39aa8}} 
+const \hyperlink{structmodule_1_1Api}{Api\+Type} $\ast$ {\bfseries operator-\/$>$} () const
+\item 
+\mbox{\Hypertarget{classModule_aa8cecdcb3cff969c9255a650035c261b}\label{classModule_aa8cecdcb3cff969c9255a650035c261b}} 
+const boost\+::dll\+::shared\+\_\+library \& {\bfseries get\+Library} () const
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Loads module from dynamic library. 
+
+The dynamic library M\+U\+ST provide a boost D\+LL alias {\ttfamily create\+\_\+module} to a function of signature
+
+
+\begin{DoxyCode}
+`ApiType` *create\_module();
+\end{DoxyCode}
+ 
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+inc/\+Core/\+Module/Module.\+hpp\item 
+src/\+Core/\+Module/Module.\+cpp\end{DoxyCompactItemize}

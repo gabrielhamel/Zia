@@ -1,0 +1,10 @@
+<map id="inc/Network/NetworkManager.hpp" name="inc/Network/NetworkManager.hpp">
+<area shape="rect" id="node2" href="$BoostNetworkClient_8hpp.html" title="An boost asio instance to store and comunicate with a network client. " alt="" coords="91,80,269,121"/>
+<area shape="rect" id="node3" href="$BoostNetworkServer_8hpp.html" title="Boost encapsulation of the server tcp. " alt="" coords="153,169,332,211"/>
+<area shape="rect" id="node9" href="$NetworkManager_8cpp.html" title="src/Network/NetworkManager.cpp" alt="" coords="344,87,565,114"/>
+<area shape="rect" id="node4" href="$ListenersControl_8hpp_source.html" title="inc/Core/Listeners\l/ListenersControl.hpp" alt="" coords="91,259,237,300"/>
+<area shape="rect" id="node8" href="$Server_8cpp.html" title="tests/Server.cpp" alt="" coords="262,266,381,293"/>
+<area shape="rect" id="node5" href="$CmdLine_8hpp.html" title="inc/Ihm/CmdLine.hpp" alt="" coords="5,355,152,382"/>
+<area shape="rect" id="node7" href="$ListenersControl_8cpp.html" title="src/Core/Listeners\l/ListenersControl.cpp" alt="" coords="176,348,323,389"/>
+<area shape="rect" id="node6" href="$CmdLine_8cpp.html" title="src/Ihm/CmdLine.cpp" alt="" coords="5,437,152,464"/>
+</map>

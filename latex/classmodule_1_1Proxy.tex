@@ -1,0 +1,152 @@
+\hypertarget{classmodule_1_1Proxy}{}\section{module\+:\+:Proxy Class Reference}
+\label{classmodule_1_1Proxy}\index{module\+::\+Proxy@{module\+::\+Proxy}}
+
+
+Inheritance diagram for module\+:\+:Proxy\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=160pt]{classmodule_1_1Proxy__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for module\+:\+:Proxy\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=160pt]{classmodule_1_1Proxy__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classmodule_1_1Proxy_a31e224e72c2ff7c06191d4797089094d}\label{classmodule_1_1Proxy_a31e224e72c2ff7c06191d4797089094d}} 
+std\+::string \hyperlink{classmodule_1_1Proxy_a31e224e72c2ff7c06191d4797089094d}{name} () const noexcept
+\begin{DoxyCompactList}\small\item\em Returns the module name. \end{DoxyCompactList}\item 
+bool \hyperlink{classmodule_1_1Proxy_a92e33605f1164599922fa64d936f5b77}{new\+Connection} (const \hyperlink{structnet_1_1IClient}{net\+::\+I\+Client} \&client) noexcept
+\begin{DoxyCompactList}\small\item\em When a new client connects to the http server. \end{DoxyCompactList}\item 
+bool \hyperlink{classmodule_1_1Proxy_aa80f5772c7c4613060f4cf49f1fc00e4}{disconnection} (const \hyperlink{structnet_1_1IClient}{net\+::\+I\+Client} \&client) noexcept
+\begin{DoxyCompactList}\small\item\em When a client disconnects. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classmodule_1_1Proxy_a82ac1eab4bc1b25c0cef3a1fc4839649}\label{classmodule_1_1Proxy_a82ac1eab4bc1b25c0cef3a1fc4839649}} 
+bool \hyperlink{classmodule_1_1Proxy_a82ac1eab4bc1b25c0cef3a1fc4839649}{set\+Configurations} (Configs configs) noexcept
+\begin{DoxyCompactList}\small\item\em Set the Global configs of the module. \end{DoxyCompactList}\item 
+bool \hyperlink{classmodule_1_1Proxy_a0dbbd27ea29602830d770c5c550b1ee4}{after\+Receive} (const \hyperlink{structnet_1_1IClient}{net\+::\+I\+Client} \&client, std\+::string \&buffer) noexcept
+\begin{DoxyCompactList}\small\item\em Just before the deserialization of the packet. \end{DoxyCompactList}\item 
+bool \hyperlink{classmodule_1_1Proxy_a16524232b12bd03353c79bcda4bd8d15}{after\+Unpacked} (const \hyperlink{structnet_1_1IClient}{net\+::\+I\+Client} \&client, \hyperlink{structhttp_1_1IRequest}{http\+::\+I\+Request} \&request) noexcept
+\begin{DoxyCompactList}\small\item\em Call before the main behavior of the module. \end{DoxyCompactList}\item 
+bool \hyperlink{classmodule_1_1Proxy_a7a210c144da81f379a7ca6b7ef7914c8}{execute} (const \hyperlink{structnet_1_1IClient}{net\+::\+I\+Client} \&client, \hyperlink{structhttp_1_1IRequest}{http\+::\+I\+Request} \&request, \hyperlink{structhttp_1_1IResponse}{http\+::\+I\+Response} \&response) noexcept
+\begin{DoxyCompactList}\small\item\em This is the main behavior of the module. \end{DoxyCompactList}\item 
+bool \hyperlink{classmodule_1_1Proxy_a3b88487ecaaa856f319d78f2aa6358c1}{before\+Packed} (const \hyperlink{structnet_1_1IClient}{net\+::\+I\+Client} \&client, \hyperlink{structhttp_1_1IResponse}{http\+::\+I\+Response} \&response) noexcept
+\begin{DoxyCompactList}\small\item\em Just before the serialization of the response. \end{DoxyCompactList}\item 
+bool \hyperlink{classmodule_1_1Proxy_a314d53ca09edbb7f2595cefb5c55771e}{before\+Send} (const \hyperlink{structnet_1_1IClient}{net\+::\+I\+Client} \&client, std\+::string \&buffer) noexcept
+\begin{DoxyCompactList}\small\item\em Just before packet delivery. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classmodule_1_1Proxy_a0dbbd27ea29602830d770c5c550b1ee4}\label{classmodule_1_1Proxy_a0dbbd27ea29602830d770c5c550b1ee4}} 
+\index{module\+::\+Proxy@{module\+::\+Proxy}!after\+Receive@{after\+Receive}}
+\index{after\+Receive@{after\+Receive}!module\+::\+Proxy@{module\+::\+Proxy}}
+\subsubsection{\texorpdfstring{after\+Receive()}{afterReceive()}}
+{\footnotesize\ttfamily bool module\+::\+Proxy\+::after\+Receive (\begin{DoxyParamCaption}\item[{const \hyperlink{structnet_1_1IClient}{net\+::\+I\+Client} \&}]{client,  }\item[{std\+::string \&}]{buffer }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+Just before the deserialization of the packet. 
+
+It can be useful to decrypt an tls packet 
+
+Implements \hyperlink{structmodule_1_1Api_ad8b56820e4f53bf65d34447184edef20}{module\+::\+Api}.
+
+\mbox{\Hypertarget{classmodule_1_1Proxy_a16524232b12bd03353c79bcda4bd8d15}\label{classmodule_1_1Proxy_a16524232b12bd03353c79bcda4bd8d15}} 
+\index{module\+::\+Proxy@{module\+::\+Proxy}!after\+Unpacked@{after\+Unpacked}}
+\index{after\+Unpacked@{after\+Unpacked}!module\+::\+Proxy@{module\+::\+Proxy}}
+\subsubsection{\texorpdfstring{after\+Unpacked()}{afterUnpacked()}}
+{\footnotesize\ttfamily bool module\+::\+Proxy\+::after\+Unpacked (\begin{DoxyParamCaption}\item[{const \hyperlink{structnet_1_1IClient}{net\+::\+I\+Client} \&}]{client,  }\item[{\hyperlink{structhttp_1_1IRequest}{http\+::\+I\+Request} \&}]{request }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+Call before the main behavior of the module. 
+
+It can be useful to decompresses a http body (gzip, ...) 
+
+Implements \hyperlink{structmodule_1_1Api_a291297e6d233e69b82c976e085f7c237}{module\+::\+Api}.
+
+\mbox{\Hypertarget{classmodule_1_1Proxy_a3b88487ecaaa856f319d78f2aa6358c1}\label{classmodule_1_1Proxy_a3b88487ecaaa856f319d78f2aa6358c1}} 
+\index{module\+::\+Proxy@{module\+::\+Proxy}!before\+Packed@{before\+Packed}}
+\index{before\+Packed@{before\+Packed}!module\+::\+Proxy@{module\+::\+Proxy}}
+\subsubsection{\texorpdfstring{before\+Packed()}{beforePacked()}}
+{\footnotesize\ttfamily bool module\+::\+Proxy\+::before\+Packed (\begin{DoxyParamCaption}\item[{const \hyperlink{structnet_1_1IClient}{net\+::\+I\+Client} \&}]{client,  }\item[{\hyperlink{structhttp_1_1IResponse}{http\+::\+I\+Response} \&}]{response }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+Just before the serialization of the response. 
+
+Useful if we need to add something in the packet or to compress it 
+
+Implements \hyperlink{structmodule_1_1Api_a5293babe6b28a397b7a11f32da0a6f51}{module\+::\+Api}.
+
+\mbox{\Hypertarget{classmodule_1_1Proxy_a314d53ca09edbb7f2595cefb5c55771e}\label{classmodule_1_1Proxy_a314d53ca09edbb7f2595cefb5c55771e}} 
+\index{module\+::\+Proxy@{module\+::\+Proxy}!before\+Send@{before\+Send}}
+\index{before\+Send@{before\+Send}!module\+::\+Proxy@{module\+::\+Proxy}}
+\subsubsection{\texorpdfstring{before\+Send()}{beforeSend()}}
+{\footnotesize\ttfamily bool module\+::\+Proxy\+::before\+Send (\begin{DoxyParamCaption}\item[{const \hyperlink{structnet_1_1IClient}{net\+::\+I\+Client} \&}]{client,  }\item[{std\+::string \&}]{buffer }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+Just before packet delivery. 
+
+Useful if we need to add something in the packet or to encrypt 
+
+Implements \hyperlink{structmodule_1_1Api_a71d1ada8bc5fc81fd71607315dd86185}{module\+::\+Api}.
+
+\mbox{\Hypertarget{classmodule_1_1Proxy_aa80f5772c7c4613060f4cf49f1fc00e4}\label{classmodule_1_1Proxy_aa80f5772c7c4613060f4cf49f1fc00e4}} 
+\index{module\+::\+Proxy@{module\+::\+Proxy}!disconnection@{disconnection}}
+\index{disconnection@{disconnection}!module\+::\+Proxy@{module\+::\+Proxy}}
+\subsubsection{\texorpdfstring{disconnection()}{disconnection()}}
+{\footnotesize\ttfamily bool module\+::\+Proxy\+::disconnection (\begin{DoxyParamCaption}\item[{const \hyperlink{structnet_1_1IClient}{net\+::\+I\+Client} \&}]{client }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+When a client disconnects. 
+
+To inform the module of the client\textquotesingle{}s disconnection 
+
+Implements \hyperlink{structmodule_1_1Api_a8aa98bd4094fb13916e100509a948763}{module\+::\+Api}.
+
+\mbox{\Hypertarget{classmodule_1_1Proxy_a7a210c144da81f379a7ca6b7ef7914c8}\label{classmodule_1_1Proxy_a7a210c144da81f379a7ca6b7ef7914c8}} 
+\index{module\+::\+Proxy@{module\+::\+Proxy}!execute@{execute}}
+\index{execute@{execute}!module\+::\+Proxy@{module\+::\+Proxy}}
+\subsubsection{\texorpdfstring{execute()}{execute()}}
+{\footnotesize\ttfamily bool module\+::\+Proxy\+::execute (\begin{DoxyParamCaption}\item[{const \hyperlink{structnet_1_1IClient}{net\+::\+I\+Client} \&}]{client,  }\item[{\hyperlink{structhttp_1_1IRequest}{http\+::\+I\+Request} \&}]{request,  }\item[{\hyperlink{structhttp_1_1IResponse}{http\+::\+I\+Response} \&}]{response }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+This is the main behavior of the module. 
+
+Reaction to the client\textquotesingle{}s request 
+
+Implements \hyperlink{structmodule_1_1Api_afd1f5243a90811d06d96f725490bcba6}{module\+::\+Api}.
+
+\mbox{\Hypertarget{classmodule_1_1Proxy_a92e33605f1164599922fa64d936f5b77}\label{classmodule_1_1Proxy_a92e33605f1164599922fa64d936f5b77}} 
+\index{module\+::\+Proxy@{module\+::\+Proxy}!new\+Connection@{new\+Connection}}
+\index{new\+Connection@{new\+Connection}!module\+::\+Proxy@{module\+::\+Proxy}}
+\subsubsection{\texorpdfstring{new\+Connection()}{newConnection()}}
+{\footnotesize\ttfamily bool module\+::\+Proxy\+::new\+Connection (\begin{DoxyParamCaption}\item[{const \hyperlink{structnet_1_1IClient}{net\+::\+I\+Client} \&}]{client }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+When a new client connects to the http server. 
+
+It can be useful to store the id of the client to recognize him after 
+
+Implements \hyperlink{structmodule_1_1Api_aa83ddc92765200dd65f915498175c2be}{module\+::\+Api}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+modules/\+Proxy/\hyperlink{Proxy_8hpp}{Proxy.\+hpp}\item 
+modules/\+Proxy/\hyperlink{Proxy_8cpp}{Proxy.\+cpp}\end{DoxyCompactItemize}

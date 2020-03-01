@@ -1,0 +1,45 @@
+\hypertarget{structnet_1_1IClient}{}\section{net\+:\+:I\+Client Struct Reference}
+\label{structnet_1_1IClient}\index{net\+::\+I\+Client@{net\+::\+I\+Client}}
+
+
+Inheritance diagram for net\+:\+:I\+Client\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=287pt]{structnet_1_1IClient__inherit__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{structnet_1_1IClient_a0af7b8c2c794bb59fb469805e6fe9782}\label{structnet_1_1IClient_a0af7b8c2c794bb59fb469805e6fe9782}} 
+virtual \hyperlink{structnet_1_1IClient_a0af7b8c2c794bb59fb469805e6fe9782}{$\sim$\+I\+Client} ()=default
+\begin{DoxyCompactList}\small\item\em Default destructor. \end{DoxyCompactList}\item 
+virtual bool \hyperlink{structnet_1_1IClient_a44691ffe41185a41b5637d7c0068b5f2}{send} (const std\+::string \&data)=0
+\begin{DoxyCompactList}\small\item\em Send \textquotesingle{}data\textquotesingle{} into a tcp packet to the client. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{structnet_1_1IClient_a3233d8ad9276c621e3545c8afce8be42}\label{structnet_1_1IClient_a3233d8ad9276c621e3545c8afce8be42}} 
+virtual std\+::size\+\_\+t \hyperlink{structnet_1_1IClient_a3233d8ad9276c621e3545c8afce8be42}{get\+Id} () const noexcept=0
+\begin{DoxyCompactList}\small\item\em Gets an unique ID on the client. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{structnet_1_1IClient_a44691ffe41185a41b5637d7c0068b5f2}\label{structnet_1_1IClient_a44691ffe41185a41b5637d7c0068b5f2}} 
+\index{net\+::\+I\+Client@{net\+::\+I\+Client}!send@{send}}
+\index{send@{send}!net\+::\+I\+Client@{net\+::\+I\+Client}}
+\subsubsection{\texorpdfstring{send()}{send()}}
+{\footnotesize\ttfamily virtual bool net\+::\+I\+Client\+::send (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{data }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Send \textquotesingle{}data\textquotesingle{} into a tcp packet to the client. 
+
+Return true if there are no problems 
+
+Implemented in \hyperlink{classnet_1_1BoostNetworkClient_af584270d274c31b315eba24effd86b46}{net\+::\+Boost\+Network\+Client}.
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+inc/\+Network/I\+Client.\+hpp\end{DoxyCompactItemize}

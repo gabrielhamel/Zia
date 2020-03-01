@@ -1,0 +1,206 @@
+\hypertarget{classHttpResponse}{}\section{Http\+Response Class Reference}
+\label{classHttpResponse}\index{Http\+Response@{Http\+Response}}
+
+
+Inheritance diagram for Http\+Response\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=175pt]{classHttpResponse__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Http\+Response\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=175pt]{classHttpResponse__coll__graph}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{classHttpResponse_a6b135899b9658fda70a4b81b2454382c}\label{classHttpResponse_a6b135899b9658fda70a4b81b2454382c}} 
+{\bfseries Http\+Response} (std\+::string response)
+\item 
+int \hyperlink{classHttpResponse_a5cb28c82fc2f657808b61f0f6bb67f28}{status\+Code} () const noexcept
+\begin{DoxyCompactList}\small\item\em Returns the status code of the response. \end{DoxyCompactList}\item 
+bool \hyperlink{classHttpResponse_a8a6cc8f27e81ca4d2ef4ec60450974d1}{status\+Code} (int status\+Code) noexcept
+\begin{DoxyCompactList}\small\item\em Set the status code of the response. \end{DoxyCompactList}\item 
+std\+::string \hyperlink{classHttpResponse_a5463015a6d521c4c4da46505c0740f63}{status\+Message} () const noexcept
+\begin{DoxyCompactList}\small\item\em Returns the status message of the response. \end{DoxyCompactList}\item 
+bool \hyperlink{classHttpResponse_ad705d5d1846c261e2ca80c24c9e1d75c}{status\+Message} (std\+::string status\+Message) noexcept
+\begin{DoxyCompactList}\small\item\em Set the status message of the response. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classHttpResponse_a2f6f0f1588f9a06c360648cabb6e58e1}\label{classHttpResponse_a2f6f0f1588f9a06c360648cabb6e58e1}} 
+bool \hyperlink{classHttpResponse_a2f6f0f1588f9a06c360648cabb6e58e1}{set\+Cookie} (std\+::string name, std\+::string value, Cookie\+Options options=Cookie\+Options()) noexcept
+\begin{DoxyCompactList}\small\item\em Return the value of the cookie \textquotesingle{}name\textquotesingle{} In header there are an header parameter name \textquotesingle{}Cookie\textquotesingle{} who has all cookies of the request ex\+: \char`\"{}\+Cookie\+: yummy\+\_\+cookie=choco; tasty\+\_\+cookie=strawberry\char`\"{} He can have options like Expires, Domain, Max-\/\+Age, ... Return false if the name or the value are invalids. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classHttpResponse_a1fde59ad363da86edb45efc6b7844e64}\label{classHttpResponse_a1fde59ad363da86edb45efc6b7844e64}} 
+std\+::string \hyperlink{classHttpResponse_a1fde59ad363da86edb45efc6b7844e64}{protocol} () const noexcept
+\begin{DoxyCompactList}\small\item\em Return the protocol of the object. \end{DoxyCompactList}\item 
+bool \hyperlink{classHttpResponse_ae119bd9c54b39e392b2fd87c3012f53e}{header\+Parameter\+Exist} (const std\+::string \&key) const noexcept
+\begin{DoxyCompactList}\small\item\em Checks if in object, there are a named \textquotesingle{}key\textquotesingle{} header parameter. \end{DoxyCompactList}\item 
+std\+::string \hyperlink{classHttpResponse_a257c44a876f78e131e32d5af9f81d4fc}{header\+Parameter} (const std\+::string \&key) const noexcept
+\begin{DoxyCompactList}\small\item\em Return the header parameter \char`\"{}key\char`\"{} found in the object. \end{DoxyCompactList}\item 
+bool \hyperlink{classHttpResponse_a193cf7b72bfedfc7f37318aff1d55158}{header\+Parameter} (std\+::string key, std\+::string value) noexcept
+\begin{DoxyCompactList}\small\item\em Add / Update a header parameter. \end{DoxyCompactList}\item 
+std\+::string \hyperlink{classHttpResponse_a696715c993a4ec50a609efcd43d98a62}{body} () const noexcept
+\begin{DoxyCompactList}\small\item\em Return the body of the object. \end{DoxyCompactList}\item 
+bool \hyperlink{classHttpResponse_a26f66b018b250a0ee37859730e131404}{body} (std\+::string body) noexcept
+\begin{DoxyCompactList}\small\item\em Set / Add a new body in the object. \end{DoxyCompactList}\item 
+bool \hyperlink{classHttpResponse_af8f8669568d6bcc7b0e3c7a247e456bd}{body\+Append} (std\+::string \hyperlink{classHttpResponse_a696715c993a4ec50a609efcd43d98a62}{body}) noexcept
+\begin{DoxyCompactList}\small\item\em Append data in the body or create it if not exist. \end{DoxyCompactList}\item 
+\mbox{\Hypertarget{classHttpResponse_aad0171e5838c46a14c562d4cfe771f4e}\label{classHttpResponse_aad0171e5838c46a14c562d4cfe771f4e}} 
+std\+::string \hyperlink{classHttpResponse_aad0171e5838c46a14c562d4cfe771f4e}{serialize} () const noexcept
+\begin{DoxyCompactList}\small\item\em Transform this object in a true http object. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\mbox{\Hypertarget{classHttpResponse_a696715c993a4ec50a609efcd43d98a62}\label{classHttpResponse_a696715c993a4ec50a609efcd43d98a62}} 
+\index{Http\+Response@{Http\+Response}!body@{body}}
+\index{body@{body}!Http\+Response@{Http\+Response}}
+\subsubsection{\texorpdfstring{body()}{body()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily std\+::string Http\+Response\+::body (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+Return the body of the object. 
+
+Sometimes in object like P\+O\+ST there are a body He can take any form (json, form-\/url-\/encoded, xml, plain text, ...) 
+
+Implements \hyperlink{structhttp_1_1IBasicObject_a42eda0e62758f23d9d7d1fee01d8747a}{http\+::\+I\+Basic\+Object}.
+
+\mbox{\Hypertarget{classHttpResponse_a26f66b018b250a0ee37859730e131404}\label{classHttpResponse_a26f66b018b250a0ee37859730e131404}} 
+\index{Http\+Response@{Http\+Response}!body@{body}}
+\index{body@{body}!Http\+Response@{Http\+Response}}
+\subsubsection{\texorpdfstring{body()}{body()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily bool Http\+Response\+::body (\begin{DoxyParamCaption}\item[{std\+::string}]{body }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+Set / Add a new body in the object. 
+
+Sometimes in object like P\+O\+ST there are a body He can take any form (json, form-\/url-\/encoded, xml, plain text, ...) Change / Add the \textquotesingle{}Content-\/\+Length\textquotesingle{} header parameter Return false if the body is empty or too large... 
+
+Implements \hyperlink{structhttp_1_1IBasicObject_aa304f3a3137912f1dbff798531fa4c09}{http\+::\+I\+Basic\+Object}.
+
+\mbox{\Hypertarget{classHttpResponse_af8f8669568d6bcc7b0e3c7a247e456bd}\label{classHttpResponse_af8f8669568d6bcc7b0e3c7a247e456bd}} 
+\index{Http\+Response@{Http\+Response}!body\+Append@{body\+Append}}
+\index{body\+Append@{body\+Append}!Http\+Response@{Http\+Response}}
+\subsubsection{\texorpdfstring{body\+Append()}{bodyAppend()}}
+{\footnotesize\ttfamily bool Http\+Response\+::body\+Append (\begin{DoxyParamCaption}\item[{std\+::string}]{body }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+Append data in the body or create it if not exist. 
+
+Sometimes in object like P\+O\+ST there are a body He can take any form (json, form-\/url-\/encoded, xml, plain text, ...) Change / Add the \textquotesingle{}Content-\/\+Length\textquotesingle{} header parameter Return false if the body is empty or too large... 
+
+Implements \hyperlink{structhttp_1_1IBasicObject_abf2cb4a0e7908313b827ad4635bad730}{http\+::\+I\+Basic\+Object}.
+
+\mbox{\Hypertarget{classHttpResponse_a257c44a876f78e131e32d5af9f81d4fc}\label{classHttpResponse_a257c44a876f78e131e32d5af9f81d4fc}} 
+\index{Http\+Response@{Http\+Response}!header\+Parameter@{header\+Parameter}}
+\index{header\+Parameter@{header\+Parameter}!Http\+Response@{Http\+Response}}
+\subsubsection{\texorpdfstring{header\+Parameter()}{headerParameter()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily std\+::string Http\+Response\+::header\+Parameter (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{key }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+Return the header parameter \char`\"{}key\char`\"{} found in the object. 
+
+In http object there are some header parameters like \char`\"{}\+Content-\/\+Lenght\+: 166\char`\"{}, \char`\"{}host\+: localhost\char`\"{}. They are described by \char`\"{}\{\+K\+E\+Y\}\+: \{\+V\+A\+L\+U\+E\}\char`\"{} Return an empty string if the parameters key not exist 
+
+Implements \hyperlink{structhttp_1_1IBasicObject_a17f97dd4917fdd7dd694d3d191eaebca}{http\+::\+I\+Basic\+Object}.
+
+\mbox{\Hypertarget{classHttpResponse_a193cf7b72bfedfc7f37318aff1d55158}\label{classHttpResponse_a193cf7b72bfedfc7f37318aff1d55158}} 
+\index{Http\+Response@{Http\+Response}!header\+Parameter@{header\+Parameter}}
+\index{header\+Parameter@{header\+Parameter}!Http\+Response@{Http\+Response}}
+\subsubsection{\texorpdfstring{header\+Parameter()}{headerParameter()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily bool Http\+Response\+::header\+Parameter (\begin{DoxyParamCaption}\item[{std\+::string}]{key,  }\item[{std\+::string}]{value }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+Add / Update a header parameter. 
+
+In http object there are some header parameters like \char`\"{}\+Content-\/\+Lenght\+: 166\char`\"{}, \char`\"{}host\+: localhost\char`\"{}. They are described by \char`\"{}\{\+K\+E\+Y\}\+: \{\+V\+A\+L\+U\+E\}\char`\"{} Return false if the key or value aren\textquotesingle{}t valid 
+
+Implements \hyperlink{structhttp_1_1IBasicObject_a0d1fff270c6069bedf87e86cdac6bf3d}{http\+::\+I\+Basic\+Object}.
+
+\mbox{\Hypertarget{classHttpResponse_ae119bd9c54b39e392b2fd87c3012f53e}\label{classHttpResponse_ae119bd9c54b39e392b2fd87c3012f53e}} 
+\index{Http\+Response@{Http\+Response}!header\+Parameter\+Exist@{header\+Parameter\+Exist}}
+\index{header\+Parameter\+Exist@{header\+Parameter\+Exist}!Http\+Response@{Http\+Response}}
+\subsubsection{\texorpdfstring{header\+Parameter\+Exist()}{headerParameterExist()}}
+{\footnotesize\ttfamily bool Http\+Response\+::header\+Parameter\+Exist (\begin{DoxyParamCaption}\item[{const std\+::string \&}]{key }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+Checks if in object, there are a named \textquotesingle{}key\textquotesingle{} header parameter. 
+
+In http object there are some header parameters like \char`\"{}\+Content-\/\+Lenght\+: 166\char`\"{}, \char`\"{}host\+: localhost\char`\"{}. They are described by \char`\"{}\{\+K\+E\+Y\}\+: \{\+V\+A\+L\+U\+E\}\char`\"{} 
+
+Implements \hyperlink{structhttp_1_1IBasicObject_a581e48c03a666b87082c75427f0ff835}{http\+::\+I\+Basic\+Object}.
+
+\mbox{\Hypertarget{classHttpResponse_a5cb28c82fc2f657808b61f0f6bb67f28}\label{classHttpResponse_a5cb28c82fc2f657808b61f0f6bb67f28}} 
+\index{Http\+Response@{Http\+Response}!status\+Code@{status\+Code}}
+\index{status\+Code@{status\+Code}!Http\+Response@{Http\+Response}}
+\subsubsection{\texorpdfstring{status\+Code()}{statusCode()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily int Http\+Response\+::status\+Code (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+Returns the status code of the response. 
+
+In http response there are always status code like 200 or 404 To describe if the request is executed correctly 
+
+Implements \hyperlink{structhttp_1_1IResponse_ad980a7a0b5f1de80bd1faa84706e922f}{http\+::\+I\+Response}.
+
+\mbox{\Hypertarget{classHttpResponse_a8a6cc8f27e81ca4d2ef4ec60450974d1}\label{classHttpResponse_a8a6cc8f27e81ca4d2ef4ec60450974d1}} 
+\index{Http\+Response@{Http\+Response}!status\+Code@{status\+Code}}
+\index{status\+Code@{status\+Code}!Http\+Response@{Http\+Response}}
+\subsubsection{\texorpdfstring{status\+Code()}{statusCode()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily bool Http\+Response\+::status\+Code (\begin{DoxyParamCaption}\item[{int}]{status\+Code }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+Set the status code of the response. 
+
+In http response there are always status code like \char`\"{}200\char`\"{} or \char`\"{}404\char`\"{} To describe if the request is executed correctly Return false if the status code isn\textquotesingle{}t valid 
+
+Implements \hyperlink{structhttp_1_1IResponse_a7d85b2b27acb82d13cf26eb0d3801735}{http\+::\+I\+Response}.
+
+\mbox{\Hypertarget{classHttpResponse_a5463015a6d521c4c4da46505c0740f63}\label{classHttpResponse_a5463015a6d521c4c4da46505c0740f63}} 
+\index{Http\+Response@{Http\+Response}!status\+Message@{status\+Message}}
+\index{status\+Message@{status\+Message}!Http\+Response@{Http\+Response}}
+\subsubsection{\texorpdfstring{status\+Message()}{statusMessage()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily std\+::string Http\+Response\+::status\+Message (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+Returns the status message of the response. 
+
+In http response there are always status message after the status code like \char`\"{}200 O\+K\char`\"{} or \char`\"{}404 Not found\char`\"{} 
+
+Implements \hyperlink{structhttp_1_1IResponse_a4339fd29b105c9ea5319b2e01f27290c}{http\+::\+I\+Response}.
+
+\mbox{\Hypertarget{classHttpResponse_ad705d5d1846c261e2ca80c24c9e1d75c}\label{classHttpResponse_ad705d5d1846c261e2ca80c24c9e1d75c}} 
+\index{Http\+Response@{Http\+Response}!status\+Message@{status\+Message}}
+\index{status\+Message@{status\+Message}!Http\+Response@{Http\+Response}}
+\subsubsection{\texorpdfstring{status\+Message()}{statusMessage()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily bool Http\+Response\+::status\+Message (\begin{DoxyParamCaption}\item[{std\+::string}]{status\+Message }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}, {\ttfamily [noexcept]}}
+
+
+
+Set the status message of the response. 
+
+In http response there are always status message after the status code like \char`\"{}200 O\+K\char`\"{} or \char`\"{}404 Not found\char`\"{} Return false if the status message isn\textquotesingle{}t valid 
+
+Implements \hyperlink{structhttp_1_1IResponse_ae2a223c2d714b456f2a064e13cafc2e2}{http\+::\+I\+Response}.
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+inc/\+Core/\+Http/Http\+Response.\+hpp\item 
+src/\+Core/\+Http/Http\+Response.\+cpp\end{DoxyCompactItemize}
