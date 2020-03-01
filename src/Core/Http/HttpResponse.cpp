@@ -179,8 +179,6 @@ bool HttpResponse::headerParameter(std::string key, std::string value) noexcept
             elem.second = value;
             return true;
         }
-        if (elem.second == value)
-            return true;
     }
 
     m_response_header.emplace(m_response_header.end(), std::pair<std::string, std::string>(key, value));

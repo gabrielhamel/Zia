@@ -13,7 +13,7 @@
 #include "HttpRequest.hpp"
 #include <iostream>
 
-static const std::string BasicRequest = "GET / HTTP/1.1\r\n"
+static const std::string BasicRequest = "GET /?key=value&lol=salut HTTP/1.1\r\n"
     "Host: localhost:8080\r\n"
     "User-Agent: Mozilla/5.0 (X11; Fedora; Linux x86_64; rv:66.0) Gecko/20100101 Firefox/66.0\r\n"
     "Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8\r\n"
@@ -135,8 +135,9 @@ Test(HttpRequest, bodyAppend)
 
     cr_assert_eq(request.bodyAppend(""), false);
     cr_assert_eq(request.bodyAppend("Test\r\n"), true);
-    cr_assert_eq(request.body(), "Test\r\n");
-    cr_assert_eq(request.headerParameter("Content-Length"), "6");
+    cr_assert_eq(request.bodyAppend("Test\r\n"), true);
+    cr_assert_eq(request.body(), "Test\r\nTest\r\n");
+    cr_assert_eq(request.headerParameter("Content-Length"), "12");
 }
 
 Test(HttpRequest, serialize)
@@ -144,4 +145,97 @@ Test(HttpRequest, serialize)
     HttpRequest request(BasicRequest);
 
     cr_assert_eq(request.serialize(), BasicRequest);
+}
+
+Test(HttpRequest, noRoute)
+{
+    std::string text("GET HTTP/1.1\r\n\r\n");
+    bool ok = false;
+    try {
+        HttpRequest response(text);
+    }
+    catch (const std::runtime_error &e) {
+        cr_assert_eq(std::string(e.what()), "Error no route or no protocol or no request method or more parameters");
+        ok = true;
+    }
+    cr_assert_eq(ok, true);
+}
+
+Test(HttpRequest, invalidHeader)
+{
+    std::string text("GET / HTTP/1.1\r\nissou\r\n");
+    bool ok = false;
+    try {
+        HttpRequest response(text);
+    }
+    catch (const std::runtime_error &e) {
+        cr_assert_eq(std::string(e.what()), "String not type of key: value");
+        ok = true;
+    }
+    cr_assert_eq(ok, true);
+}
+
+Test(HttpRequest, queryParameter)
+{
+    HttpRequest request(BasicRequest);
+
+    cr_assert_eq(request.queryParameter("key"), "value");
+    cr_assert_eq(request.queryParameter("key", "value2"), true);
+}
+
+Test(HttpRequest, bodyConstructor)
+{
+    HttpRequest request("GET / HTTP/1.1\r\n\r\nissou\r\n");
+
+    cr_assert_eq(request.body(), "issou");
+    cr_assert_eq(request.body("issou"), true);
+}
+
+Test(HttpRequest, invalidRequest)
+{
+    std::string text("KILL / HTTP/1.1\r\nissou\r\n");
+    bool ok = false;
+    try {
+        HttpRequest response(text);
+    }
+    catch (const std::runtime_error &e) {
+        cr_assert_eq(std::string(e.what()), "Request method unknown");
+        ok = true;
+    }
+    cr_assert_eq(ok, true);
+}
+
+Test(HttpRequest, invalidQueryParameter)
+{
+    std::string text("POST /?key HTTP/1.1\r\n\r\n");
+    HttpRequest response(text);
+}
+
+Test(HttpRequest, urlEncode)
+{
+    HttpRequest request("GET /?key=salut%0Abonsoir&lol=salut HTTP/1.1\r\n\r\n");
+
+    cr_assert_eq(request.queryParameter("key"), "salut\nbonsoir");
+    cr_assert_eq(request.queryParameter("lol"), "salut");
+}
+
+Test(HttpRequest, invalidVerb)
+{
+    HttpRequest request("GET /?key=salut%0Abonsoir HTTP/1.1\r\n\r\n");
+
+    cr_assert_eq(request.verb((http::Verb)100), false);
+}
+
+Test(HttpRequest, emptyCookie)
+{
+    HttpRequest request("GET /?key=salut%0Abonsoir HTTP/1.1\r\n\r\n");
+
+    cr_assert_eq(request.cookie(""), "");
+}
+
+Test(HttpRequest, invalidCookie)
+{
+    HttpRequest request("GET /?key=salut%0Abonsoir HTTP/1.1\r\n\r\n");
+
+    cr_assert_eq(request.cookie("lel"), "");
 }

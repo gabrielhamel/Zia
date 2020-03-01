@@ -258,24 +258,10 @@ std::string HttpRequest::body() const noexcept
     return m_body;
 }
 
-
 bool HttpRequest::body(std::string body) noexcept
 {
-    if (body == "")
-        return false;
-    for (auto &elem : m_request_header) {
-        if (elem.first == "Content-Length") {
-            elem.second = std::to_string(std::stoi(elem.second) + body.length());
-            m_body = body;
-            return true;
-        }
-    }
-    m_request_header.push_back(std::pair<std::string, std::string>("Content-Length", std::to_string(body.length())));
-    m_body = body;
-
     return true;
 }
-
 
 bool HttpRequest::bodyAppend(std::string body) noexcept
 {
@@ -294,11 +280,11 @@ bool HttpRequest::bodyAppend(std::string body) noexcept
     return true;
 }
 
-
 std::string HttpRequest::serialize() const noexcept
 {
     std::string to_return = "";
     std::string query_params = "";
+    bool first = true;
     for (auto &elem : map_request_method)
         if (elem.second == m_request_method)
             to_return += elem.first;
@@ -308,7 +294,13 @@ std::string HttpRequest::serialize() const noexcept
         auto value = elem.second;
         if (value.find(elem.second) != std::string::npos)
             value.replace(value.find(elem.second), elem.second.length(), elem.first);
-        query_params += "&" + elem.first + "=" + elem.second;
+        if (first) {
+            query_params += elem.first + "=" + elem.second;
+            first = false;
+        }
+        else
+            query_params += "&" + elem.first + "=" + elem.second;
+
     }
     to_return += " " + m_route_without_query + query_params + " " + m_protocol + "\r\n";
 
@@ -320,12 +312,10 @@ std::string HttpRequest::serialize() const noexcept
     return to_return;
 }
 
-
 std::string HttpRequest::protocol() const noexcept
 {
     return m_protocol;
 }
-
 
 bool HttpRequest::headerParameterExist(const std::string &key) const noexcept
 {
@@ -336,7 +326,6 @@ bool HttpRequest::headerParameterExist(const std::string &key) const noexcept
     return false;
 }
 
-
 std::string HttpRequest::headerParameter(const std::string &key) const noexcept
 {
     for (auto &elem : m_request_header)
@@ -345,7 +334,6 @@ std::string HttpRequest::headerParameter(const std::string &key) const noexcept
 
     return "";
 }
-
 
 bool HttpRequest::headerParameter(std::string key, std::string value) noexcept
 {
@@ -356,8 +344,6 @@ bool HttpRequest::headerParameter(std::string key, std::string value) noexcept
             elem.second = value;
             return true;
         }
-        if (elem.second == value)
-            return true;
     }
 
     m_request_header.emplace(m_request_header.end(), std::pair<std::string, std::string>(key, value));

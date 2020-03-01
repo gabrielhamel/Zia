@@ -10,6 +10,7 @@
  */
 
 #include <criterion/criterion.h>
+#include <iostream>
 #include "HttpResponse.hpp"
 
 static const std::string BasicResponse = "HTTP/1.1 400 Bad Request\r\nServer: nginx/1.12.1\r\n"
@@ -117,13 +118,66 @@ Test(HttpResponse, serialize)
 
 Test(HttpResponse, noProtocol)
 {
-    std::string text("400 Bad Request\r\n");
+    std::string text("400 Request\r\n\r\n");
     bool ok = false;
     try {
         HttpResponse response(text);
     }
-    catch (...) {
+    catch (const std::runtime_error &e) {
+        cr_assert_eq(std::string(e.what()), "Error no protocol or no status code or no status msg or missing one of them");
         ok = true;
     }
     cr_assert_eq(ok, true);
+}
+
+Test(HttpResponse, invalidKeyValue)
+{
+    std::string text("HTTP/1.1 400 Bad Request\r\nissou\r\n\r\n");
+    bool ok = false;
+    try {
+        HttpResponse response(text);
+    }
+    catch (const std::runtime_error &e) {
+        cr_assert_eq(std::string(e.what()), "String not type of key: value");
+        ok = true;
+    }
+    cr_assert_eq(ok, true);
+}
+
+Test(HttpResponse, invalidStatusCode)
+{
+    std::string text("HTTP/1.1 -42 Request\r\n\r\n");
+    bool ok = false;
+    try {
+        HttpResponse response(text);
+    }
+    catch (const std::runtime_error &e) {
+        cr_assert_eq(std::string(e.what()), "Status code less than 0");
+        ok = true;
+    }
+    cr_assert_eq(ok, true);
+}
+
+Test(HttpResponse, invalidCookie)
+{
+    HttpResponse res;
+
+    cr_assert_eq(res.setCookie("", ""), false);
+}
+
+Test(HttpResponse, cookieAlreadyExist)
+{
+    HttpResponse res;
+
+    cr_assert_eq(res.setCookie("one", "two"), true);
+    cr_assert_eq(res.setCookie("one", "two"), true);
+}
+
+Test(HttpResponse, cookieOptions)
+{
+    HttpResponse res;
+    CookieOptions options;
+    options.push_back(std::make_pair<std::string, std::string>("taste", "good"));
+
+    cr_assert_eq(res.setCookie("one", "two", options), true);
 }
