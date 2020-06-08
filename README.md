@@ -12,7 +12,6 @@ Install [Conan](https://conan.io/downloads.html) 📦 and [CMake](https://cmake.
 ```bash
 build
 ```
-➡ Next open the .snl solution with Visual Studio and build her.
 
 ### Linux
 ```
