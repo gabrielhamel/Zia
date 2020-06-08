@@ -20,6 +20,8 @@ build
 
 The both binary (server, client) can be found in "build/bin/" folder 📁.
 
+If build doesn't work (patch error). Try to replace boost version by 1.71 in conanfile.txt
+
 ## Usage
 
 Insert usage
